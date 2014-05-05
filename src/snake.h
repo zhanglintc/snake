@@ -13,6 +13,8 @@
 using namespace std;
 
 //define
+#define GAME_SPEED		12
+
 #define NODE_MAX		200
 #define CTRL_UP			72
 #define CTRL_DOWN		80
@@ -43,28 +45,26 @@ class Snake
 {
 public:
 	int derection;
+	bool live;
 	Node node[NODE_MAX];
 	Snake();
 	void move();
-	void move(int);
 	void judge();
 	void eat();
 	void draw();
-private:
-	
+	int getNodeLen();
+private:	
 	int node_len;
-	int live;
 	void clear();
-	//void draw();
 };
 
-class food
+class Food
 {
 public:
-	food();
-private:
+	Food();
 	int x;
 	int y;
+private:
 };
 
 //declare

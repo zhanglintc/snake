@@ -1,5 +1,8 @@
 #include "snake.h"
 
+Snake *snake;
+Food *food;
+
 int main()
 {
     Initialize();
@@ -19,21 +22,45 @@ void drawOne(int x, int y, char ch[])
 
 Snake::Snake()
 {
-    node[0].x=40;
-    node[0].y=12;
-    node[1].x=38;
-    node[1].y=12;
-    node[2].x=36;
-    node[2].y=12;
-    node_len=3;
-    derection=CTRL_RIGHT;
+    node[0].x = (RIGHT-LEFT)/2-0;
+    node[0].y = (BOTTOM-TOP)/2;
+    node[1].x = (RIGHT-LEFT)/2-2;
+    node[1].y = (BOTTOM-TOP)/2;
+    node[2].x = (RIGHT-LEFT)/2-4;
+    node[2].y = (BOTTOM-TOP)/2;
+    // node[3].x = (RIGHT-LEFT)/2-6;
+    // node[3].y = (BOTTOM-TOP)/2;
+    // node[4].x = (RIGHT-LEFT)/2-8;
+    // node[4].y = (BOTTOM-TOP)/2;
+    // node[5].x = (RIGHT-LEFT)/2-10;
+    // node[5].y = (BOTTOM-TOP)/2;
+    node_len = 3;
+	
+	if(node[0].x%2!=0)
+	{
+		for(int i=0;i<node_len;i++)
+		{
+			node[i].x=node[i].x-1;
+		}
+	}
+
+    derection = CTRL_RIGHT;
+    live = true;
 }
 
 void Snake::move()
 {
-    clear();
+    //clear();
     for(int i=node_len-1; i>0; i--)
     {
+        if(i==node_len-1)
+        {
+            if(node[i].x==node[i-1].x && node[i].y==node[i-1].y)
+            {
+                continue;
+            }
+            drawOne(node[i].x, node[i].y, "  ");
+        }
         node[i]=node[i-1];
     }
     switch(derection)
@@ -51,12 +78,20 @@ void Snake::move()
             node[0].x+=2;
             break;
     }
-    draw();
+    //draw();
+    drawOne(node[0].x, node[0].y, "¡ñ");
+    drawOne(node[1].x, node[1].y, "¡ö");
 }
 
 void Snake::judge()
 {
     
+}
+
+void Snake::eat()
+{
+    node_len += 1;
+    node[node_len-1]=node[node_len-2];
 }
 
 void Snake::clear()
@@ -65,6 +100,25 @@ void Snake::clear()
     {
         drawOne(node[i].x, node[i].y, "  ");
     }
+}
+
+Food::Food()
+{
+    x=random(LEFT+2,RIGHT-2);
+    while(x%2!=0)
+    {
+        x=random(LEFT+2,RIGHT-2);
+    }
+    y=random(TOP+1,BOTTOM-1);
+    for(int i=0;i<snake->getNodeLen();i++)
+    {
+        if(x==snake->node[i].x && y==snake->node[i].y)
+        {
+            Food();
+			return;
+        }
+    }
+    drawOne(x,y,"¡ï");
 }
 
 void Snake::draw()
@@ -82,33 +136,70 @@ void Snake::draw()
     }
 }
 
+int Snake::getNodeLen()
+{
+    return node_len;
+}
+
 void playing()
 {
-    int i=0;
+    int counter=0;
 
-    Snake *snake=new Snake();
+    snake = new Snake();
     snake->draw();
 
-    while(true)
+    food = new Food();
+
+	// snake->eat();
+	// snake->eat();
+	// snake->eat();
+	// snake->eat();
+	// snake->eat();
+	// snake->eat();
+
+
+    while(snake->live == true)
     {
-        Sleep(4);
+        Sleep(GAME_SPEED);
         if(snake->node[0].x>RIGHT-2 || snake->node[0].x<LEFT+2 || snake->node[0].y>BOTTOM-1 || snake->node[0].y<TOP+1)
         {
-            break;
+            snake->live = false;
+        }
+        for(int i=3;i<snake->getNodeLen();i++)
+        {
+            if(snake->node[0].x==snake->node[i].x && snake->node[0].y==snake->node[i].y)
+            {
+                snake->live = false;
+            }
+        }
+        if(snake->node[0].x==food->x && snake->node[0].y==food->y)
+        {
+			snake->eat();
+            free(food);
+            food = new Food();
         }
         if(_kbhit())
         {
             char derection=_getch();
             if (CTRL_UP == derection || CTRL_DOWN == derection || CTRL_RIGHT == derection || CTRL_LEFT == derection)
             {
-                snake->derection = derection;
+                if(
+                    (snake->derection==CTRL_UP && derection==CTRL_DOWN)||
+                    (snake->derection==CTRL_DOWN && derection==CTRL_UP)||
+                    (snake->derection==CTRL_LEFT && derection==CTRL_RIGHT)||
+                    (snake->derection==CTRL_RIGHT && derection==CTRL_LEFT)
+                    );
+                else
+                    {
+                        snake->derection = derection;
+                    }
             }
         }
-        i++;
-        if(i==10)
+        counter++;
+        if(counter==10)
         {
             snake->move();
-            i=0;
+            counter=0;
         }
     }
 }
