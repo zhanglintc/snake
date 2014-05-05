@@ -1,10 +1,9 @@
-#include "snake.h"
+ï»¿#include "snake.h"
 
 int main()
 {
-
     Initialize();
-    drawFrame(LEFT, TOP, RIGHT, BOTTOM, "¡õ", "¡õ");
+    drawFrame(LEFT, TOP, RIGHT, BOTTOM, "â–¡", "â–¡");
 
     playing();
 
@@ -74,11 +73,11 @@ void Snake::draw()
     {
         if(i==0)
         {
-			drawOne(node[i].x, node[i].y, "¡ñ");
+			drawOne(node[i].x, node[i].y, "â—");
         }
         else
         {
-            drawOne(node[i].x, node[i].y, "¡ö");
+            drawOne(node[i].x, node[i].y, "â– ");
         }
     }
 }
@@ -156,7 +155,7 @@ void HideCursor() // hide cursor
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
 
-//°ÑµÚyĞĞ£¬[x1, x2) Ö®¼äµÄ×ø±êÌî³äÎª ch
+//æŠŠç¬¬yè¡Œï¼Œ[x1, x2) ä¹‹é—´çš„åæ ‡å¡«å……ä¸º ch
 void drawRow(int y, int x1, int x2, char ch[]) //zhanglin
 {
     SetPos(x1,y);
@@ -164,7 +163,7 @@ void drawRow(int y, int x1, int x2, char ch[]) //zhanglin
         cout<<ch;
 }
 
-//ÔÚ left, right ×İ×ø±êÏàÍ¬µÄÇ°ÌáÏÂ£¬°Ñ×ø±ê [left, right] Ö®¼äÌî³äÎª ch
+//åœ¨ left, right çºµåæ ‡ç›¸åŒçš„å‰æä¸‹ï¼ŒæŠŠåæ ‡ [left, right] ä¹‹é—´å¡«å……ä¸º ch
 void drawRow(COORD left, COORD right, char ch[]) //zhanglin
 {
     if(left.Y == right.Y)
@@ -172,12 +171,12 @@ void drawRow(COORD left, COORD right, char ch[]) //zhanglin
     else
     {
         SetPos(0, 25);
-        cout<<"error code 01£ºÎŞ·¨Ìî³äĞĞ£¬ÒòÎªÁ½¸ö×ø±êµÄ×İ×ø±ê(x)²»ÏàµÈ";
+        cout<<"error code 01ï¼šæ— æ³•å¡«å……è¡Œï¼Œå› ä¸ºä¸¤ä¸ªåæ ‡çš„çºµåæ ‡(x)ä¸ç›¸ç­‰";
         system("pause");
     }
 }
 
-//°ÑµÚxÁĞ£¬[y1, y2] Ö®¼äµÄ×ø±êÌî³äÎª ch
+//æŠŠç¬¬xåˆ—ï¼Œ[y1, y2] ä¹‹é—´çš„åæ ‡å¡«å……ä¸º ch
 void drawCol(int x, int y1, int y2, char ch[]) //zhanglin
 {
     int y=y1;
@@ -189,7 +188,7 @@ void drawCol(int x, int y1, int y2, char ch[]) //zhanglin
     }
 }
 
-//ÔÚ left, right ºá×ø±êÏàÍ¬µÄÇ°ÌáÏÂ£¬°Ñ×ø±ê [left, right] Ö®¼äÌî³äÎª ch
+//åœ¨ left, right æ¨ªåæ ‡ç›¸åŒçš„å‰æä¸‹ï¼ŒæŠŠåæ ‡ [left, right] ä¹‹é—´å¡«å……ä¸º ch
 void drawCol(COORD left, COORD right, char ch[]) //zhanglin
 {
     if(left.X == right.X)
@@ -197,18 +196,18 @@ void drawCol(COORD left, COORD right, char ch[]) //zhanglin
     else
     {
         SetPos(0, 25);
-        cout<<"error code 02£ºÎŞ·¨Ìî³äÁĞ£¬ÒòÎªÁ½¸ö×ø±êµÄºá×ø±ê(y)²»ÏàµÈ";
+        cout<<"error code 02ï¼šæ— æ³•å¡«å……åˆ—ï¼Œå› ä¸ºä¸¤ä¸ªåæ ‡çš„æ¨ªåæ ‡(y)ä¸ç›¸ç­‰";
         system("pause");
     }
 }
 
-//×óÉÏ½Ç×ø±ê¡¢ÓÒÏÂ½Ç×ø±ê¡¢ÓÃrowÌî³äĞĞ¡¢ÓÃcolÌî³äÁĞ
+//å·¦ä¸Šè§’åæ ‡ã€å³ä¸‹è§’åæ ‡ã€ç”¨rowå¡«å……è¡Œã€ç”¨colå¡«å……åˆ—
 void drawFrame(COORD leftup, COORD  rightdown, char row[], char col[])
 {
-    drawRow(   leftup.Y, leftup.X, rightdown.X, row);       //³õÊ¼ĞĞ
-    drawRow(rightdown.Y, leftup.X, rightdown.X, row);       //×îºóĞĞ
-    drawCol(   leftup.X, leftup.Y, rightdown.Y, col);       //³õÊ¼ÁĞ
-    drawCol(rightdown.X, leftup.Y, rightdown.Y, col);       //×îºóÁĞ
+    drawRow(   leftup.Y, leftup.X, rightdown.X, row);       //åˆå§‹è¡Œ
+    drawRow(rightdown.Y, leftup.X, rightdown.X, row);       //æœ€åè¡Œ
+    drawCol(   leftup.X, leftup.Y, rightdown.Y, col);       //åˆå§‹åˆ—
+    drawCol(rightdown.X, leftup.Y, rightdown.Y, col);       //æœ€ååˆ—
 }
 
 void drawFrame(int x1, int y1, int x2, int y2, char row[], char col[])
@@ -232,7 +231,7 @@ int random(int min, int max)
     return c;
 }
 
-//ÔÚÁ½¸ö×ø±ê°üÀ¨µÄ¾ØĞÎ¿òÄÚËæ»ú²úÉúÒ»¸ö×ø±ê
+//åœ¨ä¸¤ä¸ªåæ ‡åŒ…æ‹¬çš„çŸ©å½¢æ¡†å†…éšæœºäº§ç”Ÿä¸€ä¸ªåæ ‡
 COORD random(COORD leftup, COORD rightdown)
 {
     int x=random(leftup.X, rightdown.X);
@@ -243,7 +242,7 @@ COORD random(COORD leftup, COORD rightdown)
 
 void Initialize()
 {
-    _tsetlocale(LC_ALL, L"CHS");        //set locale codepage (Chinese)
+    //_tsetlocale(LC_ALL, L"CHS");        //set locale codepage (Chinese)
     srand((unsigned)time(NULL));        //Random number seed initial, 2014.03.16 zhanglin
     HideCursor();
 }
