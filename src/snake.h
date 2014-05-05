@@ -1,4 +1,4 @@
-﻿#ifndef _SNAKE_H_
+#ifndef _SNAKE_H_
 #define _SNAKE_H_
 
 //inlcude
