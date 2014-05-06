@@ -5,6 +5,13 @@
 
 #include "snake.h"
 
+
+void drawOne(int x, int y, char ch[])
+{
+    SetPos(x, y);
+    cout<<ch;
+}
+
 void SetPos(COORD position)// set cursor 
 {
     HANDLE out=GetStdHandle(STD_OUTPUT_HANDLE);
@@ -109,9 +116,10 @@ COORD random(COORD leftup, COORD rightdown)
 
 void Initialize()
 {
-    //_tsetlocale(LC_ALL, L"CHS");        //set locale codepage (Chinese)
-    srand((unsigned)time(NULL));        //Random number seed initial, 2014.03.16 zhanglin
+    //_tsetlocale(LC_ALL, L"CHS");      //set locale codepage (Chinese)
+    srand((unsigned)time(NULL));        //Random number seed initial
     HideCursor();
+    drawFrame(LEFT, TOP, RIGHT, BOTTOM, "¡õ", "¡õ");  //outside frame
 }
 
 void swap(int *a, int *b)

@@ -11,18 +11,9 @@ Food *food;
 int main()
 {
     Initialize();
-    drawFrame(LEFT, TOP, RIGHT, BOTTOM, "¡õ", "¡õ");
-
     playing();
-
     GameOver();
     return 0;
-}
-
-void drawOne(int x, int y, char ch[])
-{
-    SetPos(x, y);
-    cout<<ch;
 }
 
 void playing()
@@ -30,27 +21,18 @@ void playing()
     int counter=0;
     char derection=CTRL_RIGHT;
 
-    snake = new Snake();
-    snake->draw();
+    snake = new Snake(); // new one snake
+    food = new Food();  //new a food
 
-    food = new Food();
-
-    // snake->eat();
-    // snake->eat();
-    // snake->eat();
-    // snake->eat();
-    // snake->eat();
-    // snake->eat();
-
-
-    while(snake->getlive() == true)
+    while(snake->getlive()) //while alive
     {
         Sleep(GAME_SPEED); //game speed
+
         if(snake->node[0].x>RIGHT-2 || snake->node[0].x<LEFT+2 || snake->node[0].y>BOTTOM-1 || snake->node[0].y<TOP+1)
         { //out of bound, die
 			snake->setlive(false);
         }
-        for(int i=3;i<snake->getNodeLen();i++)
+		for(int i=3;i<snake->getsnakelength();i++)
         { //hit itself, die
             if(snake->node[0].x==snake->node[i].x && snake->node[0].y==snake->node[i].y)
             {
@@ -101,38 +83,34 @@ void GameOver()
 
 Snake::Snake()
 {
+    snake_length = 3; //three nodes
+
     node[0].x = (RIGHT-LEFT)/2-0;
     node[0].y = (BOTTOM-TOP)/2;
     node[1].x = (RIGHT-LEFT)/2-2;
     node[1].y = (BOTTOM-TOP)/2;
     node[2].x = (RIGHT-LEFT)/2-4;
     node[2].y = (BOTTOM-TOP)/2;
-    // node[3].x = (RIGHT-LEFT)/2-6;
-    // node[3].y = (BOTTOM-TOP)/2;
-    // node[4].x = (RIGHT-LEFT)/2-8;
-    // node[4].y = (BOTTOM-TOP)/2;
-    // node[5].x = (RIGHT-LEFT)/2-10;
-    // node[5].y = (BOTTOM-TOP)/2;
-    node_len = 3;
 	
-	if(node[0].x%2!=0)
+	if(node[0].x%2!=0) //set snake in even position
 	{
-		for(int i=0;i<node_len;i++)
+		for(int i=0;i<snake_length;i++)
 		{
 			node[i].x=node[i].x-1;
 		}
 	}
 
-    derection = CTRL_RIGHT;
-    live = true;
+    derection = CTRL_RIGHT; //head to right
+    live = true;            //alive
+
+    draw();          //show this snake
 }
 
 void Snake::move()
 {
-    //clear();
-    for(int i=node_len-1; i>0; i--)
+    for(int i=snake_length-1; i>0; i--)
     {
-        if(i==node_len-1)
+        if(i==snake_length-1)
         {
             if(node[i].x==node[i-1].x && node[i].y==node[i-1].y)
             {
@@ -157,7 +135,6 @@ void Snake::move()
             node[0].x+=2;
             break;
     }
-    //draw();
     drawOne(node[0].x, node[0].y, "¡ñ");
     drawOne(node[1].x, node[1].y, "¡ö");
 }
@@ -169,13 +146,13 @@ void Snake::judge()
 
 void Snake::eat()
 {
-    node_len += 1;
-    node[node_len-1]=node[node_len-2];
+    snake_length += 1;
+    node[snake_length-1]=node[snake_length-2];
 }
 
 void Snake::clear()
 {
-    for(int i=0;i<node_len; i++)
+    for(int i=0;i<snake_length; i++)
     {
         drawOne(node[i].x, node[i].y, "  ");
     }
@@ -189,7 +166,7 @@ Food::Food()
         x=random(LEFT+2,RIGHT-2);
     }
     y=random(TOP+1,BOTTOM-1);
-    for(int i=0;i<snake->getNodeLen();i++)
+    for(int i=0;i<snake->getsnakelength();i++)
     {
         if(x==snake->node[i].x && y==snake->node[i].y)
         {
@@ -202,7 +179,7 @@ Food::Food()
 
 void Snake::draw()
 {
-    for(int i=0;i<node_len; i++)
+    for(int i=0;i<snake_length; i++)
     {
         if(i==0)
         {
@@ -215,14 +192,19 @@ void Snake::draw()
     }
 }
 
-int Snake::getNodeLen()
+void Snake::setsnakelength(int snake_length)
 {
-    return node_len;
+	this->snake_length = snake_length;
+}
+
+int Snake::getsnakelength()
+{
+    return snake_length;
 }
 
 void Snake::setlive(bool live)
 {
-    this->live=live;
+    this->live = live;
 }
 
 bool Snake::getlive()
@@ -232,7 +214,7 @@ bool Snake::getlive()
 
 void Snake::setderection(int derection)
 {
-    this->derection=derection;
+    this->derection = derection;
 }
 
 int Snake::getderection()

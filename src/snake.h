@@ -52,10 +52,9 @@ public:
 	Node node[NODE_MAX];
 	Snake();
 	void move();
-	void judge();
 	void eat();
-	void draw();
-	int getNodeLen();
+	int getsnakelength();
+	void setsnakelength(int);
 	bool getlive();
 	void setlive(bool);
 	int getderection();
@@ -63,8 +62,10 @@ public:
 	private:
 	bool live;
 	int derection;
-	int node_len;
+	int snake_length;
 	void clear();
+	void draw();
+	void judge();
 };
 
 class Food
