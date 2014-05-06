@@ -1,3 +1,8 @@
+/*
+    All the defines and declares.
+(C) COPYRIGHT 20014-5-6 zhanglin.Nothing reserved.
+*/
+
 #ifndef _SNAKE_H_
 #define _SNAKE_H_
 
