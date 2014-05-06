@@ -49,8 +49,6 @@ typedef struct Node
 class Snake
 {
 public:
-	int derection;
-	bool live;
 	Node node[NODE_MAX];
 	Snake();
 	void move();
@@ -58,7 +56,13 @@ public:
 	void eat();
 	void draw();
 	int getNodeLen();
-private:	
+	bool getlive();
+	void setlive(bool);
+	int getderection();
+	void setderection(int);
+	private:
+	bool live;
+	int derection;
 	int node_len;
 	void clear();
 };

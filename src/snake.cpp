@@ -25,6 +25,80 @@ void drawOne(int x, int y, char ch[])
     cout<<ch;
 }
 
+void playing()
+{
+    int counter=0;
+    char derection=CTRL_RIGHT;
+
+    snake = new Snake();
+    snake->draw();
+
+    food = new Food();
+
+    // snake->eat();
+    // snake->eat();
+    // snake->eat();
+    // snake->eat();
+    // snake->eat();
+    // snake->eat();
+
+
+    while(snake->getlive() == true)
+    {
+        Sleep(GAME_SPEED); //game speed
+        if(snake->node[0].x>RIGHT-2 || snake->node[0].x<LEFT+2 || snake->node[0].y>BOTTOM-1 || snake->node[0].y<TOP+1)
+        { //out of bound, die
+			snake->setlive(false);
+        }
+        for(int i=3;i<snake->getNodeLen();i++)
+        { //hit itself, die
+            if(snake->node[0].x==snake->node[i].x && snake->node[0].y==snake->node[i].y)
+            {
+                snake->setlive(false);
+            }
+        }
+        if(snake->node[0].x==food->x && snake->node[0].y==food->y)
+        { //eat food, ^_^
+            snake->eat();
+            free(food);
+            food = new Food();
+        }
+        if(_kbhit())
+        {
+            derection=_getch(); //get derection
+        }
+        counter++;
+        if(counter==10) //each 10 times, judge move
+        {
+            if (CTRL_UP == derection || CTRL_DOWN == derection || CTRL_RIGHT == derection || CTRL_LEFT == derection)
+            {//up down left right, valid input
+                if((snake->getderection()==CTRL_UP && derection==CTRL_DOWN)||
+                    (snake->getderection()==CTRL_DOWN && derection==CTRL_UP)||
+                    (snake->getderection()==CTRL_LEFT && derection==CTRL_RIGHT)||
+                    (snake->getderection()==CTRL_RIGHT && derection==CTRL_LEFT))
+                    {
+                        ; //converse derection, do nothing
+                    }
+                else
+                    {
+                        snake->setderection(derection); //set derection
+                    }
+            }
+            snake->move();
+            counter=0;
+        }
+    }
+}
+
+void GameOver()
+{
+    system("cls");
+    SetPos(36,12);
+    char str[]="Game Over!";
+    cout<<str<<endl;
+    getchar();
+}
+
 Snake::Snake()
 {
     node[0].x = (RIGHT-LEFT)/2-0;
@@ -146,74 +220,22 @@ int Snake::getNodeLen()
     return node_len;
 }
 
-void playing()
+void Snake::setlive(bool live)
 {
-    int counter=0;
-
-    snake = new Snake();
-    snake->draw();
-
-    food = new Food();
-
-	// snake->eat();
-	// snake->eat();
-	// snake->eat();
-	// snake->eat();
-	// snake->eat();
-	// snake->eat();
-
-
-    while(snake->live == true)
-    {
-        Sleep(GAME_SPEED);
-        if(snake->node[0].x>RIGHT-2 || snake->node[0].x<LEFT+2 || snake->node[0].y>BOTTOM-1 || snake->node[0].y<TOP+1)
-        {
-            snake->live = false;
-        }
-        for(int i=3;i<snake->getNodeLen();i++)
-        {
-            if(snake->node[0].x==snake->node[i].x && snake->node[0].y==snake->node[i].y)
-            {
-                snake->live = false;
-            }
-        }
-        if(snake->node[0].x==food->x && snake->node[0].y==food->y)
-        {
-			snake->eat();
-            free(food);
-            food = new Food();
-        }
-        if(_kbhit())
-        {
-            char derection=_getch();
-            if (CTRL_UP == derection || CTRL_DOWN == derection || CTRL_RIGHT == derection || CTRL_LEFT == derection)
-            {
-                if(
-                    (snake->derection==CTRL_UP && derection==CTRL_DOWN)||
-                    (snake->derection==CTRL_DOWN && derection==CTRL_UP)||
-                    (snake->derection==CTRL_LEFT && derection==CTRL_RIGHT)||
-                    (snake->derection==CTRL_RIGHT && derection==CTRL_LEFT)
-                    );
-                else
-                    {
-                        snake->derection = derection;
-                    }
-            }
-        }
-        counter++;
-        if(counter==10)
-        {
-            snake->move();
-            counter=0;
-        }
-    }
+    this->live=live;
 }
 
-void GameOver()
+bool Snake::getlive()
 {
-    system("cls");
-    SetPos(36,12);
-    char str[]="Game Over!";
-	cout<<str<<endl;
-	getchar();
+    return this->live;
+}
+
+void Snake::setderection(int derection)
+{
+    this->derection=derection;
+}
+
+int Snake::getderection()
+{
+    return this->derection;
 }
