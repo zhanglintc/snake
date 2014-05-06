@@ -246,7 +246,7 @@ void HideCursor() // hide cursor
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
 
-//把第y行，[x1, x2) 之间的坐标填充为 ch
+//set y, [x1, x2) as ch
 void drawRow(int y, int x1, int x2, char ch[]) //zhanglin
 {
     SetPos(x1,y);
@@ -254,7 +254,7 @@ void drawRow(int y, int x1, int x2, char ch[]) //zhanglin
         cout<<ch;
 }
 
-//在 left, right 纵坐标相同的前提下，把坐标 [left, right] 之间填充为 ch
+//when left, right y equal, set [left, right] as ch
 void drawRow(COORD left, COORD right, char ch[]) //zhanglin
 {
     if(left.Y == right.Y)
@@ -262,12 +262,12 @@ void drawRow(COORD left, COORD right, char ch[]) //zhanglin
     else
     {
         SetPos(0, 25);
-        cout<<"error code 01：无法填充行，因为两个坐标的纵坐标(x)不相等";
+        cout<<"error code 01: \'x\' not equaled";
         system("pause");
     }
 }
 
-//把第x列，[y1, y2] 之间的坐标填充为 ch
+//set x, [y1, y2] as ch
 void drawCol(int x, int y1, int y2, char ch[]) //zhanglin
 {
     int y=y1;
@@ -279,7 +279,7 @@ void drawCol(int x, int y1, int y2, char ch[]) //zhanglin
     }
 }
 
-//在 left, right 横坐标相同的前提下，把坐标 [left, right] 之间填充为 ch
+//when left, right x equal, set [left, right] as ch
 void drawCol(COORD left, COORD right, char ch[]) //zhanglin
 {
     if(left.X == right.X)
@@ -287,18 +287,18 @@ void drawCol(COORD left, COORD right, char ch[]) //zhanglin
     else
     {
         SetPos(0, 25);
-        cout<<"error code 02：无法填充列，因为两个坐标的横坐标(y)不相等";
+        cout<<"error code 02: \'y\' not equaled";
         system("pause");
     }
 }
 
-//左上角坐标、右下角坐标、用row填充行、用col填充列
+//from lu to rd, set row using row, set col using col
 void drawFrame(COORD leftup, COORD  rightdown, char row[], char col[])
 {
-    drawRow(   leftup.Y, leftup.X, rightdown.X, row);       //初始行
-    drawRow(rightdown.Y, leftup.X, rightdown.X, row);       //最后行
-    drawCol(   leftup.X, leftup.Y, rightdown.Y, col);       //初始列
-    drawCol(rightdown.X, leftup.Y, rightdown.Y, col);       //最后列
+    drawRow(   leftup.Y, leftup.X, rightdown.X, row);       //first row
+    drawRow(rightdown.Y, leftup.X, rightdown.X, row);       //last row
+    drawCol(   leftup.X, leftup.Y, rightdown.Y, col);       //first col
+    drawCol(rightdown.X, leftup.Y, rightdown.Y, col);       //last col
 }
 
 void drawFrame(int x1, int y1, int x2, int y2, char row[], char col[])
@@ -322,7 +322,6 @@ int random(int min, int max)
     return c;
 }
 
-//在两个坐标包括的矩形框内随机产生一个坐标
 COORD random(COORD leftup, COORD rightdown)
 {
     int x=random(leftup.X, rightdown.X);
