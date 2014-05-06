@@ -160,21 +160,20 @@ void Snake::clear()
 
 Food::Food()
 {
-    x=random(LEFT+2,RIGHT-2);
-    while(x%2!=0)
-    {
-        x=random(LEFT+2,RIGHT-2);
-    }
+    //get food(x,y)
+    x=random(LEFT+2,RIGHT-2); 
+    while(x%2!=0)x=random(LEFT+2,RIGHT-2); //ajust x to even number
     y=random(TOP+1,BOTTOM-1);
-    for(int i=0;i<snake->getsnakelength();i++)
+
+    for(int i=0;i<snake->getsnakelength();i++) //for every node of this snake
     {
-        if(x==snake->node[i].x && y==snake->node[i].y)
+        if(x==snake->node[i].x && y==snake->node[i].y) //if this food is in one node of this snake
         {
-            Food();
-			return;
+            Food(); //new another food
+			return; //return to avoid showing it
         }
     }
-    drawOne(x,y,"бя");
+    drawOne(x,y,"бя"); //show this food
 }
 
 void Snake::draw()

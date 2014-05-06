@@ -102,8 +102,8 @@ void drawFrame(Frame frame, char row[], char col[])
 int random(int min, int max)
 {
     if(max<min)swap(&min,&max);
-    int c=(rand() % (min-max))+ min;
-    return c;
+	if(min==max)return min;
+    else return(rand() % (min-max))+ min;
 }
 
 COORD random(COORD leftup, COORD rightdown)
