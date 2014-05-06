@@ -28,9 +28,9 @@ using namespace std;
 #define CTRL_SPACE		32
 
 #define TOP				0
-#define BOTTOM			24
+#define BOTTOM			2	//24
 #define LEFT			0
-#define RIGHT			78
+#define RIGHT			30	//78
 
 //typedef
 typedef struct Frame

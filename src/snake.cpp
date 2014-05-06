@@ -85,11 +85,11 @@ Snake::Snake()
 {
     snake_length = 3; //three nodes
 
-    node[0].x = (RIGHT-LEFT)/2-0;
+    node[0].x = 6; //(RIGHT-LEFT)/2-0;
     node[0].y = (BOTTOM-TOP)/2;
-    node[1].x = (RIGHT-LEFT)/2-2;
+    node[1].x = 4; //(RIGHT-LEFT)/2-2;
     node[1].y = (BOTTOM-TOP)/2;
-    node[2].x = (RIGHT-LEFT)/2-4;
+    node[2].x = 2; //(RIGHT-LEFT)/2-4;
     node[2].y = (BOTTOM-TOP)/2;
 	
 	if(node[0].x%2!=0) //set snake in even position
@@ -160,7 +160,7 @@ void Snake::clear()
 
 Food::Food()
 {
-    //get food(x,y)
+    /* get food(x,y) */
     x=random(LEFT+2,RIGHT-2); 
     while(x%2!=0)x=random(LEFT+2,RIGHT-2); //ajust x to even number
     y=random(TOP+1,BOTTOM-1);
