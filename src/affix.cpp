@@ -1,6 +1,6 @@
 /*
     Some frequency use function here.
-(C) COPYRIGHT 20014-5-6 zhanglin. Nothing reserved.
+(C) COPYRIGHT 2014-5-6 zhanglin. Nothing reserved.
 */
 
 #include "snake.h"

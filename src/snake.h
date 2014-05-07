@@ -1,6 +1,6 @@
 /*
     All the defines and declares.
-(C) COPYRIGHT 20014-5-6 zhanglin.Nothing reserved.
+(C) COPYRIGHT 2014-5-6 zhanglin.Nothing reserved.
 */
 
 #ifndef _SNAKE_H_
@@ -28,9 +28,9 @@ using namespace std;
 #define CTRL_SPACE		32
 
 #define TOP				0
-#define BOTTOM			2	//24
+#define BOTTOM			24	//24
 #define LEFT			0
-#define RIGHT			30	//78
+#define RIGHT			78	//78
 
 //typedef
 typedef struct Frame
@@ -72,8 +72,8 @@ class Food
 {
 public:
 	Food();
-	int x;
-	int y;
+	static int x;
+	static int y;
 private:
 };
 

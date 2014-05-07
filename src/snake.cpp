@@ -1,12 +1,15 @@
 /*
     Main process here.
-(C) COPYRIGHT 20014-5-6 zhanglin. Nothing reserved.
+(C) COPYRIGHT 2014-5-6 zhanglin. Nothing reserved.
 */
 
 #include "snake.h"
 
 Snake *snake;
 Food *food;
+int Food::x=0;
+int Food::y=0;
+
 
 int main()
 {
