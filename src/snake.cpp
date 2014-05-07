@@ -5,8 +5,6 @@
 
 #include "snake.h"
 
-Snake *snake;
-Food *food;
 int Food::x=0;
 int Food::y=0;
 
@@ -24,8 +22,8 @@ void playing()
     int counter=0;
     char derection=CTRL_RIGHT;
 
-    snake = new Snake(); // new one snake
-    food = new Food();  //new a food
+    Snake *snake = new Snake(); // new one snake
+    Food *food = new Food(snake);  //new a food
 
     while(snake->getlive()) //while alive
     {
@@ -44,9 +42,8 @@ void playing()
         }
         if(snake->node[0].x==food->x && snake->node[0].y==food->y)
         { //eat food, ^_^
-            snake->eat();
-            free(food);
-            food = new Food();
+            snake->eat(food);
+            food = new Food(snake); //after eat, generate a new food
         }
         if(_kbhit())
         {
@@ -147,10 +144,11 @@ void Snake::judge()
     
 }
 
-void Snake::eat()
+void Snake::eat(Food *food)
 {
     snake_length += 1;
     node[snake_length-1]=node[snake_length-2];
+    free(food); //after eat, this food will dispear
 }
 
 void Snake::clear()
@@ -161,7 +159,7 @@ void Snake::clear()
     }
 }
 
-Food::Food()
+Food::Food(Snake *snake) //should be fixed at 2014.05.08, remove static members
 {
     /* get food(x,y) */
     x=random(LEFT+2,RIGHT-2); 
@@ -172,7 +170,7 @@ Food::Food()
     {
         if(x==snake->node[i].x && y==snake->node[i].y) //if this food is in one node of this snake
         {
-            Food(); //new another food
+			Food::Food(snake); //new another food
 			return; //return to avoid showing it
         }
     }
@@ -222,4 +220,9 @@ void Snake::setderection(int derection)
 int Snake::getderection()
 {
     return this->derection;
+}
+
+Node *Snake::getnode()
+{
+    return this->node;
 }

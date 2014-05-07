@@ -46,19 +46,23 @@ typedef struct Node
 }Node;
 
 //class
+class Snake;
+class Food;
+
 class Snake
 {
 public:
 	Node node[NODE_MAX];
 	Snake();
 	void move();
-	void eat();
-	int getsnakelength();
+	void eat(Food *);
+	int  getsnakelength();
 	void setsnakelength(int);
 	bool getlive();
 	void setlive(bool);
-	int getderection();
+	int  getderection();
 	void setderection(int);
+	Node *getnode();
 	private:
 	bool live;
 	int derection;
@@ -71,7 +75,7 @@ public:
 class Food
 {
 public:
-	Food();
+	Food(Snake *);
 	static int x;
 	static int y;
 private:
