@@ -1,4 +1,4 @@
-/*
+Ôªø/*
     All the defines and declares.
 (C) COPYRIGHT 2014-5-6 zhanglin.Nothing reserved.
 */
@@ -35,15 +35,15 @@ extern char Local_Language[10];
 #define RIGHT			78	//78
 
 //const
-const char CIRC_CHA_B[]={0xa1,0xf1,0}; //°Ò
-const char RECT_CHA_B[]={0xa1,0xf6,0}; //°ˆ
-const char RECT_CHA_W[]={0xa1,0xf5,0}; //°ı
-const char STAR_CHA_B[]={0xa1,0xef,0}; //°Ô
+const char CIRC_CHA_B[]={0xa1,0xf1,0}; //‚óè
+const char RECT_CHA_B[]={0xa1,0xf6,0}; //‚ñ†
+const char RECT_CHA_W[]={0xa1,0xf5,0}; //‚ñ°
+const char STAR_CHA_B[]={0xa1,0xef,0}; //‚òÖ
 
-const char CIRC_JPN_B[]={0x81,0x9c,0}; //°Ò
-const char RECT_JPN_B[]={0x81,0xa1,0}; //°ˆ
-const char RECT_JPN_W[]={0x81,0xa0,0}; //°ı
-const char STAR_JPN_B[]={0x81,0x9a,0}; //°Ô
+const char CIRC_JPN_B[]={0x81,0x9c,0}; //‚óè
+const char RECT_JPN_B[]={0x81,0xa1,0}; //‚ñ†
+const char RECT_JPN_W[]={0x81,0xa0,0}; //‚ñ°
+const char STAR_JPN_B[]={0x81,0x9a,0}; //‚òÖ
 
 //typedef
 typedef struct Frame
