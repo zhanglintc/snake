@@ -118,7 +118,7 @@ void Initialize()
 {
 	FILE *fp;
 	char lan[10]={};
-    char str[]="@echo off && for /f \"tokens=3\" %i in (\'reg query \"HKCU\\Control Panel\\International\" /v \"sLanguage\"\') do (echo %i>lan.txt)";
+    char str[]="@echo off && for /f \"tokens=3\" %i in (\'reg query \"HKCU\\Control Panel\\Desktop\" /v \"PreferredUILanguages\"\') do (echo %i>lan.txt)";
     system(str);
 	fp=fopen("lan.txt","r");
 	fscanf(fp,"%s",lan);
