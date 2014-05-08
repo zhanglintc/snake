@@ -116,7 +116,15 @@ COORD random(COORD leftup, COORD rightdown)
 
 void Initialize()
 {
-    //_tsetlocale(LC_ALL, L"CHS");      //set locale codepage (Chinese)
+	FILE *fp;
+	char lan[10]={};
+    char str[]="@echo off && for /f \"tokens=3\" %i in (\'reg query \"HKCU\\Control Panel\\International\" /v \"sLanguage\"\') do (echo %i>lan.txt)";
+    system(str);
+	fp=fopen("lan.txt","r");
+	fscanf(fp,"%s",lan);
+	fclose(fp);
+	system("del lan.txt");
+
     srand((unsigned)time(NULL));        //Random number seed initial
     HideCursor();
     drawFrame(LEFT, TOP, RIGHT, BOTTOM, "¡õ", "¡õ");  //outside frame
