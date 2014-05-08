@@ -64,9 +64,9 @@ public:
 	void setderection(int);
 	Node *getnode();
 	private:
-	bool live;
-	int derection;
-	int snake_length;
+	bool life;
+	int  derection;
+	int  length;
 	void clear();
 	void draw();
 	void judge();
