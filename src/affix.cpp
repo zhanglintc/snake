@@ -1,4 +1,4 @@
-﻿/*
+/*
     Some frequency use function here.
 (C) COPYRIGHT 2014-5-6 zhanglin. Nothing reserved.
 */
@@ -118,6 +118,7 @@ void Initialize()
 {
 	char icon[10]={};
     getLocalLanguage();
+    if(Equal(Local_Language,"zh-CN")==false && Equal(Local_Language,"JPN")==false)NotSupport();
     srand((unsigned)time(NULL));        //Random number seed initial
     HideCursor();
     Equal(Local_Language,"zh-CN")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
@@ -149,4 +150,14 @@ bool Equal(char command_in[], char command_require[])
 {
     if(strcmp(command_in,command_require)==0)return true;
     return false;
+}
+
+void NotSupport()
+{
+    system("cls");
+    SetPos(22,10);
+    char str[]="The system language not supported!";
+    cout<<str<<endl;
+    getchar();
+    system("exit");
 }

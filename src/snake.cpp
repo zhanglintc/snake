@@ -1,4 +1,4 @@
-﻿/*
+/*
     Main process here.
 (C) COPYRIGHT 2014-5-6 zhanglin. Nothing reserved.
 */
@@ -75,7 +75,7 @@ void playing()
 void GameOver()
 {
     system("cls");
-    SetPos(36,12);
+    SetPos(34,10);
     char str[]="Game Over!";
     cout<<str<<endl;
     getchar();
