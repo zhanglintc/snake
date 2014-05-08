@@ -116,18 +116,23 @@ COORD random(COORD leftup, COORD rightdown)
 
 void Initialize()
 {
-	FILE *fp;
-	char lan[10]={};
-    char str[]="@echo off && for /f \"tokens=3\" %i in (\'reg query \"HKCU\\Control Panel\\Desktop\" /v \"PreferredUILanguages\"\') do (echo %i>lan.txt)";
-    system(str);
-	fp=fopen("lan.txt","r");
-	fscanf(fp,"%s",lan);
-	fclose(fp);
-	system("del lan.txt");
-
+    getLocalLanguage();
     srand((unsigned)time(NULL));        //Random number seed initial
     HideCursor();
     drawFrame(LEFT, TOP, RIGHT, BOTTOM, "¡õ", "¡õ");  //outside frame
+}
+
+void getLocalLanguage()
+{
+    FILE *fp;
+    char language[10]={};
+    char str[]="@echo off && for /f \"tokens=3\" %i in (\'reg query \"HKCU\\Control Panel\\Desktop\" /v \"PreferredUILanguages\"\') do (echo %i>lan.txt)";
+    system(str);
+    fp=fopen("lan.txt","r");
+    fscanf(fp,"%s",language);
+    fclose(fp);
+    system("del lan.txt");
+    memcpy(Local_Language,language,sizeof(language));
 }
 
 void swap(int *a, int *b)

@@ -17,6 +17,8 @@
 #include <locale.h>
 using namespace std;
 
+extern char Local_Language[10];
+
 //define
 #define GAME_SPEED		12
 
@@ -31,6 +33,17 @@ using namespace std;
 #define BOTTOM			24	//24
 #define LEFT			0
 #define RIGHT			78	//78
+
+//const
+const char CIRC_CHA_B[]={0xe2,0x97,0x8f,0}; //¡ñ
+const char RECT_CHA_B[]={0xe2,0x96,0xa0,0}; //¡ö
+const char RECT_CHA_W[]={0xe3,0x96,0xa1,0}; //¡õ
+const char STAR_CHA_B[]={0xe2,0x98,0x85,0}; //¡ï
+
+const char CIRC_JPN_B[]={0x81,0x9c,0}; //¡ñ
+const char RECT_JPN_B[]={0x81,0xa1,0}; //¡ö
+const char RECT_JPN_W[]={0x81,0xa0,0}; //¡õ
+const char STAR_JPN_B[]={0x81,0x9a,0}; //¡ï
 
 //typedef
 typedef struct Frame
@@ -99,5 +112,6 @@ void swap(int *a, int *b);
 void drawOne(int x, int y, char ch[]);
 void playing();
 void GameOver();
+void getLocalLanguage();
 
 #endif //_SNAKE_H_
