@@ -25,19 +25,19 @@ void playing()
     Snake *snake = new Snake(); // new one snake
     Food *food = new Food(snake);  //new a food
 
-    while(snake->getlive()) //while alive
+    while(snake->getlife()) //while alive
     {
         Sleep(GAME_SPEED); //game speed
 
         if(snake->node[0].x>RIGHT-2 || snake->node[0].x<LEFT+2 || snake->node[0].y>BOTTOM-1 || snake->node[0].y<TOP+1)
         { //out of bound, die
-			snake->setlive(false);
+			snake->setlife(false);
         }
 		for(int i=3;i<snake->getsnakelength();i++)
         { //hit itself, die
             if(snake->node[0].x==snake->node[i].x && snake->node[0].y==snake->node[i].y)
             {
-                snake->setlive(false);
+                snake->setlife(false);
             }
         }
         if(snake->node[0].x==food->x && snake->node[0].y==food->y)
@@ -202,12 +202,12 @@ int Snake::getsnakelength()
     return this->length;
 }
 
-void Snake::setlive(bool life)
+void Snake::setlife(bool life)
 {
     this->life = life;
 }
 
-bool Snake::getlive()
+bool Snake::getlife()
 {
     return this->life;
 }

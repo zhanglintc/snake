@@ -58,8 +58,8 @@ public:
 	void eat(Food *);
 	int  getsnakelength();
 	void setsnakelength(int);
-	bool getlive();
-	void setlive(bool);
+	bool getlife();
+	void setlife(bool);
 	int  getderection();
 	void setderection(int);
 	Node *getnode();
