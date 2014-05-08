@@ -1,4 +1,4 @@
-/*
+﻿/*
     Main process here.
 (C) COPYRIGHT 2014-5-6 zhanglin. Nothing reserved.
 */
