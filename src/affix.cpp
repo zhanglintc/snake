@@ -116,10 +116,12 @@ COORD random(COORD leftup, COORD rightdown)
 
 void Initialize()
 {
+	char icon[10]={};
     getLocalLanguage();
     srand((unsigned)time(NULL));        //Random number seed initial
     HideCursor();
-    drawFrame(LEFT, TOP, RIGHT, BOTTOM, "¡õ", "¡õ");  //outside frame
+    Equal(Local_Language,"zh-CN")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
+    drawFrame(LEFT, TOP, RIGHT, BOTTOM, icon, icon);  //outside frame
 }
 
 void getLocalLanguage()
@@ -141,4 +143,10 @@ void swap(int *a, int *b)
     m = *a;
     *a = *b;
     *b = m;
+}
+
+bool Equal(char command_in[], char command_require[])
+{
+    if(strcmp(command_in,command_require)==0)return true;
+    return false;
 }

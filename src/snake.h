@@ -35,10 +35,10 @@ extern char Local_Language[10];
 #define RIGHT			78	//78
 
 //const
-const char CIRC_CHA_B[]={0xe2,0x97,0x8f,0}; //¡ñ
-const char RECT_CHA_B[]={0xe2,0x96,0xa0,0}; //¡ö
-const char RECT_CHA_W[]={0xe3,0x96,0xa1,0}; //¡õ
-const char STAR_CHA_B[]={0xe2,0x98,0x85,0}; //¡ï
+const char CIRC_CHA_B[]={0xa1,0xf1,0}; //¡ñ
+const char RECT_CHA_B[]={0xa1,0xf6,0}; //¡ö
+const char RECT_CHA_W[]={0xa1,0xf5,0}; //¡õ
+const char STAR_CHA_B[]={0xa1,0xef,0}; //¡ï
 
 const char CIRC_JPN_B[]={0x81,0x9c,0}; //¡ñ
 const char RECT_JPN_B[]={0x81,0xa1,0}; //¡ö
@@ -113,5 +113,6 @@ void drawOne(int x, int y, char ch[]);
 void playing();
 void GameOver();
 void getLocalLanguage();
+bool Equal(char command_in[], char command_require[]);
 
 #endif //_SNAKE_H_

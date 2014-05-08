@@ -7,7 +7,7 @@
 
 int Food::x=0;
 int Food::y=0;
-
+char Local_Language[10];
 
 int main()
 {
@@ -108,6 +108,8 @@ Snake::Snake()
 
 void Snake::move()
 {
+    char head[10]={};
+    char body[10]={};
     for(int i=length-1; i>0; i--)
     {
         if(i==length-1)
@@ -135,8 +137,10 @@ void Snake::move()
             node[0].x+=2;
             break;
     }
-    drawOne(node[0].x, node[0].y, "¡ñ");
-    drawOne(node[1].x, node[1].y, "¡ö");
+    Equal(Local_Language,"zh-CN")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
+    Equal(Local_Language,"zh-CN")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
+    drawOne(node[0].x, node[0].y, head);
+    drawOne(node[1].x, node[1].y, body);
 }
 
 void Snake::judge()
@@ -161,6 +165,7 @@ void Snake::clear()
 
 Food::Food(Snake *snake) //should be fixed at 2014.05.08, remove static members
 {
+    char icon[10]={};
     /* get food(x,y) */
     x=random(LEFT+2,RIGHT-2); 
     while(x%2!=0)x=random(LEFT+2,RIGHT-2); //ajust x to even number
@@ -174,20 +179,25 @@ Food::Food(Snake *snake) //should be fixed at 2014.05.08, remove static members
 			return; //return to avoid showing it
         }
     }
-    drawOne(x,y,"¡ï"); //show this food
+    Equal(Local_Language,"zh-CN")?memcpy(icon,STAR_CHA_B,sizeof(STAR_CHA_B)):memcpy(icon,STAR_JPN_B,sizeof(STAR_JPN_B));
+    drawOne(x,y,icon); //show this food
 }
 
 void Snake::draw()
 {
+    char head[10]={};
+    char body[10]={};
     for(int i=0;i<length; i++)
     {
+        Equal(Local_Language,"zh-CN")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
+        Equal(Local_Language,"zh-CN")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
         if(i==0)
         {
-			drawOne(node[i].x, node[i].y, "¡ñ");
+			drawOne(node[i].x, node[i].y, head);
         }
         else
         {
-            drawOne(node[i].x, node[i].y, "¡ö");
+            drawOne(node[i].x, node[i].y, body);
         }
     }
 }
