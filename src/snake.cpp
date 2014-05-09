@@ -76,7 +76,9 @@ void GameOver()
 
 Snake::Snake()
 {
-    length = 3; //three nodes
+    life      = true;       //alive
+    direction = CTRL_RIGHT; //head to right
+    length    = 3;          //three nodes
 
     node[0].x = 6; //(RIGHT-LEFT)/2-0;
     node[0].y = (BOTTOM-TOP)/2;
@@ -93,10 +95,7 @@ Snake::Snake()
 		}
 	}
 
-    direction = CTRL_RIGHT; //head to right
-    life = true;            //alive
-
-    draw();          //show this snake
+    draw(); //show this snake
 }
 
 void Snake::move(int direction)
@@ -107,7 +106,7 @@ void Snake::move(int direction)
     //if input is direction keys
     if(direction==CTRL_UP || direction==CTRL_DOWN || direction==CTRL_RIGHT || direction==CTRL_LEFT)
     {
-        // not same direction            not converse direction, cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152, too
+        // not same direction      &&    not converse direction, cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152, too
         if(this->direction!=direction && (this->direction+direction)!=152)
         {
             this->direction=direction; //set direction

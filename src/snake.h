@@ -6,6 +6,8 @@
 #ifndef _SNAKE_H_
 #define _SNAKE_H_
 
+extern char Local_Language[10];
+
 //include
 #include <stdio.h>
 #include <iostream>
@@ -16,8 +18,6 @@
 #include <string.h>
 #include <locale.h>
 using namespace std;
-
-extern char Local_Language[10];
 
 //define
 #define GAME_SPEED		12
