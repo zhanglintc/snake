@@ -47,7 +47,7 @@ void playing()
         }
         if(_kbhit())
         {
-            derection=_getch(); //get derection
+            derection=_getch(); //get derection(and maybe not derection input)
         }
         counter++;
         if(counter==10) //each 10 times, judge move
@@ -96,33 +96,30 @@ void Snake::move(int derection)
 {
     char head[10]={};
     char body[10]={};
-    if(CTRL_UP == derection || CTRL_DOWN == derection || CTRL_RIGHT == derection || CTRL_LEFT == derection)
+
+    if(derection==CTRL_UP || derection==CTRL_DOWN || derection==CTRL_RIGHT || derection==CTRL_LEFT)
     {//up down left right, valid input
-        if ((this->derection==CTRL_UP && derection==CTRL_DOWN)||
-            (this->derection==CTRL_DOWN && derection==CTRL_UP)||
-            (this->derection==CTRL_LEFT && derection==CTRL_RIGHT)||
-            (this->derection==CTRL_RIGHT && derection==CTRL_LEFT))
-            {
-                ; //converse derection, do nothing
-            }
-        else
-            {
-                this->derection=derection; //set derection
-            }
+        if(this->derection!=derection && (this->derection+derection)!=152)
+        {//not same derection             not converse derection, cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152, too
+            this->derection=derection; //set derection
+        }
     }
-    for(int i=length-1; i>0; i--)
+    //else this->derection stay the same
+
+    for(int i=length-1; i>0; i--) //from last body to first body(not contain head)
     {
-        if(i==length-1)
+        if(i==length-1) //if this is the last node
         {
             if(node[i].x==node[i-1].x && node[i].y==node[i-1].y)
             {
-                continue;
+                continue; //if last and last-1 is the same, do not clean
             }
-            drawOne(node[i].x, node[i].y, "  ");
+            drawOne(node[i].x, node[i].y, "  "); //clean last node
         }
-        node[i]=node[i-1];
+        node[i]=node[i-1]; //wriggle forward
     }
-    switch(this->derection)
+
+    switch(this->derection) //head move
     {
         case CTRL_UP:
             node[0].y-=1;
@@ -137,6 +134,7 @@ void Snake::move(int derection)
             node[0].x+=2;
             break;
     }
+    
     Equal(Local_Language,"CHS")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
     Equal(Local_Language,"CHS")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
     drawOne(node[0].x, node[0].y, head);
