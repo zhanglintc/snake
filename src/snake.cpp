@@ -19,41 +19,48 @@ int main()
 
 void playing()
 {
-    int counter=0;
-    char derection=CTRL_RIGHT;
+    int  counter=0;
+    char derection=0;
 
     Snake *snake = new Snake(); // new one snake
-    Food *food = new Food(snake);  //new a food
+    Food  *food = new Food(snake);  //new a food
 
     while(snake->getlife()) //while alive
     {
         Sleep(GAME_SPEED); //game speed
+        counter++;
 
-        if(snake->node[0].x>RIGHT-2 || snake->node[0].x<LEFT+2 || snake->node[0].y>BOTTOM-1 || snake->node[0].y<TOP+1)
-        { //out of bound, die
-			snake->setlife(false);
-        }
-		for(int i=3;i<snake->getsnakelength();i++)
-        { //hit itself, die
-            if(snake->node[0].x==snake->node[i].x && snake->node[0].y==snake->node[i].y)
-            {
-                snake->setlife(false);
-            }
-        }
-        if(snake->node[0].x==food->x && snake->node[0].y==food->y)
-        { //eat food, ^_^
-            snake->eat(food);
-            food = new Food(snake); //after eat, generate a new food
-        }
         if(_kbhit())
         {
             derection=_getch(); //get derection(and maybe not derection input)
         }
-        counter++;
         if(counter==10) //each 10 times, judge move
         {
-            snake->move(derection);
-            counter=0;
+            counter=1; //reset counter
+
+            snake->move(derection); //snake wriggling
+
+            //eat food
+            if(snake->node[0].x==food->x && snake->node[0].y==food->y)
+            {
+                snake->eat(food); //^_^
+                food = new Food(snake); //after eat, generate a new food
+            }
+
+            //hit walls, die
+            if(snake->node[0].x>RIGHT-2 || snake->node[0].x<LEFT+2 || snake->node[0].y>BOTTOM-1 || snake->node[0].y<TOP+1)
+            {
+                snake->setlife(false); //T_T
+            }
+
+            //hit itself, die
+            for(int i=3;i<snake->getsnakelength();i++)
+            {
+                if(snake->node[0].x==snake->node[i].x && snake->node[0].y==snake->node[i].y)
+                {
+                    snake->setlife(false); //T_T
+                }
+            }
         }
     }
 }
@@ -97,15 +104,18 @@ void Snake::move(int derection)
     char head[10]={};
     char body[10]={};
 
+    //if input is direction keys
     if(derection==CTRL_UP || derection==CTRL_DOWN || derection==CTRL_RIGHT || derection==CTRL_LEFT)
-    {//up down left right, valid input
+    {
+        // not same derection            not converse derection, cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152, too
         if(this->derection!=derection && (this->derection+derection)!=152)
-        {//not same derection             not converse derection, cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152, too
+        {
             this->derection=derection; //set derection
         }
     }
     //else this->derection stay the same
 
+    //wriggling
     for(int i=length-1; i>0; i--) //from last body to first body(not contain head)
     {
         if(i==length-1) //if this is the last node
@@ -134,6 +144,7 @@ void Snake::move(int derection)
             node[0].x+=2;
             break;
     }
+    //end of wriggling
     
     Equal(Local_Language,"CHS")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
     Equal(Local_Language,"CHS")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
@@ -161,7 +172,7 @@ void Snake::clear()
     }
 }
 
-Food::Food(Snake *snake) //should be fixed at 2014.05.08, remove static members
+Food::Food(Snake *snake)
 {
     char icon[10]={};
     /* get food(x,y) */

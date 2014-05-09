@@ -76,7 +76,7 @@ public:
 	int  getderection();
 	void setderection(int);
 	Node *getnode();
-	private:
+private:
 	bool life;
 	int  derection;
 	int  length;
