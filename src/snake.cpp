@@ -33,6 +33,7 @@ void playing()
         if(_kbhit())
         {
             direction=_getch(); //get direction(and maybe not direction input)
+            if(direction==CTRL_SPACE)Pause();
         }
         if(counter==10) //each 10 times, judge move
         {
@@ -63,6 +64,12 @@ void playing()
             }
         }
     }
+}
+
+void Pause()
+{
+    char c=_getch();
+    while(c!=CTRL_SPACE)c=_getch();
 }
 
 void GameOver()

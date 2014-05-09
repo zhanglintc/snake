@@ -111,6 +111,7 @@ void Initialize();
 void swap(int *a, int *b);
 void drawOne(int x, int y, char ch[]);
 void playing();
+void Pause();
 void GameOver();
 void getLocalLanguage();
 bool Equal(char command_in[], char command_require[]);
