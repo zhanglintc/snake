@@ -67,7 +67,7 @@ class Snake
 public:
 	Node node[NODE_MAX];
 	Snake();
-	void move();
+	void move(int);
 	void eat(Food *);
 	int  getsnakelength();
 	void setsnakelength(int);

@@ -52,21 +52,7 @@ void playing()
         counter++;
         if(counter==10) //each 10 times, judge move
         {
-            if (CTRL_UP == derection || CTRL_DOWN == derection || CTRL_RIGHT == derection || CTRL_LEFT == derection)
-            {//up down left right, valid input
-                if((snake->getderection()==CTRL_UP && derection==CTRL_DOWN)||
-                    (snake->getderection()==CTRL_DOWN && derection==CTRL_UP)||
-                    (snake->getderection()==CTRL_LEFT && derection==CTRL_RIGHT)||
-                    (snake->getderection()==CTRL_RIGHT && derection==CTRL_LEFT))
-                    {
-                        ; //converse derection, do nothing
-                    }
-                else
-                    {
-                        snake->setderection(derection); //set derection
-                    }
-            }
-            snake->move();
+            snake->move(derection);
             counter=0;
         }
     }
@@ -106,10 +92,24 @@ Snake::Snake()
     draw();          //show this snake
 }
 
-void Snake::move()
+void Snake::move(int derection)
 {
     char head[10]={};
     char body[10]={};
+    if(CTRL_UP == derection || CTRL_DOWN == derection || CTRL_RIGHT == derection || CTRL_LEFT == derection)
+    {//up down left right, valid input
+        if ((this->derection==CTRL_UP && derection==CTRL_DOWN)||
+            (this->derection==CTRL_DOWN && derection==CTRL_UP)||
+            (this->derection==CTRL_LEFT && derection==CTRL_RIGHT)||
+            (this->derection==CTRL_RIGHT && derection==CTRL_LEFT))
+            {
+                ; //converse derection, do nothing
+            }
+        else
+            {
+                this->derection=derection; //set derection
+            }
+    }
     for(int i=length-1; i>0; i--)
     {
         if(i==length-1)
@@ -122,7 +122,7 @@ void Snake::move()
         }
         node[i]=node[i-1];
     }
-    switch(derection)
+    switch(this->derection)
     {
         case CTRL_UP:
             node[0].y-=1;
