@@ -119,9 +119,9 @@ void Initialize()
 	char icon[10]={};
 	HideCursor();
     getLocalLanguage();
-    if(Equal(Local_Language,"zh-CN")==false && Equal(Local_Language,"ja-JP")==false)NotSupport();
+    if(Equal(Local_Language,"CHS")==false && Equal(Local_Language,"JPN")==false)NotSupport();
     srand((unsigned)time(NULL));        //Random number seed initial
-    Equal(Local_Language,"zh-CN")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
+    Equal(Local_Language,"CHS")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
     drawFrame(LEFT, TOP, RIGHT, BOTTOM, icon, icon);  //outside frame
 }
 
@@ -129,7 +129,8 @@ void getLocalLanguage()
 {
     FILE *fp;
     char language[10]={};
-    char str[]="@echo off && for /f \"tokens=3\" %i in (\'reg query \"HKCU\\Control Panel\\Desktop\" /v \"PreferredUILanguages\"\') do (echo %i>lan.txt)";
+    char str[]="@echo off && for /f \"tokens=3\" %i in (\'reg query \"HKCU\\Control Panel\\International\" /v \"sLanguage\"\') do (echo %i>lan.txt)";
+    system("echo=>lan.txt");
     system(str);
     fp=fopen("lan.txt","r");
     fscanf(fp,"%s",language);

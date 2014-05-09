@@ -137,8 +137,8 @@ void Snake::move()
             node[0].x+=2;
             break;
     }
-    Equal(Local_Language,"zh-CN")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
-    Equal(Local_Language,"zh-CN")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
+    Equal(Local_Language,"CHS")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
+    Equal(Local_Language,"CHS")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
     drawOne(node[0].x, node[0].y, head);
     drawOne(node[1].x, node[1].y, body);
 }
@@ -179,7 +179,7 @@ Food::Food(Snake *snake) //should be fixed at 2014.05.08, remove static members
 			return; //return to avoid showing it
         }
     }
-    Equal(Local_Language,"zh-CN")?memcpy(icon,STAR_CHA_B,sizeof(STAR_CHA_B)):memcpy(icon,STAR_JPN_B,sizeof(STAR_JPN_B));
+    Equal(Local_Language,"CHS")?memcpy(icon,STAR_CHA_B,sizeof(STAR_CHA_B)):memcpy(icon,STAR_JPN_B,sizeof(STAR_JPN_B));
     drawOne(x,y,icon); //show this food
 }
 
@@ -189,8 +189,8 @@ void Snake::draw()
     char body[10]={};
     for(int i=0;i<length; i++)
     {
-        Equal(Local_Language,"zh-CN")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
-        Equal(Local_Language,"zh-CN")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
+        Equal(Local_Language,"CHS")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
+        Equal(Local_Language,"CHS")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
         if(i==0)
         {
 			drawOne(node[i].x, node[i].y, head);
