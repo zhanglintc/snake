@@ -6,7 +6,7 @@
 #ifndef _SNAKE_H_
 #define _SNAKE_H_
 
-//inlcude
+//include
 #include <stdio.h>
 #include <iostream>
 #include <tchar.h>
@@ -78,7 +78,7 @@ public:
 	Node *getnode();
 private:
 	bool life;
-	int  derection;
+	int  direction;
 	int  length;
 	void clear();
 	void draw();

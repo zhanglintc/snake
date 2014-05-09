@@ -20,7 +20,7 @@ int main()
 void playing()
 {
     int  counter=0;
-    char derection=0;
+    char direction=0;
 
     Snake *snake = new Snake(); // new one snake
     Food  *food = new Food(snake);  //new a food
@@ -32,13 +32,13 @@ void playing()
 
         if(_kbhit())
         {
-            derection=_getch(); //get derection(and maybe not derection input)
+            direction=_getch(); //get direction(and maybe not direction input)
         }
         if(counter==10) //each 10 times, judge move
         {
             counter=1; //reset counter
 
-            snake->move(derection); //snake wriggling
+            snake->move(direction); //snake wriggling
 
             //eat food
             if(snake->node[0].x==food->x && snake->node[0].y==food->y)
@@ -93,27 +93,27 @@ Snake::Snake()
 		}
 	}
 
-    derection = CTRL_RIGHT; //head to right
+    direction = CTRL_RIGHT; //head to right
     life = true;            //alive
 
     draw();          //show this snake
 }
 
-void Snake::move(int derection)
+void Snake::move(int direction)
 {
     char head[10]={};
     char body[10]={};
 
     //if input is direction keys
-    if(derection==CTRL_UP || derection==CTRL_DOWN || derection==CTRL_RIGHT || derection==CTRL_LEFT)
+    if(direction==CTRL_UP || direction==CTRL_DOWN || direction==CTRL_RIGHT || direction==CTRL_LEFT)
     {
-        // not same derection            not converse derection, cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152, too
-        if(this->derection!=derection && (this->derection+derection)!=152)
+        // not same direction            not converse direction, cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152, too
+        if(this->direction!=direction && (this->direction+direction)!=152)
         {
-            this->derection=derection; //set derection
+            this->direction=direction; //set direction
         }
     }
-    //else this->derection stay the same
+    //else this->direction stay the same
 
     //wriggling
     for(int i=length-1; i>0; i--) //from last body to first body(not contain head)
@@ -129,7 +129,7 @@ void Snake::move(int derection)
         node[i]=node[i-1]; //wriggle forward
     }
 
-    switch(this->derection) //head move
+    switch(this->direction) //head move
     {
         case CTRL_UP:
             node[0].y-=1;
@@ -161,7 +161,7 @@ void Snake::eat(Food *food)
 {
     length += 1;
     node[length-1]=node[length-2];
-    free(food); //after eat, this food will dispear
+    free(food); //after eat, this food will disappear
 }
 
 void Snake::clear()
@@ -175,9 +175,9 @@ void Snake::clear()
 Food::Food(Snake *snake)
 {
     char icon[10]={};
-    /* get food(x,y) */
+    /* get food(x, y) */
     x=random(LEFT+2,RIGHT-2); 
-    while(x%2!=0)x=random(LEFT+2,RIGHT-2); //ajust x to even number
+    while(x%2!=0)x=random(LEFT+2,RIGHT-2); //adjust x to even number
     y=random(TOP+1,BOTTOM-1);
 
     for(int i=0;i<snake->getsnakelength();i++) //for every node of this snake
@@ -231,14 +231,14 @@ bool Snake::getlife()
     return this->life;
 }
 
-void Snake::setderection(int derection)
+void Snake::setderection(int direction)
 {
-    this->derection = derection;
+    this->direction = direction;
 }
 
 int Snake::getderection()
 {
-    return this->derection;
+    return this->direction;
 }
 
 Node *Snake::getnode()
