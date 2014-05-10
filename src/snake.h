@@ -139,7 +139,7 @@ COORD random(COORD leftup, COORD rightdown);
 void Initialize();
 void swap(int *a, int *b);
 void drawOne(int x, int y, char ch[]);
-void playing();
+void Playing();
 void Pause();
 void GameOver();
 void getLocalLanguage();

@@ -16,12 +16,12 @@ int  Food::y=0;
 int main()
 {
     Initialize();
-    playing();
+    Playing();
     GameOver();
     return 0;
 }
 
-void playing()
+void Playing()
 {
     int  counter=0;
     char direction=0;
