@@ -18,7 +18,7 @@
 using namespace std;
 
 //define
-#define GAME_SPEED		9 //12
+#define GAME_SPEED		1 //12
 #define PLAYING			1
 #define PAUSING			0
 #define EASY			1
