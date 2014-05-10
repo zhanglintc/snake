@@ -123,6 +123,12 @@ void Initialize()
     srand((unsigned)time(NULL));        //Random number seed initial
     Equal(Local_Language,"CHS")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
     drawFrame(LEFT, TOP, RIGHT, BOTTOM, icon, icon);  //outside frame
+	memcpy(icon,STAR,sizeof(STAR));
+    drawFrame(RIGHT+2, TOP, 78, BOTTOM, icon, icon);  //outside frame
+    SetPos(65,3);
+    cout<<"Score: 300";
+	SetPos(65,13);
+    cout<<"Mode: Hard";
 }
 
 void getLocalLanguage()

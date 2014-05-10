@@ -20,7 +20,7 @@ extern char Local_Language[10];
 using namespace std;
 
 //define
-#define GAME_SPEED		12
+#define GAME_SPEED		9 //12
 
 #define NODE_MAX		200
 #define CTRL_UP			72
@@ -32,13 +32,15 @@ using namespace std;
 #define TOP				0
 #define BOTTOM			24	//24
 #define LEFT			0
-#define RIGHT			78	//78
+#define RIGHT			58	//78
 
 //const
 const char CIRC_CHA_B[]={0xa1,0xf1,0}; //●
 const char RECT_CHA_B[]={0xa1,0xf6,0}; //■
 const char RECT_CHA_W[]={0xa1,0xf5,0}; //□
 const char STAR_CHA_B[]={0xa1,0xef,0}; //★
+const char STAR[]={0xa3,0xaa,0}; //※
+const char _RECT[]={0xa1,0xf3,0}; //◇
 
 const char CIRC_JPN_B[]={0x81,0x9c,0}; //●
 const char RECT_JPN_B[]={0x81,0xa1,0}; //■

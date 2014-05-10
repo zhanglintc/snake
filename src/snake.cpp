@@ -87,11 +87,11 @@ Snake::Snake()
     direction = CTRL_RIGHT; //head to right
     length    = 3;          //three nodes
 
-    node[0].x = 6; //(RIGHT-LEFT)/2-0;
+    node[0].x = (RIGHT-LEFT)/2-0;
     node[0].y = (BOTTOM-TOP)/2;
-    node[1].x = 4; //(RIGHT-LEFT)/2-2;
+    node[1].x = (RIGHT-LEFT)/2-2;
     node[1].y = (BOTTOM-TOP)/2;
-    node[2].x = 2; //(RIGHT-LEFT)/2-4;
+    node[2].x = (RIGHT-LEFT)/2-4;
     node[2].y = (BOTTOM-TOP)/2;
 	
 	if(node[0].x%2!=0) //set snake in even position
