@@ -5,9 +5,13 @@
 
 #include "snake.h"
 
-int Food::x=0;
-int Food::y=0;
 char Local_Language[10];
+int  g_score=0;
+int  g_mode=MEDIUM;
+int  g_status=PLAYING;
+int  g_eaten=0;
+int  Food::x=0;
+int  Food::y=0;
 
 int main()
 {
@@ -45,7 +49,11 @@ void playing()
             if(snake->node[0].x==food->x && snake->node[0].y==food->y)
             {
                 snake->eat(food); //^_^
-                food = new Food(snake); //after eat, generate a new food
+				food = new Food(snake); //after eat, generate a new food
+
+                g_score+=HARD;
+                g_eaten+=1;
+                PrintInfo(INFO_UPDT);                
             }
 
             //hit walls, die

@@ -6,8 +6,6 @@
 #ifndef _SNAKE_H_
 #define _SNAKE_H_
 
-extern char Local_Language[10];
-
 //include
 #include <stdio.h>
 #include <iostream>
@@ -21,6 +19,11 @@ using namespace std;
 
 //define
 #define GAME_SPEED		9 //12
+#define PLAYING			1
+#define PAUSING			0
+#define EASY			1
+#define MEDIUM			2
+#define HARD			3
 
 #define NODE_MAX		200
 #define CTRL_UP			72
@@ -34,6 +37,24 @@ using namespace std;
 #define LEFT			0
 #define RIGHT			58	//78
 
+#define INFO_INIT		0x04 //0000 0100
+#define INFO_UPDT		0x02 //0000 0010
+#define INFO_STAT		0x01 //0000 0001
+
+#define GetModeStatus(x)		x>>3 & 1
+#define GetScoreStatus(x)		x>>2 & 1
+#define GetLenStatus(x)			x>>1 & 1
+#define GetStatusStatus(x)		x>>0 & 1
+
+#define SetModeStatus(x)		x|=1<<3
+#define SetScoreStatus(x)		x|=1<<2
+#define SetLenStatus(x)			x|=1<<1
+#define SetStatusStatus(x)		x|=1<<0
+
+#define isINIT(x)				x>>2 & 1
+#define isUPDT(x)				x>>1 & 1
+#define isSTAT(x)				x>>0 & 1
+
 //const
 const char CIRC_CHA_B[]={0xa1,0xf1,0}; //●
 const char RECT_CHA_B[]={0xa1,0xf6,0}; //■
@@ -46,6 +67,12 @@ const char CIRC_JPN_B[]={0x81,0x9c,0}; //●
 const char RECT_JPN_B[]={0x81,0xa1,0}; //■
 const char RECT_JPN_W[]={0x81,0xa0,0}; //□
 const char STAR_JPN_B[]={0x81,0x9a,0}; //★
+
+extern char Local_Language[10];
+extern int  g_score;
+extern int  g_mode;
+extern int  g_status;
+extern int  g_eaten;
 
 //typedef
 typedef struct Frame
@@ -118,5 +145,6 @@ void GameOver();
 void getLocalLanguage();
 bool Equal(char command_in[], char command_require[]);
 void NotSupport();
+void PrintInfo(unsigned char);
 
 #endif //_SNAKE_H_

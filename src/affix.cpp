@@ -121,15 +121,43 @@ void Initialize()
     getLocalLanguage();
     if(Equal(Local_Language,"CHS")==false && Equal(Local_Language,"JPN")==false)NotSupport();
     srand((unsigned)time(NULL));        //Random number seed initial
+
     Equal(Local_Language,"CHS")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
     drawFrame(LEFT, TOP, RIGHT, BOTTOM, icon, icon);  //outside frame
+
 	memcpy(icon,STAR,sizeof(STAR));
-    drawFrame(RIGHT+2, TOP, 78, BOTTOM, icon, icon);  //outside frame
-    SetPos(65,3);
-    cout<<"Score: 300";
-	SetPos(65,13);
-    cout<<"Mode: Hard";
+    drawFrame(RIGHT+2, TOP, 78, BOTTOM, icon, icon);  //dashboard frame
+
+    PrintInfo(INFO_INIT);
 }
+
+void PrintInfo(unsigned char identifier)
+{
+    if(isINIT(identifier))
+    {
+        SetPos(65,3);
+        cout<<"Mode: Hard";
+    }
+    if(isINIT(identifier) || isUPDT(identifier))
+    {
+        SetPos(65,6);
+        cout<<"Score: " << g_score;
+        SetPos(65,9);
+        cout<<"Eaten: " << g_eaten;
+    }
+    if(isINIT(identifier))
+    {
+        SetPos(64,15);
+        cout<<"Pause: Space";
+        SetPos(65,18);
+        cout<<"Exit: ESC";
+    }
+    if(isINIT(identifier) || isSTAT(identifier))
+    {
+        SetPos(65,21);
+        cout<<"Playing...";
+    }
+ }
 
 void getLocalLanguage()
 {
