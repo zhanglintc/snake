@@ -128,10 +128,10 @@ void Initialize()
 	memcpy(icon,STAR,sizeof(STAR));
     drawFrame(RIGHT+2, TOP, 78, BOTTOM, icon, icon);  //dashboard frame
 
-    PrintInfo(INFO_INIT);
+    PrintInfo(INFO_INIT,PLAYING);
 }
 
-void PrintInfo(unsigned char identifier)
+void PrintInfo(char identifier, char stat)
 {
     if(isINIT(identifier))
     {
@@ -154,8 +154,16 @@ void PrintInfo(unsigned char identifier)
     }
     if(isINIT(identifier) || isSTAT(identifier))
     {
-        SetPos(65,21);
-        cout<<"Playing...";
+        if(stat==PLAYING)
+        {
+            SetPos(65,21);
+            cout<<"          ";
+        }
+        else if(stat==PAUSING)
+        {
+            SetPos(65,21);
+            cout<<"Pausing...";
+        }
     }
  }
 

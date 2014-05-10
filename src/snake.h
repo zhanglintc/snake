@@ -145,6 +145,6 @@ void GameOver();
 void getLocalLanguage();
 bool Equal(char command_in[], char command_require[]);
 void NotSupport();
-void PrintInfo(unsigned char);
+void PrintInfo(char, char);
 
 #endif //_SNAKE_H_

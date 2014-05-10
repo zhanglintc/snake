@@ -53,7 +53,7 @@ void playing()
 
                 g_score+=HARD;
                 g_eaten+=1;
-                PrintInfo(INFO_UPDT);                
+                PrintInfo(INFO_UPDT, PLAYING);                
             }
 
             //hit walls, die
@@ -76,8 +76,10 @@ void playing()
 
 void Pause()
 {
+    PrintInfo(INFO_STAT,PAUSING);
     char c=_getch();
     while(c!=CTRL_SPACE)c=_getch();
+    PrintInfo(INFO_STAT,PLAYING);
 }
 
 void GameOver()
