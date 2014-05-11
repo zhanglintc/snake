@@ -5,7 +5,7 @@
 
 #include "snake.h"
 
-char Local_Language[10];
+char g_Local_Language[10];
 int  g_score=0;
 int  g_mode=MEDIUM;
 int  g_status=PLAYING;
@@ -54,7 +54,7 @@ void Playing()
 
                 g_score+=HARD;
                 g_eaten+=1;
-                PrintInfo(INFO_UPDT, PLAYING);                
+                PrintInfo(INFO_UPDT, PLAYING);
             }
 
             //hit walls, die
@@ -164,8 +164,8 @@ void Snake::move(int direction)
     }
     //end of wriggling
     
-    Equal(Local_Language,"CHS")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
-    Equal(Local_Language,"CHS")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
+    Equal(g_Local_Language,"CHS")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
+    Equal(g_Local_Language,"CHS")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
     drawOne(node[0].x, node[0].y, head);
     drawOne(node[1].x, node[1].y, body);
 }
@@ -206,7 +206,7 @@ Food::Food(Snake *snake)
 			return; //return to avoid showing it
         }
     }
-    Equal(Local_Language,"CHS")?memcpy(icon,STAR_CHA_B,sizeof(STAR_CHA_B)):memcpy(icon,STAR_JPN_B,sizeof(STAR_JPN_B));
+    Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_B,sizeof(STAR_CHA_B)):memcpy(icon,STAR_JPN_B,sizeof(STAR_JPN_B));
     drawOne(x,y,icon); //show this food
 }
 
@@ -216,8 +216,8 @@ void Snake::draw()
     char body[10]={};
     for(int i=0;i<length; i++)
     {
-        Equal(Local_Language,"CHS")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
-        Equal(Local_Language,"CHS")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
+        Equal(g_Local_Language,"CHS")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
+        Equal(g_Local_Language,"CHS")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
         if(i==0)
         {
 			drawOne(node[i].x, node[i].y, head);

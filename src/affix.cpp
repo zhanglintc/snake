@@ -119,10 +119,10 @@ void Initialize()
 	char icon[10]={};
 	HideCursor();
     getLocalLanguage();
-    if(Equal(Local_Language,"CHS")==false && Equal(Local_Language,"JPN")==false)NotSupport();
+    if(Equal(g_Local_Language,"CHS")==false && Equal(g_Local_Language,"JPN")==false)NotSupport();
     srand((unsigned)time(NULL));        //Random number seed initial
 
-    Equal(Local_Language,"CHS")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
+    Equal(g_Local_Language,"CHS")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
     drawFrame(LEFT, TOP, RIGHT, BOTTOM, icon, icon);  //outside frame
 
 	memcpy(icon,STAR,sizeof(STAR));
@@ -178,7 +178,7 @@ void getLocalLanguage()
     fscanf(fp,"%s",language);
     fclose(fp);
     system("del lan.txt");
-    memcpy(Local_Language,language,sizeof(language));
+    memcpy(g_Local_Language,language,sizeof(language));
 }
 
 void swap(int *a, int *b)
