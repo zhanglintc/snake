@@ -150,7 +150,7 @@ void PrintInfo(char identifier, char stat)
         SetPos(64,15);
         cout<<"Pause: Space";
         SetPos(65,18);
-        cout<<"Exit: ESC";
+        cout<<"Exit: Esc";
     }
     if(isINIT(identifier) || isSTAT(identifier))
     {

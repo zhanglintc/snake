@@ -31,6 +31,7 @@ using namespace std;
 #define CTRL_RIGHT		77
 #define CTRL_LEFT		75
 #define CTRL_SPACE		32
+#define CTRL_ESC		27
 
 #define TOP				0
 #define BOTTOM			24	//24

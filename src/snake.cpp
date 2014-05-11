@@ -38,6 +38,7 @@ void Playing()
         {
             direction=_getch(); //get direction(and maybe not direction input)
             if(direction==CTRL_SPACE)Pause();
+			if(direction==CTRL_ESC)exit(0);
         }
         if(counter==100) //each 100 times, judge move
         {
