@@ -204,3 +204,12 @@ void NotSupport()
     getchar();
     exit(0);
 }
+
+bool isSameLine(int direciton1st, int direction2nd)
+{
+    if(direciton1st==direction2nd || direciton1st+direction2nd==152)
+    {
+        return true;
+    }
+    return false;
+}

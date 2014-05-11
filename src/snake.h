@@ -146,5 +146,6 @@ void getLocalLanguage();
 bool Equal(char command_in[], char command_require[]);
 void NotSupport();
 void PrintInfo(char, char);
+bool isSameLine(int direciton1st, int direction2nd);
 
 #endif //_SNAKE_H_
