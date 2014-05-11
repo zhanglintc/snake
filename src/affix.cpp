@@ -213,3 +213,12 @@ bool isSameLine(int direciton1st, int direction2nd)
     }
     return false;
 }
+
+bool isDirection(int input)
+{
+    if((input==CTRL_UP || input==CTRL_DOWN || input==CTRL_RIGHT || input==CTRL_LEFT))
+    {
+        return true;
+    }
+    return false;
+}

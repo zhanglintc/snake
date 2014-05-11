@@ -122,7 +122,7 @@ void Snake::move(int direction)
     char body[10]={};
 
     //if input is direction keys
-    if(direction==CTRL_UP || direction==CTRL_DOWN || direction==CTRL_RIGHT || direction==CTRL_LEFT)
+    if(isDirection(direction)==true)
     {
         // not same direction      &&    not converse direction, cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152, too
         //if(this->direction!=direction && (this->direction+direction)!=152)
