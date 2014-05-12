@@ -25,6 +25,7 @@ void Playing()
 {
     int  counter=0;
     char direction=0;
+    char gotten=0;
 
     Snake *snake = new Snake(); // new one snake
     Food  *food = new Food(snake);  //new a food
@@ -36,9 +37,15 @@ void Playing()
 
         if(_kbhit())
         {
-            direction=_getch(); //get direction(and maybe not direction input)
-            if(direction==CTRL_SPACE)Pause();
-			if(direction==CTRL_ESC)exit(0);
+            gotten=_getch(); //get direction(and maybe not direction input)
+
+            if(gotten==CTRL_SPACE)Pause();
+			if(gotten==CTRL_ESC)exit(0);
+
+            if(isDirection(gotten)==true && isSameLine(gotten,snake->getderection())==false)
+            { //if gotten is direction   &&   is not in the same line
+                direction=gotten;
+            }
         }
         if(counter==100) //each 100 times, judge move
         {
