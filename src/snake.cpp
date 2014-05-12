@@ -80,6 +80,10 @@ void Playing()
             }
         }
     }
+
+    //clean food and snake
+    free(food);
+    free(snake);
 }
 
 void Pause()
