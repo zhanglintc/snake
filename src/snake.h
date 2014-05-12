@@ -18,7 +18,7 @@
 using namespace std;
 
 //define
-#define GAME_SPEED		100
+#define GAME_SPEED		50
 #define SLEEP_TIME		1	//12
 #define PLAYING			1
 #define PAUSING			0
@@ -33,6 +33,8 @@ using namespace std;
 #define CTRL_LEFT		75
 #define CTRL_SPACE		32
 #define CTRL_ESC		27
+#define CTRL_ENTER		13
+#define CTRL_F5			63
 
 #define TOP				0
 #define BOTTOM			24	//24
@@ -151,5 +153,6 @@ void NotSupport();
 void PrintInfo(char, char);
 bool isSameLine(int direciton1st, int direction2nd);
 bool isDirection(int input);
+bool replay();
 
 #endif //_SNAKE_H_

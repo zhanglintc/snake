@@ -117,8 +117,12 @@ COORD random(COORD leftup, COORD rightdown)
 void Initialize()
 {
 	char icon[10]={};
+
+    system("cls");
+    system("color 0f");
 	HideCursor();
     getLocalLanguage();
+
     if(Equal(g_Local_Language,"CHS")==false && Equal(g_Local_Language,"JPN")==false)NotSupport();
     srand((unsigned)time(NULL));        //Random number seed initial
 
@@ -165,7 +169,82 @@ void PrintInfo(char identifier, char stat)
             cout<<"Pausing...";
         }
     }
- }
+}
+
+bool replay()
+{
+    char icon[10]={};
+    char cursor=0;
+    char gotten=0;
+
+    system("cls");
+
+    SetPos(32,4);
+    cout<<"Oops, Game Over!!!";
+
+    Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_W,sizeof(STAR_CHA_W)):memcpy(icon,STAR_JPN_W,sizeof(STAR_JPN_W));
+    drawFrame(20,7,60,18,icon,icon);
+
+    SetPos(32,10);
+    cout<<"Just one more time?";
+    SetPos(32,15);
+    cout<<"No, leave me alone!";
+
+    SetPos(29,10);
+    cout<<">>";
+    // SetPos(29,15);
+    // cout<<">>";
+    cursor=10;
+    while(1)
+    {
+        if(_kbhit())
+        {
+            gotten=_getch();
+            switch(gotten)
+            {
+                case CTRL_UP:
+                {
+                    if(cursor==15)
+                    {
+                        cursor=10;
+                        SetPos(29,10);
+                        cout<<">>";
+                        SetPos(29,15);
+                        cout<<"  ";
+                    }
+                    break;
+                }
+                case CTRL_DOWN:
+                {
+                    if(cursor=10)
+                    {
+                        cursor=15;
+                        SetPos(29,10);
+                        cout<<"  ";
+                        SetPos(29,15);
+                        cout<<">>";
+                    }
+                    break;
+                }
+                case CTRL_SPACE:
+                {
+                    if(cursor==10)return true;
+                    else return false;
+                }
+                case CTRL_ENTER:
+                {
+                    if(cursor==10)return true;
+                    else return false;
+                }
+                case CTRL_F5:
+                {
+                    if(cursor==10)return true;
+                    else return false;
+                }
+            }
+        }
+    }
+}
 
 void getLocalLanguage()
 {

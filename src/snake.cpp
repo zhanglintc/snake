@@ -15,9 +15,13 @@ int  Food::y=0;
 
 int main()
 {
-    Initialize();
-    Playing();
-    GameOver();
+    do
+    {
+        Initialize();
+        Playing();
+    }
+    while(replay()==true);
+    //GameOver();
     return 0;
 }
 
