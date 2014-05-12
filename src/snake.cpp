@@ -32,7 +32,7 @@ void Playing()
 
     while(snake->getlife()) //while alive
     {
-        Sleep(GAME_SPEED); //game speed
+        Sleep(SLEEP_TIME); //game speed
         counter++;
 
         if(_kbhit())
@@ -47,7 +47,7 @@ void Playing()
                 direction=gotten;
             }
         }
-        if(counter==100) //each 100 times, judge move
+        if(counter>=GAME_SPEED) //each 100 times, judge move
         {
             counter=1; //reset counter
 
