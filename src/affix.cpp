@@ -125,7 +125,7 @@ void Initialize()
     Equal(g_Local_Language,"CHS")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
     drawFrame(LEFT, TOP, RIGHT, BOTTOM, icon, icon);  //outside frame
 
-	memcpy(icon,STAR,sizeof(STAR));
+	Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_W,sizeof(STAR_CHA_W)):memcpy(icon,STAR_JPN_W,sizeof(STAR_JPN_W));
     drawFrame(RIGHT+2, TOP, 78, BOTTOM, icon, icon);  //dashboard frame
 
     PrintInfo(INFO_INIT,PLAYING);
