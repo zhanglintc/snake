@@ -42,7 +42,7 @@ void Playing()
             if(gotten==CTRL_SPACE)Pause();
 			if(gotten==CTRL_ESC)exit(0);
 
-            if(isDirection(gotten)==true && isSameLine(gotten,snake->getderection())==false)
+            if(isDirection(gotten)==true && isSameLine(gotten,snake->getdirection())==false)
             { //if gotten is direction   &&   is not in the same line
                 direction=gotten;
             }
@@ -256,12 +256,12 @@ bool Snake::getlife()
     return this->life;
 }
 
-void Snake::setderection(int direction)
+void Snake::setdirection(int direction)
 {
     this->direction = direction;
 }
 
-int Snake::getderection()
+int Snake::getdirection()
 {
     return this->direction;
 }

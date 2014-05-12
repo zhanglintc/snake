@@ -104,8 +104,8 @@ public:
 	void setsnakelength(int);
 	bool getlife();
 	void setlife(bool);
-	int  getderection();
-	void setderection(int);
+	int  getdirection();
+	void setdirection(int);
 	Node *getnode();
 private:
 	bool life;
