@@ -128,7 +128,12 @@ void Initialize()
 void drawGame()
 {
     char icon[10]={};
+
+    g_score=0;
+    g_eaten=0;
+    
     system("cls");
+
     Equal(g_Local_Language,"CHS")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
     drawFrame(LEFT, TOP, RIGHT, BOTTOM, icon, icon);  //outside frame
 
