@@ -18,13 +18,15 @@ int main()
 {
     Initialize();
     g_difficulty=ChooseMode();
-    do
+    do //loop
     {
         drawGame();
         Playing();
     }
     while(replay()==true);
-    //GameOver();
+
+    /*GameOver();*/
+
     return 0;
 }
 

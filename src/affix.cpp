@@ -131,7 +131,7 @@ void drawGame()
 
     g_score=0;
     g_eaten=0;
-    
+
     system("cls");
 
     Equal(g_Local_Language,"CHS")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
@@ -317,8 +317,6 @@ bool replay()
     cout<<"Just one more time?";
     SetPos(32,15);
     cout<<"No, leave me alone!";
-
-    Sleep(500);
 
     SetPos(29,10);
     cout<<">>";
