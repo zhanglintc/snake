@@ -190,13 +190,15 @@ bool replay()
     SetPos(32,15);
     cout<<"No, leave me alone!";
 
+    Sleep(500);
+
     SetPos(29,10);
     cout<<">>";
-    // SetPos(29,15);
-    // cout<<">>";
+
     cursor=10;
     while(1)
     {
+        gotten=0;
         if(_kbhit())
         {
             gotten=_getch();
