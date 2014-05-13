@@ -171,6 +171,115 @@ void PrintInfo(char identifier, char stat)
     }
 }
 
+int ChooseMode()
+{
+    char icon[10]={};
+    char cursor=0;
+    char gotten=0;
+
+    Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_W,sizeof(STAR_CHA_W)):memcpy(icon,STAR_JPN_W,sizeof(STAR_JPN_W));
+    drawFrame(20,7,60,19,icon,icon);
+
+    SetPos(32,10);
+    cout<<"Hard mode, fastest";
+    SetPos(32,13);
+    cout<<"Normal mode, medium";
+    SetPos(32,16);
+    cout<<"Easy mode, slowest";
+
+    SetPos(29,10);
+    cout<<">>";
+
+    cursor=10;
+    while(1)
+    {
+        gotten=0;
+        if(_kbhit())
+        {
+            gotten=_getch();
+            switch(gotten)
+            {
+                case CTRL_UP:
+                {
+                    if(cursor==16)
+                    {
+                        cursor=13;
+                        SetPos(29,13);
+                        cout<<">>";
+                        SetPos(29,16);
+                        cout<<"  ";
+                    }
+                    else if(cursor==13)
+                    {
+                        cursor=10;
+                        SetPos(29,10);
+                        cout<<">>";
+                        SetPos(29,13);
+                        cout<<"  ";
+                    }
+                    break;
+                }
+                case CTRL_DOWN:
+                {
+                    if(cursor==10)
+                    {
+                        cursor=13;
+                        SetPos(29,10);
+                        cout<<"  ";
+                        SetPos(29,13);
+                        cout<<">>";
+                    }
+                    else if(cursor==13)
+                    {
+                        cursor=16;
+                        SetPos(29,13);
+                        cout<<"  ";
+                        SetPos(29,16);
+                        cout<<">>";
+                    }
+                    break;
+                }
+                case CTRL_SPACE:
+                {
+                    switch(cursor)
+                    {
+                        case 10:
+                            return HARD;
+                        case 13:
+                            return MEDIUM;
+                        case 16:
+                            return EASY;
+                    }
+                }
+                case CTRL_ENTER:
+                {
+                    switch(cursor)
+                    {
+                        case 10:
+                            return HARD;
+                        case 13:
+                            return MEDIUM;
+                        case 16:
+                            return EASY;
+                    }
+                }
+                case CTRL_F5:
+                {
+                    switch(cursor)
+                    {
+                        case 10:
+                            return HARD;
+                        case 13:
+                            return MEDIUM;
+                        case 16:
+                            return EASY;
+                    }
+                }
+            }
+        }
+    }
+}
+
 bool replay()
 {
     char icon[10]={};

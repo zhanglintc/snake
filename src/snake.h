@@ -154,5 +154,6 @@ void PrintInfo(char, char);
 bool isSameLine(int direciton1st, int direction2nd);
 bool isDirection(int input);
 bool replay();
+int ChooseMode();
 
 #endif //_SNAKE_H_
