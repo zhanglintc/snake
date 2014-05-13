@@ -307,8 +307,10 @@ bool replay()
 
     system("cls");
 
-    SetPos(32,4);
+    SetPos(32,3);
     cout<<"Oops, Game Over!!!";
+    SetPos(33,5);
+    cout<<"Your score: " << g_score;
 
     Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_W,sizeof(STAR_CHA_W)):memcpy(icon,STAR_JPN_W,sizeof(STAR_JPN_W));
     drawFrame(20,7,60,18,icon,icon);
