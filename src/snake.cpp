@@ -6,6 +6,7 @@
 #include "snake.h"
 
 char g_Local_Language[10];
+int  g_difficulty=0;
 int  g_score=0;
 int  g_mode=MEDIUM;
 int  g_status=PLAYING;
@@ -15,9 +16,11 @@ int  Food::y=0;
 
 int main()
 {
+    Initialize();
+    g_difficulty=ChooseMode();
     do
     {
-        Initialize();
+        drawGame();
         Playing();
     }
     while(replay()==true);
@@ -28,8 +31,22 @@ int main()
 void Playing()
 {
     int  counter=0;
+    int  GameSpeed=GAME_SPEED;
     char direction=0;
     char gotten=0;
+
+    switch(g_difficulty)
+    {
+        case HARD:
+            GameSpeed=50;
+            break;
+        case MEDIUM:
+            GameSpeed=125;
+            break;
+        case EASY:
+            GameSpeed=200;
+            break;
+    }
 
     Snake *snake = new Snake(); // new one snake
     Food  *food = new Food(snake);  //new a food
@@ -51,7 +68,7 @@ void Playing()
                 direction=gotten;
             }
         }
-        if(counter>=GAME_SPEED) //each 100 times, judge move
+        if(counter>=GameSpeed) //each 100 times, judge move
         {
             counter=1; //reset counter
 
@@ -63,7 +80,7 @@ void Playing()
                 snake->eat(food); //^_^
 				food = new Food(snake); //after eat, generate a new food
 
-                g_score+=HARD;
+                g_score+=g_difficulty;
                 g_eaten+=1;
                 PrintInfo(INFO_UPDT, PLAYING);
             }

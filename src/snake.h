@@ -74,6 +74,7 @@ const unsigned char STAR_JPN_B[]={0x81,0x9a,0}; //★
 const unsigned char STAR_JPN_W[]={0x81,0x96,0}; //※
 
 extern char g_Local_Language[10];
+extern int  g_difficulty;
 extern int  g_score;
 extern int  g_mode;
 extern int  g_status;
@@ -155,5 +156,6 @@ bool isSameLine(int direciton1st, int direction2nd);
 bool isDirection(int input);
 bool replay();
 int ChooseMode();
+void drawGame();
 
 #endif //_SNAKE_H_

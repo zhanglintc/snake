@@ -116,20 +116,23 @@ COORD random(COORD leftup, COORD rightdown)
 
 void Initialize()
 {
-	char icon[10]={};
-
     system("cls");
     system("color 0f");
-	HideCursor();
+    HideCursor();
     getLocalLanguage();
 
     if(Equal(g_Local_Language,"CHS")==false && Equal(g_Local_Language,"JPN")==false)NotSupport();
     srand((unsigned)time(NULL));        //Random number seed initial
+}
 
+void drawGame()
+{
+    char icon[10]={};
+    system("cls");
     Equal(g_Local_Language,"CHS")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
     drawFrame(LEFT, TOP, RIGHT, BOTTOM, icon, icon);  //outside frame
 
-	Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_W,sizeof(STAR_CHA_W)):memcpy(icon,STAR_JPN_W,sizeof(STAR_JPN_W));
+    Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_W,sizeof(STAR_CHA_W)):memcpy(icon,STAR_JPN_W,sizeof(STAR_JPN_W));
     drawFrame(RIGHT+2, TOP, 78, BOTTOM, icon, icon);  //dashboard frame
 
     PrintInfo(INFO_INIT,PLAYING);
@@ -140,7 +143,18 @@ void PrintInfo(char identifier, char stat)
     if(isINIT(identifier))
     {
         SetPos(65,3);
-        cout<<"Mode: Hard";
+        switch(g_difficulty)
+        {
+            case HARD:
+                cout<<"Mode: Hard";
+                break;
+            case MEDIUM:
+                cout<<"Mode: Normal";
+                break;
+            case EASY:
+                cout<<"Mode: Easy";
+                break;
+        }
     }
     if(isINIT(identifier) || isUPDT(identifier))
     {
