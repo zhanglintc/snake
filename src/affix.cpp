@@ -117,7 +117,7 @@ COORD random(COORD leftup, COORD rightdown)
 void Initialize()
 {
     system("cls");
-    system("color 0f");
+    system("color 3e");
     HideCursor();
     getLocalLanguage();
 
