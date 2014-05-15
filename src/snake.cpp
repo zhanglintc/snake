@@ -62,6 +62,7 @@ void Playing()
         {
             gotten=_getch(); //get direction(and maybe not direction input)
 
+            if(gotten==-32)continue;
             if(gotten==CTRL_SPACE)Pause();
 			if(gotten==CTRL_ESC)exit(0);
 
