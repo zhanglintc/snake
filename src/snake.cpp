@@ -32,10 +32,12 @@ int main()
 
 void Playing()
 {
-    int  counter=0;
-    int  GameSpeed=GAME_SPEED;
-    char direction=0;
-    char gotten=0;
+    int  counter=0;             //counter, if this counts appointed times, snake will change direction(if necessary)
+    int  GameSpeed=GAME_SPEED;  //game speed
+    char direction=0;           //direction the snake will wriggle
+    char gotten=0;              //the input from keyboard
+    char cache1st=0;            //store the next direction
+    char cache2nd=0;            //store the one after next direction(when necessary)
 
     switch(g_difficulty)
     {
@@ -66,14 +68,25 @@ void Playing()
             if(gotten==CTRL_SPACE)Pause();
 			if(gotten==CTRL_ESC)exit(0);
 
+            //when cache1st contains data(which means direction) && gotten is not in the same line with cache1st
+            if(isDirection(cache1st)==true && isSameLine(gotten,cache1st)==false)
+            {
+                cache2nd=gotten; //store gotten in cache2nd
+            }
+
+            //when gotten is direction && gotten is not in the same line with snake's direction 
             if(isDirection(gotten)==true && isSameLine(gotten,snake->getdirection())==false)
-            { //if gotten is direction   &&   is not in the same line
-                direction=gotten;
+            {
+                cache1st=gotten; //store gotten in cache1st
             }
         }
-        if(counter>=GameSpeed) //each 100 times, judge move
+        if(counter>=GameSpeed) //each GameSpeed times, judge move
         {
             counter=1; //reset counter
+
+            //cache2nd -> cache1st -> direction -> snake->move(direction)
+            direction=cache1st; //assembly line work
+            cache1st=cache2nd;  //assembly line work
 
             snake->move(direction); //snake wriggling
 
