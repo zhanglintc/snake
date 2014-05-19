@@ -60,6 +60,10 @@ void Playing()
         Sleep(SLEEP_TIME); //game speed
         counter++;
 
+        //debug print
+        SetPos(74,23);
+        cout<<counter;
+
         if(_kbhit())
         {
             gotten=_getch(); //get direction(and maybe not direction input)
