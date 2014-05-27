@@ -54,7 +54,7 @@ void Playing()
             GameSpeed=50;
             break;
         case MEDIUM:
-            GameSpeed=125;
+            GameSpeed=100;
             break;
         case EASY:
             GameSpeed=200;
@@ -139,7 +139,7 @@ void Pause()
 {
     PrintInfo(INFO_STAT,PAUSING);
     char c=_getch();
-    while(c!=CTRL_SPACE)c=_getch();
+    while(c!=CTRL_SPACE && c!=CTRL_ENTER)c=_getch();
     PrintInfo(INFO_STAT,PLAYING);
 }
 

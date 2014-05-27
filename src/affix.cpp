@@ -213,7 +213,9 @@ int ChooseMode()
     char gotten=0;
 
     drawFrame(20,7,60,19,(char *)g_const_star_w,(char *)g_const_star_w);
-
+    
+    SetPos(32,5);
+    cout<<"   Mode Select";
     SetPos(32,10);
     cout<<"Hard mode, fastest";
     SetPos(32,13);
