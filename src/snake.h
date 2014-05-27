@@ -74,7 +74,7 @@ const unsigned char RECT_JPN_W[]={0x81,0xa0,0}; //□
 const unsigned char STAR_JPN_B[]={0x81,0x9a,0}; //★
 const unsigned char STAR_JPN_W[]={0x81,0x96,0}; //※
 
-extern char g_Local_Language[10];
+extern char g_Local_Language[];
 extern int  g_difficulty;
 extern int  g_score;
 extern int  g_mode;
