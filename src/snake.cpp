@@ -5,12 +5,21 @@
 
 #include "snake.h"
 
-char g_Local_Language[10];
-int  g_difficulty=0;
-int  g_score=0;
-int  g_mode=MEDIUM;
-int  g_status=PLAYING;
-int  g_eaten=0;
+//these are assigned in Initialize()
+uchar const *g_const_circ_b;    //global ●
+uchar const *g_const_rect_b;    //global ■
+uchar const *g_const_rect_w;    //global □
+uchar const *g_const_star_b;    //global ★
+uchar const *g_const_star_w;    //global ※
+
+char g_Local_Language[10];      //global language info
+int  g_difficulty=0;            //global difficulty
+int  g_score=0;                 //global score
+int  g_mode=MEDIUM;             //global mode
+int  g_status=PLAYING;          //global status
+int  g_eaten=0;                 //global eaten
+
+//food info (plan to make it local)
 int  Food::x=0;
 int  Food::y=0;
 
@@ -170,9 +179,6 @@ Snake::Snake()
 
 void Snake::move(int direction)
 {
-    char head[10]={};
-    char body[10]={};
-
     //if input is direction keys
     if(isDirection(direction)==true)
     {
@@ -216,10 +222,8 @@ void Snake::move(int direction)
     }
     //end of wriggling
     
-    Equal(g_Local_Language,"CHS")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
-    Equal(g_Local_Language,"CHS")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
-    drawOne(node[0].x, node[0].y, head);
-    drawOne(node[1].x, node[1].y, body);
+    drawOne(node[0].x, node[0].y, (char *)g_const_circ_b);
+    drawOne(node[1].x, node[1].y, (char *)g_const_rect_b);
 }
 
 void Snake::judge()
@@ -244,7 +248,6 @@ void Snake::clear()
 
 Food::Food(Snake *snake)
 {
-    char icon[10]={};
     /* get food(x, y) */
     x=random(LEFT+2,RIGHT-2); 
     while(x%2!=0)x=random(LEFT+2,RIGHT-2); //adjust x to even number
@@ -258,25 +261,20 @@ Food::Food(Snake *snake)
 			return; //return to avoid showing it
         }
     }
-    Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_B,sizeof(STAR_CHA_B)):memcpy(icon,STAR_JPN_B,sizeof(STAR_JPN_B));
-    drawOne(x,y,icon); //show this food
+    drawOne(x,y,(char *)g_const_star_b); //show this food
 }
 
 void Snake::draw()
 {
-    char head[10]={};
-    char body[10]={};
     for(int i=0;i<length; i++)
     {
-        Equal(g_Local_Language,"CHS")?memcpy(head,CIRC_CHA_B,sizeof(CIRC_CHA_B)):memcpy(head,CIRC_JPN_B,sizeof(CIRC_JPN_B));
-        Equal(g_Local_Language,"CHS")?memcpy(body,RECT_CHA_B,sizeof(RECT_CHA_B)):memcpy(body,RECT_JPN_B,sizeof(RECT_JPN_B));
         if(i==0)
         {
-			drawOne(node[i].x, node[i].y, head);
+			drawOne(node[i].x, node[i].y, (char *)g_const_circ_b);
         }
         else
         {
-            drawOne(node[i].x, node[i].y, body);
+            drawOne(node[i].x, node[i].y, (char *)g_const_rect_b);
         }
     }
 }

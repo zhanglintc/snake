@@ -18,6 +18,8 @@
 using namespace std;
 
 //define
+#define uchar unsigned char
+
 #define GAME_SPEED		50
 #define SLEEP_TIME		1	//12
 #define PLAYING			1
@@ -65,7 +67,6 @@ const unsigned char RECT_CHA_B[]={0xa1,0xf6,0}; //■
 const unsigned char RECT_CHA_W[]={0xa1,0xf5,0}; //□
 const unsigned char STAR_CHA_B[]={0xa1,0xef,0}; //★
 const unsigned char STAR_CHA_W[]={0xa3,0xaa,0}; //※
-const unsigned char _RECT[]={0xa1,0xf3,0}; //◇
 
 const unsigned char CIRC_JPN_B[]={0x81,0x9c,0}; //●
 const unsigned char RECT_JPN_B[]={0x81,0xa1,0}; //■
@@ -79,6 +80,12 @@ extern int  g_score;
 extern int  g_mode;
 extern int  g_status;
 extern int  g_eaten;
+
+extern const uchar *g_const_circ_b;
+extern const uchar *g_const_rect_b;
+extern const uchar *g_const_rect_w;
+extern const uchar *g_const_star_b;
+extern const uchar *g_const_star_w;
 
 //typedef
 typedef struct Frame

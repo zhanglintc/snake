@@ -118,27 +118,44 @@ void Initialize()
 {
     system("cls");
     system("color 3e");
-    HideCursor();
-    getLocalLanguage();
 
-    if(Equal(g_Local_Language,"CHS")==false && Equal(g_Local_Language,"JPN")==false)NotSupport();
+    HideCursor();       //hide cursor
+    getLocalLanguage(); //get local language infomation
+
+    //initialize icons
+    if(Equal(g_Local_Language,"CHS")==false && Equal(g_Local_Language,"JPN")==false)
+    {
+        NotSupport();   //if not supported, stop in NotSupport() function
+    }
+    else if(Equal(g_Local_Language,"CHS")==true)
+    {
+        g_const_circ_b = CIRC_CHA_B;
+        g_const_rect_b = RECT_CHA_B;
+        g_const_rect_w = RECT_CHA_W;
+        g_const_star_b = STAR_CHA_B;
+        g_const_star_w = STAR_CHA_W;
+    }
+    else if(Equal(g_Local_Language,"JPN")==true)
+    {
+        g_const_circ_b = CIRC_JPN_B;
+        g_const_rect_b = RECT_JPN_B;
+        g_const_rect_w = RECT_JPN_W;
+        g_const_star_b = STAR_JPN_B;
+        g_const_star_w = STAR_JPN_W;
+    }
+
     srand((unsigned)time(NULL));        //Random number seed initial
 }
 
 void drawGame()
 {
-    char icon[10]={};
-
     g_score=0;
     g_eaten=0;
 
     system("cls");
 
-    Equal(g_Local_Language,"CHS")?memcpy(icon,RECT_CHA_W,sizeof(RECT_CHA_W)):memcpy(icon,RECT_JPN_W,sizeof(RECT_JPN_W));
-    drawFrame(LEFT, TOP, RIGHT, BOTTOM, icon, icon);  //outside frame
-
-    Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_W,sizeof(STAR_CHA_W)):memcpy(icon,STAR_JPN_W,sizeof(STAR_JPN_W));
-    drawFrame(RIGHT+2, TOP, 78, BOTTOM, icon, icon);  //dashboard frame
+    drawFrame(LEFT, TOP, RIGHT, BOTTOM, (char *)g_const_rect_w, (char *)g_const_rect_w);  //outside frame
+    drawFrame(RIGHT+2, TOP, 78, BOTTOM, (char *)g_const_star_w, (char *)g_const_star_w);  //dashboard frame
 
     PrintInfo(INFO_INIT,PLAYING);
 }
@@ -192,12 +209,10 @@ void PrintInfo(char identifier, char stat)
 
 int ChooseMode()
 {
-    char icon[10]={};
     char cursor=0;
     char gotten=0;
 
-    Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_W,sizeof(STAR_CHA_W)):memcpy(icon,STAR_JPN_W,sizeof(STAR_JPN_W));
-    drawFrame(20,7,60,19,icon,icon);
+    drawFrame(20,7,60,19,(char *)g_const_star_w,(char *)g_const_star_w);
 
     SetPos(32,10);
     cout<<"Hard mode, fastest";
@@ -301,7 +316,6 @@ int ChooseMode()
 
 bool replay()
 {
-    char icon[10]={};
     char cursor=0;
     char gotten=0;
 
@@ -312,8 +326,7 @@ bool replay()
     SetPos(33,5);
     cout<<"Your score: " << g_score;
 
-    Equal(g_Local_Language,"CHS")?memcpy(icon,STAR_CHA_W,sizeof(STAR_CHA_W)):memcpy(icon,STAR_JPN_W,sizeof(STAR_JPN_W));
-    drawFrame(20,7,60,18,icon,icon);
+    drawFrame(20,7,60,18,(char *)g_const_star_w,(char *)g_const_star_w);
 
     SetPos(32,10);
     cout<<"Just one more time?";
