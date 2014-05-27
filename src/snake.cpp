@@ -77,7 +77,7 @@ void Playing()
             gotten=_getch(); //get direction(and maybe not direction input)
 
             if(gotten==-32)continue;
-            if(gotten==CTRL_SPACE)Pause();
+            if(gotten==CTRL_SPACE || gotten==CTRL_ENTER)Pause();
 			if(gotten==CTRL_ESC)exit(0);
 
             //when cache1st contains data(which means direction) && gotten is not in the same line with cache1st
