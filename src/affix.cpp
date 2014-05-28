@@ -1,5 +1,5 @@
 ﻿/*
-    Some frequency use function here.
+Some frequency use function here.   http://zhanglintc.co
 (C) COPYRIGHT 2014-5-6 zhanglin. Nothing reserved.
 */
 

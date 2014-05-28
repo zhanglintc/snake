@@ -1,5 +1,5 @@
 ﻿/*
-    All the defines and declares.
+All the defines and declares.	http://zhanglintc.co
 (C) COPYRIGHT 2014-5-6 zhanglin.Nothing reserved.
 */
 

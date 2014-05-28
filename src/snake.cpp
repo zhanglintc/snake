@@ -1,6 +1,7 @@
 ﻿/*
-    Main process here.
+Main process here.  http://zhanglintc.co
 (C) COPYRIGHT 2014-5-6 zhanglin. Nothing reserved.
+
 */
 
 #include "snake.h"
