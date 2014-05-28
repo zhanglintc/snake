@@ -47,16 +47,31 @@ using namespace std;
 #define INFO_UPDT		0x02 //0000 0010
 #define INFO_STAT		0x01 //0000 0001
 
+/****************************************
+	3		2		1		0
+	|		|		|		|
+  mode    score   length  status
+*****************************************/
 #define GetModeStatus(x)		x>>3 & 1
 #define GetScoreStatus(x)		x>>2 & 1
 #define GetLenStatus(x)			x>>1 & 1
 #define GetStatusStatus(x)		x>>0 & 1
 
+/****************************************
+	3		2		1		0
+	|		|		|		|
+  mode    score   length  status
+*****************************************/
 #define SetModeStatus(x)		x|=1<<3
 #define SetScoreStatus(x)		x|=1<<2
 #define SetLenStatus(x)			x|=1<<1
 #define SetStatusStatus(x)		x|=1<<0
 
+/****************************************
+	2		1		0
+	|		|		|
+   init   update  status
+*****************************************/
 #define isINIT(x)				x>>2 & 1
 #define isUPDT(x)				x>>1 & 1
 #define isSTAT(x)				x>>0 & 1
