@@ -252,8 +252,8 @@ void Snake::move(int direction)
     }
     //end of wriggling
     
-    drawOne(node[0].x, node[0].y, (char *)g_const_circ_b);
-    drawOne(node[1].x, node[1].y, (char *)g_const_rect_b);
+    drawOne(node[0].x, node[0].y, (char *)g_const_circ_b); //head
+    drawOne(node[1].x, node[1].y, (char *)g_const_rect_b); //body
 }
 
 /*******************************************************
@@ -329,11 +329,11 @@ void Snake::draw()
     {
         if(i==0)
         {
-			drawOne(node[i].x, node[i].y, (char *)g_const_circ_b);
+			drawOne(node[i].x, node[i].y, (char *)g_const_circ_b); //head
         }
         else
         {
-            drawOne(node[i].x, node[i].y, (char *)g_const_rect_b);
+            drawOne(node[i].x, node[i].y, (char *)g_const_rect_b); //body
         }
     }
 }
