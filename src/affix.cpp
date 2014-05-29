@@ -322,7 +322,7 @@ int ChooseMode()
                         SetPos(29,13);
                         cout<<">>";
                         SetPos(29,16);
-                        cout<<"  ";
+                        cout<<(char *)ICON_NULL;
                     }
                     else if(cursor==13)
                     {
@@ -330,7 +330,7 @@ int ChooseMode()
                         SetPos(29,10);
                         cout<<">>";
                         SetPos(29,13);
-                        cout<<"  ";
+                        cout<<(char *)ICON_NULL;
                     }
                     break;
                 }
@@ -340,7 +340,7 @@ int ChooseMode()
                     {
                         cursor=13;
                         SetPos(29,10);
-                        cout<<"  ";
+                        cout<<(char *)ICON_NULL;
                         SetPos(29,13);
                         cout<<">>";
                     }
@@ -348,7 +348,7 @@ int ChooseMode()
                     {
                         cursor=16;
                         SetPos(29,13);
-                        cout<<"  ";
+                        cout<<(char *)ICON_NULL;
                         SetPos(29,16);
                         cout<<">>";
                     }
@@ -439,7 +439,7 @@ bool replay()
                         SetPos(29,10);
                         cout<<">>";
                         SetPos(29,15);
-                        cout<<"  ";
+                        cout<<(char *)ICON_NULL;
                     }
                     break;
                 }
@@ -449,7 +449,7 @@ bool replay()
                     {
                         cursor=15;
                         SetPos(29,10);
-                        cout<<"  ";
+                        cout<<(char *)ICON_NULL;
                         SetPos(29,15);
                         cout<<">>";
                     }

@@ -77,17 +77,19 @@ using namespace std;
 #define isSTAT(x)				x>>0 & 1
 
 //const
-const unsigned char CIRC_CHA_B[]={0xa1,0xf1,0}; //●
-const unsigned char RECT_CHA_B[]={0xa1,0xf6,0}; //■
-const unsigned char RECT_CHA_W[]={0xa1,0xf5,0}; //□
-const unsigned char STAR_CHA_B[]={0xa1,0xef,0}; //★
-const unsigned char STAR_CHA_W[]={0xa3,0xaa,0}; //※
+const uchar ICON_NULL[]={"  "}; 		//nothing here, means clean one place
 
-const unsigned char CIRC_JPN_B[]={0x81,0x9c,0}; //●
-const unsigned char RECT_JPN_B[]={0x81,0xa1,0}; //■
-const unsigned char RECT_JPN_W[]={0x81,0xa0,0}; //□
-const unsigned char STAR_JPN_B[]={0x81,0x9a,0}; //★
-const unsigned char STAR_JPN_W[]={0x81,0x96,0}; //※
+const uchar CIRC_CHA_B[]={0xa1,0xf1,0}; //●
+const uchar RECT_CHA_B[]={0xa1,0xf6,0}; //■
+const uchar RECT_CHA_W[]={0xa1,0xf5,0}; //□
+const uchar STAR_CHA_B[]={0xa1,0xef,0}; //★
+const uchar STAR_CHA_W[]={0xa3,0xaa,0}; //※
+
+const uchar CIRC_JPN_B[]={0x81,0x9c,0}; //●
+const uchar RECT_JPN_B[]={0x81,0xa1,0}; //■
+const uchar RECT_JPN_W[]={0x81,0xa0,0}; //□
+const uchar STAR_JPN_B[]={0x81,0x9a,0}; //★
+const uchar STAR_JPN_W[]={0x81,0x96,0}; //※
 
 extern char g_Local_Language[];
 extern int  g_difficulty;

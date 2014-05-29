@@ -230,7 +230,7 @@ void Snake::move(int direction)
             {
                 continue; //if last and last-1 is the same, do not clean
             }
-            drawOne(node[i].x, node[i].y, "  "); //clean last node
+            drawOne(node[i].x, node[i].y, (char *)ICON_NULL); //clean last node
         }
         node[i]=node[i-1]; //wriggle forward
     }
@@ -287,7 +287,7 @@ void Snake::clear()
 {
     for(int i=0;i<length; i++)
     {
-        drawOne(node[i].x, node[i].y, "  ");
+        drawOne(node[i].x, node[i].y, (char *)ICON_NULL);
     }
 }
 
