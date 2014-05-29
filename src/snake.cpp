@@ -24,6 +24,11 @@ int  g_eaten=0;                 //global eaten
 int  Food::x=0;
 int  Food::y=0;
 
+/*******************************************************
+Function: entrance
+Argument: none
+Return  : int
+*******************************************************/
 int main()
 {
     Initialize();
@@ -40,6 +45,11 @@ int main()
     return 0;
 }
 
+/*******************************************************
+Function: food, snake, control, move
+Argument: none
+Return  : void
+*******************************************************/
 void Playing()
 {
     int  counter=0;             //counter, if this counts appointed times, snake will change direction(if necessary)
@@ -136,6 +146,11 @@ void Playing()
     free(snake);
 }
 
+/*******************************************************
+Function: pause the game
+Argument: none
+Return  : void
+*******************************************************/
 void Pause()
 {
     PrintInfo(INFO_STAT,PAUSING);
@@ -144,6 +159,11 @@ void Pause()
     PrintInfo(INFO_STAT,PLAYING);
 }
 
+/*******************************************************
+Function: game over screen(unused)
+Argument: none
+Return  : void
+*******************************************************/
 void GameOver()
 {
     system("cls");
@@ -153,6 +173,11 @@ void GameOver()
     getchar();
 }
 
+/*******************************************************
+Function: constructor of snake, new a three node length snake
+Argument: none
+Return  : none
+*******************************************************/
 Snake::Snake()
 {
     life      = true;       //alive
@@ -177,13 +202,18 @@ Snake::Snake()
     draw(); //show this snake
 }
 
+/*******************************************************
+Function: move and show a snake
+Argument: int
+Return  : void
+*******************************************************/
 void Snake::move(int direction)
 {
     //if input is direction keys
     if(isDirection(direction)==true)
     {
         // not same direction      &&    not converse direction, cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152, too
-        //if(this->direction!=direction && (this->direction+direction)!=152)
+        //if(this->direction != direction && (this->direction + direction) != 152)
         if(isSameLine(this->direction,direction)==false)
         {
             this->direction=direction; //set direction
@@ -226,18 +256,33 @@ void Snake::move(int direction)
     drawOne(node[1].x, node[1].y, (char *)g_const_rect_b);
 }
 
+/*******************************************************
+Function: 
+Argument: 
+Return  : 
+*******************************************************/
 void Snake::judge()
 {
     
 }
 
+/*******************************************************
+Function: snake eat a food
+Argument: Food
+Return  : void
+*******************************************************/
 void Snake::eat(Food *food)
 {
-    length += 1;
-    node[length-1]=node[length-2];
-    free(food); //after eat, this food will disappear
+    length += 1;                    //become longer
+    node[length-1]=node[length-2];  //set the new node in the same place of last one
+    free(food);                     //after eat, this food will disappear
 }
 
+/*******************************************************
+Function: undisplay a snake
+Argument: none
+Return  : void
+*******************************************************/
 void Snake::clear()
 {
     for(int i=0;i<length; i++)
@@ -246,6 +291,15 @@ void Snake::clear()
     }
 }
 
+/*******************************************************
+Function: 
+    new a food, this function need a argument Snake 
+    to determine which place could be used
+Argument: 
+    Snake
+Return: 
+    none
+*******************************************************/
 Food::Food(Snake *snake)
 {
     /* get food(x, y) */
@@ -264,6 +318,11 @@ Food::Food(Snake *snake)
     drawOne(x,y,(char *)g_const_star_b); //show this food
 }
 
+/*******************************************************
+Function: show a snake
+Argument: none
+Return  : void
+*******************************************************/
 void Snake::draw()
 {
     for(int i=0;i<length; i++)
@@ -279,36 +338,71 @@ void Snake::draw()
     }
 }
 
+/*******************************************************
+Function: set snake's length
+Argument: int
+Return  : void
+*******************************************************/
 void Snake::setsnakelength(int length)
 {
 	this->length = length;
 }
 
+/*******************************************************
+Function: get snake's length
+Argument: none
+Return  : int
+*******************************************************/
 int Snake::getsnakelength()
 {
     return this->length;
 }
 
+/*******************************************************
+Function: set snake's life
+Argument: bool
+Return  : void
+*******************************************************/
 void Snake::setlife(bool life)
 {
     this->life = life;
 }
 
+/*******************************************************
+Function: get snake's life
+Argument: none
+Return  : bool
+*******************************************************/
 bool Snake::getlife()
 {
     return this->life;
 }
 
+/*******************************************************
+Function: set snake's direction
+Argument: int
+Return  : void
+*******************************************************/
 void Snake::setdirection(int direction)
 {
     this->direction = direction;
 }
 
+/*******************************************************
+Function: get snake's direction
+Argument: none
+Return  : int
+*******************************************************/
 int Snake::getdirection()
 {
     return this->direction;
 }
 
+/*******************************************************
+Function: get snake's node info(unused)
+Argument: none
+Return  : Node
+*******************************************************/
 Node *Snake::getnode()
 {
     return this->node;

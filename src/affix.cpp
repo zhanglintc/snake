@@ -5,32 +5,55 @@ Some frequency use function here.   http://zhanglintc.co
 
 #include "snake.h"
 
-
+/*******************************************************
+Function: display a single icon
+Argument: int, int, char[]
+Return  : void
+*******************************************************/
 void drawOne(int x, int y, char ch[])
 {
     SetPos(x, y);
     cout<<ch;
 }
 
+/*******************************************************
+Function: set cursor's position
+Argument: COORD
+Return  : void
+*******************************************************/
 void SetPos(COORD position)// set cursor 
 {
     HANDLE out=GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleCursorPosition(out, position);
 }
 
+/*******************************************************
+Function: set cursor's position
+Argument: int, int
+Return  : void
+*******************************************************/
 void SetPos(int x, int y)// set cursor
 {
     COORD position={x, y};
     SetPos(position);
 }
 
+/*******************************************************
+Function: hide console's cursor
+Argument: none
+Return  : void
+*******************************************************/
 void HideCursor() // hide cursor
 {
     CONSOLE_CURSOR_INFO cursor_info = {1, 0}; 
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
 
-//set y, [x1, x2) as ch
+/*******************************************************
+Function: set y, [x1, x2) as ch
+Argument: int, int, int, char[]
+Return  : void
+*******************************************************/
 void drawRow(int y, int x1, int x2, char ch[]) //zhanglin
 {
     SetPos(x1,y);
@@ -38,7 +61,11 @@ void drawRow(int y, int x1, int x2, char ch[]) //zhanglin
         cout<<ch;
 }
 
-//when left, right y equal, set [left, right] as ch
+/*******************************************************
+Function: when left, right y equal, set [left, right] as ch
+Argument: COORD, COORD, char[]
+Return  : void
+*******************************************************/
 void drawRow(COORD left, COORD right, char ch[]) //zhanglin
 {
     if(left.Y == right.Y)
@@ -51,7 +78,11 @@ void drawRow(COORD left, COORD right, char ch[]) //zhanglin
     }
 }
 
-//set x, [y1, y2] as ch
+/*******************************************************
+Function: set x, [y1, y2] as ch
+Argument: int, int, int, char[]
+Return  : void
+*******************************************************/
 void drawCol(int x, int y1, int y2, char ch[]) //zhanglin
 {
     int y=y1;
@@ -63,7 +94,11 @@ void drawCol(int x, int y1, int y2, char ch[]) //zhanglin
     }
 }
 
-//when left, right x equal, set [left, right] as ch
+/*******************************************************
+Function: when left, right x equal, set [left, right] as ch
+Argument: COORD, COORD, char[]
+Return  : void
+*******************************************************/
 void drawCol(COORD left, COORD right, char ch[]) //zhanglin
 {
     if(left.X == right.X)
@@ -76,7 +111,11 @@ void drawCol(COORD left, COORD right, char ch[]) //zhanglin
     }
 }
 
-//from lu to rd, set row using row, set col using col
+/*******************************************************
+Function: from left-up to right-down, set row using row, set col using col
+Argument: COORD, COORD, char[]
+Return  : void
+*******************************************************/
 void drawFrame(COORD leftup, COORD  rightdown, char row[], char col[])
 {
     drawRow(   leftup.Y, leftup.X, rightdown.X, row);       //first row
@@ -85,6 +124,11 @@ void drawFrame(COORD leftup, COORD  rightdown, char row[], char col[])
     drawCol(rightdown.X, leftup.Y, rightdown.Y, col);       //last col
 }
 
+/*******************************************************
+Function: draw a rectangle frame
+Argument: int, int, int, int, char[], char[]
+Return  : void
+*******************************************************/
 void drawFrame(int x1, int y1, int x2, int y2, char row[], char col[])
 {
     COORD leftup={x1, y1};
@@ -92,6 +136,11 @@ void drawFrame(int x1, int y1, int x2, int y2, char row[], char col[])
     drawFrame(leftup, rightdown, row, col);
 }
 
+/*******************************************************
+Function: draw a rectangle frame
+Argument: Frame, char[], char[]
+Return  : void
+*******************************************************/
 void drawFrame(Frame frame, char row[], char col[])
 {
     COORD leftup = frame.position[0];
@@ -99,6 +148,11 @@ void drawFrame(Frame frame, char row[], char col[])
     drawFrame(leftup, rightdown, row, col);
 }
 
+/*******************************************************
+Function: generate a random number
+Argument: int, int
+Return  : int
+*******************************************************/
 int random(int min, int max)
 {
     if(max<min)swap(&min,&max);
@@ -106,6 +160,11 @@ int random(int min, int max)
     else return(rand() % (min-max))+ min;
 }
 
+/*******************************************************
+Function: generate a random position
+Argument: COORD, COORD
+Return  : COORD
+*******************************************************/
 COORD random(COORD leftup, COORD rightdown)
 {
     int x=random(leftup.X, rightdown.X);
@@ -114,13 +173,18 @@ COORD random(COORD leftup, COORD rightdown)
     return c;
 }
 
+/*******************************************************
+Function: initialize, set color, hide cursor, get system language, copy icon data
+Argument: none
+Return  : void
+*******************************************************/
 void Initialize()
 {
     system("cls");
     system("color 3e");
 
     HideCursor();       //hide cursor
-    getLocalLanguage(); //get local language infomation
+    getLocalLanguage(); //get local language information
 
     //initialize icons
     if(Equal(g_Local_Language,"CHS")==false && Equal(g_Local_Language,"JPN")==false)
@@ -147,6 +211,11 @@ void Initialize()
     srand((unsigned)time(NULL));        //Random number seed initial
 }
 
+/*******************************************************
+Function: draw the game frame and relevant informations
+Argument: none
+Return  : void
+*******************************************************/
 void drawGame()
 {
     g_score=0;
@@ -160,6 +229,11 @@ void drawGame()
     PrintInfo(INFO_INIT,PLAYING);
 }
 
+/*******************************************************
+Function: print the informations in the right place(this comment need to be perfected)
+Argument: char, char
+Return  : void
+*******************************************************/
 void PrintInfo(char identifier, char stat)
 {
     if(isINIT(identifier))
@@ -207,6 +281,11 @@ void PrintInfo(char identifier, char stat)
     }
 }
 
+/*******************************************************
+Function: display mode choose screen and return the mode info
+Argument: none
+Return  : int
+*******************************************************/
 int ChooseMode()
 {
     char cursor=0;
@@ -316,6 +395,11 @@ int ChooseMode()
     }
 }
 
+/*******************************************************
+Function: don't you wanna play one more time?
+Argument: none
+Return  : bool
+*******************************************************/
 bool replay()
 {
     char cursor=0;
@@ -391,6 +475,11 @@ bool replay()
     }
 }
 
+/*******************************************************
+Function: read the registry info and get the system language info, set the info to a global variable
+Argument: none
+Return  : void
+*******************************************************/
 void getLocalLanguage()
 {
     FILE *fp;
@@ -405,6 +494,11 @@ void getLocalLanguage()
     memcpy(g_Local_Language,language,sizeof(language));
 }
 
+/*******************************************************
+Function: swap two numbers
+Argument: int, int
+Return  : void
+*******************************************************/
 void swap(int *a, int *b)
 {
     int m;
@@ -413,12 +507,22 @@ void swap(int *a, int *b)
     *b = m;
 }
 
+/*******************************************************
+Function: compare two strings, true for equal, false for not equal
+Argument: char[], char[]
+Return  : bool
+*******************************************************/
 bool Equal(char command_in[], char command_require[])
 {
     if(strcmp(command_in,command_require)==0)return true;
     return false;
 }
 
+/*******************************************************
+Function: show system language not supported screen and exit
+Argument: none
+Return  : void
+*******************************************************/
 void NotSupport()
 {
     system("cls");
@@ -429,6 +533,11 @@ void NotSupport()
     exit(0);
 }
 
+/*******************************************************
+Function: judge the two directions is in same line or not
+Argument: int, int
+Return  : bool
+*******************************************************/
 bool isSameLine(int direciton1st, int direction2nd)
 {
     if(direciton1st==direction2nd || direciton1st+direction2nd==152)
@@ -438,6 +547,11 @@ bool isSameLine(int direciton1st, int direction2nd)
     return false;
 }
 
+/*******************************************************
+Function: judge the input is one of the valid directions or not
+Argument: int
+Return  : bool
+*******************************************************/
 bool isDirection(int input)
 {
     if((input==CTRL_UP || input==CTRL_DOWN || input==CTRL_RIGHT || input==CTRL_LEFT))
