@@ -209,6 +209,7 @@ void Initialize()
     }
 
     srand((unsigned)time(NULL));        //Random number seed initial
+    read_record(); //debug
 }
 
 /*******************************************************
@@ -559,4 +560,31 @@ bool isDirection(int input)
         return true;
     }
     return false;
+}
+
+void read_record()
+{
+    FILE *fr;
+    char *name[10];
+    int  score[10];
+    int  i=0;
+
+    fr=fopen("snake_record.log","r");
+    if(fr==NULL)
+    {
+        fr=fopen("snake_record.log","w");
+    }
+    fclose(fr);
+    
+    fr=fopen("snake_record.log","r");
+    fscanf(fr,"%s %d", &name[i], &score[i]);
+    // while((i=fscanf(fr,"%s %d", &name[i], &score[i]))>0)
+    // {
+    //     ;
+    // }
+}
+
+void write_record()
+{
+    ;
 }

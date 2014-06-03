@@ -181,5 +181,7 @@ bool isDirection(int input);
 bool replay();
 int ChooseMode();
 void drawGame();
+void read_record();
+void write_record();
 
 #endif //_SNAKE_H_
