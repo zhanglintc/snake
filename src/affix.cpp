@@ -579,7 +579,9 @@ void read_record()
         fr=fopen("snake_record.log","w");
         for(i=0;i<9;i++)
         {
-            fprintf(fr,"%s %d\n", "anonymous", 0);
+            strcpy(g_rank[i].name, "anonymous");    //set new name
+            g_rank[i].score=g_score;                //set new score
+            write_record();                         //write it to log
         }
     }
     fclose(fr);
@@ -623,8 +625,8 @@ void show_rank()
 
     for(i=0;i<9;i++)
     {
-        SetPos(30,5+i);
-        cout<<"No."<<i+1<<": "<<g_rank[i].score<<"  "<<g_rank[i].name;
+        SetPos(26,5+i);
+        cout<<"No."<<i+1<<":\t"<<g_rank[i].name<<"\t"<<g_rank[i].score;
     }
     getchar();
 }

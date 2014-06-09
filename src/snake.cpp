@@ -14,7 +14,7 @@ uchar const *g_const_star_b;    //global ★
 uchar const *g_const_star_w;    //global ※
 
 //global variable declares
-Rank    g_rank[10];                //global rank info
+Rank    g_rank[9];                 //global rank info
 char    g_Local_Language[10];      //global language info
 int     g_difficulty=0;            //global difficulty
 int     g_score=0;                 //global score
