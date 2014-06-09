@@ -541,7 +541,7 @@ Return  : bool
 *******************************************************/
 bool isSameLine(int direciton1st, int direction2nd)
 {
-    if(direciton1st==direction2nd || direciton1st+direction2nd==152)
+    if(direciton1st==direction2nd || direciton1st+direction2nd==SAME_LINE)
     {
         return true;
     }
@@ -581,7 +581,7 @@ void read_record()
     fclose(fr);
     
     fr=fopen("snake_record.log","r");   //open the file
-    while(isEOF>0 && i<9)              //read all lines
+    while(isEOF>0 && i<9)               //read all lines
     {
         isEOF=fscanf(fr,"%s %d", &g_rank[i].name, &g_rank[i].score)>0;
         i++;
@@ -628,7 +628,7 @@ void highScoreCheck()
             //get player's name
             system("cls");
             SetPos(20,10);
-            cout<<"Congratulaions, new high score!";
+            cout<<"Congratulaions! New high score!!!";
             SetPos(20,11);
             cout<<"Enter your name: ";
             gets(name);

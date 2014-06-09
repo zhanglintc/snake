@@ -75,7 +75,7 @@ void Playing()
             break;
     }
 
-    Snake *snake = new Snake();     // new one snake
+    Snake *snake = new Snake();     //new one snake
     Food  *food = new Food(snake);  //new a food
 
     while(snake->getlife()) //while alive, process the sanke move, snake eat things. inportant block
@@ -215,8 +215,6 @@ void Snake::move(int direction)
     //if input is direction keys
     if(isDirection(direction)==true)
     {
-        // not same direction      &&    not converse direction, cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152, too
-        //if(this->direction != direction && (this->direction + direction) != 152)
         if(isSameLine(this->direction,direction)==false)
         {
             this->direction=direction; //set direction

@@ -20,8 +20,9 @@ using namespace std;
 //define
 #define uchar unsigned char
 
+#define SAME_LINE		152	//Cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152
 #define GAME_SPEED		50
-#define SLEEP_TIME		1	//12
+#define SLEEP_TIME		1	//obsoleted use: 12
 #define PLAYING			1
 #define PAUSING			0
 #define EASY			1
