@@ -91,6 +91,27 @@ const uchar RECT_JPN_W[]={0x81,0xa0,0}; //□
 const uchar STAR_JPN_B[]={0x81,0x9a,0}; //★
 const uchar STAR_JPN_W[]={0x81,0x96,0}; //※
 
+//typedef
+typedef struct Frame
+{
+	COORD position[2];
+	int flag;
+}Frame;
+
+typedef struct Node
+{
+	int x;
+	int y;
+}Node;
+
+typedef struct Rank
+{
+	char name[20];
+	int score;
+}Rank;
+
+//externs
+extern Rank g_rank[];
 extern char g_Local_Language[];
 extern int  g_difficulty;
 extern int  g_score;
@@ -104,18 +125,6 @@ extern const uchar *g_const_rect_w;
 extern const uchar *g_const_star_b;
 extern const uchar *g_const_star_w;
 
-//typedef
-typedef struct Frame
-{
-	COORD position[2];
-	int flag;
-}Frame;
-
-typedef struct Node
-{
-	int x;
-	int y;
-}Node;
 
 //class
 class Snake;

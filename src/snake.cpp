@@ -14,12 +14,13 @@ uchar const *g_const_star_b;    //global ★
 uchar const *g_const_star_w;    //global ※
 
 //global variable declares
-char g_Local_Language[10];      //global language info
-int  g_difficulty=0;            //global difficulty
-int  g_score=0;                 //global score
-int  g_mode=MEDIUM;             //global mode
-int  g_status=PLAYING;          //global status
-int  g_eaten=0;                 //global eaten
+Rank    g_rank[10];                //global rank info
+char    g_Local_Language[10];      //global language info
+int     g_difficulty=0;            //global difficulty
+int     g_score=0;                 //global score
+int     g_mode=MEDIUM;             //global mode
+int     g_status=PLAYING;          //global status
+int     g_eaten=0;                 //global eaten
 
 //food info (plan to make it local)
 int  Food::x=0;

@@ -564,27 +564,40 @@ bool isDirection(int input)
 
 void read_record()
 {
-    FILE *fr;
-    char *name[10];
-    int  score[10];
-    int  i=0;
+    FILE *fr;       //file pointer
+    int  i=0;       //index
+    int  isEOF=1;   //any number bigger than 0 is OK
 
-    fr=fopen("snake_record.log","r");
-    if(fr==NULL)
+    fr=fopen("snake_record.log","r");   //try to open the log
+    if(fr==NULL)                        //if not exist, new one
     {
         fr=fopen("snake_record.log","w");
+        //fprintf(fr,"%s %d", "anonymous", 0);
+        for(i=0;i<10;i++)
+        {
+            fprintf(fr,"%s %d\n", "anonymous", 0);
+        }
     }
     fclose(fr);
     
-    fr=fopen("snake_record.log","r");
-    fscanf(fr,"%s %d", &name[i], &score[i]);
-    // while((i=fscanf(fr,"%s %d", &name[i], &score[i]))>0)
-    // {
-    //     ;
-    // }
+    fr=fopen("snake_record.log","r");   //open the file
+    while(isEOF>0 && i<10)              //read all lines
+    {
+        isEOF=fscanf(fr,"%s %d", &g_rank[i].name, &g_rank[i].score)>0;
+        i++;
+    }
+    fclose(fr);
 }
 
 void write_record()
 {
-    ;
+    FILE *fw;
+	int i=0;
+
+    fw=fopen("snake_record.log","w");
+    for(i=0;i<10;i++)
+    {
+        fprintf(fw,"%s %d\n", g_rank[i].name, g_rank[i].score);
+    }
+    fclose(fw);
 }
