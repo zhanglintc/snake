@@ -192,5 +192,7 @@ int ChooseMode();
 void drawGame();
 void read_record();
 void write_record();
+void show_rank();
+void highScoreCheck();
 
 #endif //_SNAKE_H_

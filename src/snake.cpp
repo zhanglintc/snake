@@ -39,6 +39,7 @@ int main()
     {
         drawGame();
         Playing();
+        highScoreCheck();
     }
     while(replay()==true);
 

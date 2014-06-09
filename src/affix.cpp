@@ -573,7 +573,7 @@ void read_record()
     {
         fr=fopen("snake_record.log","w");
         //fprintf(fr,"%s %d", "anonymous", 0);
-        for(i=0;i<10;i++)
+        for(i=0;i<9;i++)
         {
             fprintf(fr,"%s %d\n", "anonymous", 0);
         }
@@ -581,7 +581,7 @@ void read_record()
     fclose(fr);
     
     fr=fopen("snake_record.log","r");   //open the file
-    while(isEOF>0 && i<10)              //read all lines
+    while(isEOF>0 && i<9)              //read all lines
     {
         isEOF=fscanf(fr,"%s %d", &g_rank[i].name, &g_rank[i].score)>0;
         i++;
@@ -595,9 +595,55 @@ void write_record()
 	int i=0;
 
     fw=fopen("snake_record.log","w");
-    for(i=0;i<10;i++)
+    for(i=0;i<9;i++)
     {
         fprintf(fw,"%s %d\n", g_rank[i].name, g_rank[i].score);
     }
     fclose(fw);
+}
+
+void show_rank()
+{
+    int i=0;
+    system("cls");
+
+    for(i=0;i<9;i++)
+    {
+        SetPos(30,5+i);
+        cout<<"No."<<i+1<<": "<<g_rank[i].score<<"  "<<g_rank[i].name;
+    }
+    getchar();
+}
+
+void highScoreCheck()
+{
+    int  i=0;
+    int  j=0;
+    char name[20];
+
+    for(i=0;i<9;i++)                    //from first to last
+    {
+        if(g_score>=g_rank[i].score)    //if is new high score
+        {
+            //get player's name
+            system("cls");
+            SetPos(20,10);
+            cout<<"Congratulaions, new high score!";
+            SetPos(20,11);
+            cout<<"Enter your name: ";
+            gets(name);
+
+            //all item one step backward
+            for(j=9;j>i;j--)
+            {
+                g_rank[j]=g_rank[j-1];
+            }
+
+            memcpy(g_rank[i].name, name, sizeof(name)); //set new name
+            g_rank[i].score=g_score;                    //set new score
+            write_record();                             //write it to log
+            show_rank();                                //show it
+            break;                                      //break
+        }
+    }
 }
