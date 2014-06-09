@@ -39,7 +39,7 @@ void SetPos(int x, int y)// set cursor
 }
 
 /*******************************************************
-Function: hide console's cursor
+Function: hide consoler's cursor
 Argument: none
 Return  : void
 *******************************************************/
@@ -180,8 +180,8 @@ Return  : void
 *******************************************************/
 void Initialize()
 {
-    system("cls");
-    system("color 3e");
+    system("cls");      //clean screen
+    system("color 3e"); //set color
 
     HideCursor();       //hide cursor
     getLocalLanguage(); //get local language information
@@ -647,7 +647,7 @@ void highScoreCheck()
             //get player's name
             system("cls");
             SetPos(20,10);
-            cout<<"Congratulaions! New high score!!!";
+            cout<<"Congratulations! New high score!!!";
             SetPos(20,11);
             cout<<"Enter your name: ";
             gets(name);

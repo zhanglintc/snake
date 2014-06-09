@@ -6,7 +6,7 @@ Main process here.  http://zhanglintc.co
 
 #include "snake.h"
 
-//these variables are assigned in funtction Initialize()
+//these variables are assigned in function Initialize()
 uchar const *g_const_circ_b;    //global ●
 uchar const *g_const_rect_b;    //global ■
 uchar const *g_const_rect_w;    //global □
@@ -78,7 +78,7 @@ void Playing()
     Snake *snake = new Snake();     //new one snake
     Food  *food = new Food(snake);  //new a food
 
-    while(snake->getlife()) //while alive, process the sanke move, snake eat things. inportant block
+    while(snake->getlife()) //while alive, process the snake move, snake eat things. important block
     {
         Sleep(SLEEP_TIME);  //game speed
         counter++;
