@@ -562,6 +562,11 @@ bool isDirection(int input)
     return false;
 }
 
+/*******************************************************
+Function: read record information from files(if no existing files, new one)
+Argument: none
+Return  : void
+*******************************************************/
 void read_record()
 {
     FILE *fr;       //file pointer
@@ -572,7 +577,6 @@ void read_record()
     if(fr==NULL)                        //if not exist, new one
     {
         fr=fopen("snake_record.log","w");
-        //fprintf(fr,"%s %d", "anonymous", 0);
         for(i=0;i<9;i++)
         {
             fprintf(fr,"%s %d\n", "anonymous", 0);
@@ -589,6 +593,11 @@ void read_record()
     fclose(fr);
 }
 
+/*******************************************************
+Function: write record information to files
+Argument: none
+Return  : void
+*******************************************************/
 void write_record()
 {
     FILE *fw;
@@ -602,6 +611,11 @@ void write_record()
     fclose(fw);
 }
 
+/*******************************************************
+Function: show rank information on the screen
+Argument: none
+Return  : void
+*******************************************************/
 void show_rank()
 {
     int i=0;
@@ -615,6 +629,11 @@ void show_rank()
     getchar();
 }
 
+/*******************************************************
+Function: check current score is new high score or not. if is high score, record it
+Argument: none
+Return  : void
+*******************************************************/
 void highScoreCheck()
 {
     int  i=0;
