@@ -655,7 +655,7 @@ void highScoreCheck()
             gets(name);
 
             //all item one step backward
-            for(j=9;j>i;j--)
+            for(j=8;j>i;j--)
             {
                 g_rank[j]=g_rank[j-1];
             }
