@@ -579,19 +579,19 @@ void read_record()
         fr=fopen("snake_record.log","w");
         for(i=0;i<9;i++)
         {
-            strcpy(g_rank[i].name, "anonymous");    //set new name
-            g_rank[i].score=g_score;                //set new score
-            write_record();                         //write it to log
+            fprintf(fr,"%s %d\n", "anonymous", 0);
         }
     }
+    i=0;
     fclose(fr);
     
     fr=fopen("snake_record.log","r");   //open the file
     while(isEOF>0 && i<9)               //read all lines
     {
-        isEOF=fscanf(fr,"%s %d", &g_rank[i].name, &g_rank[i].score)>0;
+        isEOF=fscanf(fr,"%s %d", &g_rank[i].name, &g_rank[i].score);
         i++;
     }
+    i=0;
     fclose(fr);
 }
 

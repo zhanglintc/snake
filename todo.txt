@@ -11,6 +11,12 @@ CHS  0xe2,0x97,0x8f,0   0xe2,0x96,0xa0,0    0xe2,0x96,0xa1,0    0xe2,0x98,0x85,0
 2014.05.07
 3) 食物生成异常的bug在于Food构造函数递归调用自己后，没有保留最后有效的x,y值，而是错误的留下了第一次生成的值。
 
+2014.06.10
+4) 跟踪Rev.82的bug，现象为在输出是否再次游戏画面时，程序异常。定位为affix.cpp的replay()函数
+drawFrame(20,7,60,18,(char *)g_const_star_w,(char *)g_const_star_w);调用的时候，g_const_star_w为空值。
+g_const_star_w为空值的原因是在affix.cpp的highScoreCheck()函数中“//all item one step backward”这一段
+时候突然指针异常。具体原因不明，需要调查。（Rev.83已无此bug，通过别的途径解决。但此bug原因仍不明）
+
 解决方案：
 2014.05.07
 1)的解决方案：放在哪儿无所谓，只要能解决3)就能解决此问题。
