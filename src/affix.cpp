@@ -492,7 +492,7 @@ void getLocalLanguage()
     fscanf(fp,"%s",language);
     fclose(fp);
     system("del lan.txt");
-    memcpy(g_Local_Language,language,sizeof(language));
+    memcpy(g_Local_Language, language, sizeof(language));
 }
 
 /*******************************************************
@@ -577,7 +577,7 @@ void read_record()
     if(fr==NULL)                        //if not exist, new one
     {
         fr=fopen("snake_record.log","w");
-        for(i=0;i<9;i++)
+        for(i=0; i<RANK_NUM_MAX; i++)
         {
             fprintf(fr,"%s %d\n", "anonymous", 0);
         }
@@ -586,7 +586,7 @@ void read_record()
     fclose(fr);
     
     fr=fopen("snake_record.log","r");   //open the file
-    while(isEOF>0 && i<9)               //read all lines
+    while(isEOF>0 && i<RANK_NUM_MAX)               //read all lines
     {
         isEOF=fscanf(fr,"%s %d", &g_rank[i].name, &g_rank[i].score);
         i++;
@@ -606,7 +606,7 @@ void write_record()
 	int i=0;
 
     fw=fopen("snake_record.log","w");
-    for(i=0;i<9;i++)
+    for(i=0; i<RANK_NUM_MAX; i++)
     {
         fprintf(fw,"%s %d\n", g_rank[i].name, g_rank[i].score);
     }
@@ -623,7 +623,7 @@ void show_rank()
     int i=0;
     system("cls");
 
-    for(i=0;i<9;i++)
+    for(i=0; i<RANK_NUM_MAX; i++)
     {
         SetPos(26,5+i);
         cout<<"No."<<i+1<<":\t"<<g_rank[i].name<<"\t"<<g_rank[i].score;
@@ -642,7 +642,7 @@ void highScoreCheck()
     int  j=0;
     char name[20];
 
-    for(i=0;i<9;i++)                    //from first to last
+    for(i=0; i<RANK_NUM_MAX; i++)       //from first to last
     {
         if(g_score>=g_rank[i].score)    //if is new high score
         {
@@ -655,7 +655,7 @@ void highScoreCheck()
             gets(name);
 
             //all item one step backward
-            for(j=8;j>i;j--)
+            for(j=RANK_NUM_MAX-1; j>i; j--)
             {
                 g_rank[j]=g_rank[j-1];
             }

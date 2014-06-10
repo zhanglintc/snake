@@ -30,6 +30,7 @@ using namespace std;
 #define HARD			3
 
 #define NODE_MAX		200
+#define RANK_NUM_MAX	9
 #define CTRL_UP			72
 #define CTRL_DOWN		80
 #define CTRL_RIGHT		77
