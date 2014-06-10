@@ -21,3 +21,5 @@ g_const_star_w为空值的原因是在affix.cpp的highScoreCheck()函数中“//
 2014.05.07
 1)的解决方案：放在哪儿无所谓，只要能解决3)就能解决此问题。
 3)的解决方案：把Food::x，Food::y设为静态成员变量，即可解决食物异常的问题。缺点是全局变量更多了。不推荐。
+4)的解决方案：Rev83仍有bug，现象跟Rev82相同，但是最后只要通过把affix.cpp的highScoreCheck()函数中
+“//all item one step backward”这一段的索引值从9修改为8，即可避免覆盖别的正常数据。Rev84里解决了。
