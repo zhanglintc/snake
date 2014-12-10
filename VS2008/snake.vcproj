@@ -189,7 +189,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\resource.h"
+				RelativePath="..\res\resource.h"
 				>
 			</File>
 		</Filter>
@@ -199,11 +199,11 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\snake.ico"
+				RelativePath="..\res\snake.ico"
 				>
 			</File>
 			<File
-				RelativePath="..\snake.rc"
+				RelativePath="..\res\snake.rc"
 				>
 			</File>
 		</Filter>

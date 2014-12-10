@@ -114,13 +114,13 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\src\affix.cpp">
+				RelativePath="..\src\affix.cpp">
 			</File>
 			<File
-				RelativePath=".\src\snake.cpp">
+				RelativePath="..\src\snake.cpp">
 			</File>
 			<File
-				RelativePath=".\src\snake.h">
+				RelativePath="..\src\snake.h">
 			</File>
 		</Filter>
 		<Filter
@@ -128,7 +128,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\resource.h">
+				RelativePath="..\res\resource.h">
 			</File>
 		</Filter>
 		<Filter
@@ -136,10 +136,10 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 			<File
-				RelativePath=".\snake.ico">
+				RelativePath="..\res\snake.ico">
 			</File>
 			<File
-				RelativePath=".\snake.rc">
+				RelativePath="..\res\snake.rc">
 			</File>
 		</Filter>
 	</Files>
