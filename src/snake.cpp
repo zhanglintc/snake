@@ -65,13 +65,13 @@ void Playing()
     switch(g_difficulty)
     {
         case HARD:
-            GameSpeed=50;
+            GameSpeed=5;
             break;
         case MEDIUM:
-            GameSpeed=100;
+            GameSpeed=10;
             break;
         case EASY:
-            GameSpeed=200;
+            GameSpeed=20;
             break;
     }
 
@@ -80,7 +80,12 @@ void Playing()
 
     while(snake->getlife()) //while alive, process the snake move, snake eat things. important block
     {
-        Sleep(SLEEP_TIME);  //game speed
+        // Sleep(SLEEP_TIME);  //game speed
+        DWORD dwStart = :: GetTickCount();
+        while(::GetTickCount() - dwStart < SLEEP_TIME)
+        {
+            Sleep(1);
+        }
         counter++;
 
         //debug print
