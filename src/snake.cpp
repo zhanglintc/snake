@@ -1,7 +1,6 @@
 ﻿/*
 Main process here.  http://zhanglintc.co
 (C) COPYRIGHT 2014-5-6 zhanglin. Nothing reserved.
-
 */
 
 #include "snake.h"
@@ -80,24 +79,22 @@ void Playing()
 
     while(snake->getlife()) //while alive, process the snake move, snake eat things. important block
     {
-        // Sleep(SLEEP_TIME);  //game speed
-        DWORD dwStart = :: GetTickCount();
+        // game speed  -S
+        DWORD dwStart = ::GetTickCount();
         while(::GetTickCount() - dwStart < SLEEP_TIME)
         {
             Sleep(1);
         }
         counter++;
+        // game speed -E
 
-        //debug print
-        //SetPos(74,23);
-        //cout<<counter;
         if(_kbhit())
         {
             gotten=_getch();        //get direction(but can be not direction input)
 
             if(gotten==-32)continue;
             if(gotten==CTRL_SPACE || gotten==CTRL_ENTER)Pause();
-			if(gotten==CTRL_ESC)exit(0);
+            if(gotten==CTRL_ESC)exit(0);
 
             //when cache1st contains data(which means direction) && gotten is not in the same line with cache1st
             if(isDirection(cache1st)==true && isSameLine(gotten,cache1st)==false)
@@ -125,7 +122,7 @@ void Playing()
             if(snake->node[0].x==food->x && snake->node[0].y==food->y)
             {
                 snake->eat(food);       //^_^
-				food = new Food(snake); //after eat, generate a new food
+                food = new Food(snake); //after eat, generate a new food
 
                 g_score+=g_difficulty;  //difficulty means point
                 g_eaten+=1;
@@ -198,14 +195,14 @@ Snake::Snake()
     node[1].y = (BOTTOM-TOP)/2;
     node[2].x = (RIGHT-LEFT)/2-4;
     node[2].y = (BOTTOM-TOP)/2;
-	
-	if(node[0].x%2!=0)      //set snake in even position
-	{
-		for(int i=0;i<length;i++)
-		{
-			node[i].x=node[i].x-1;
-		}
-	}
+    
+    if(node[0].x%2!=0)      //set snake in even position
+    {
+        for(int i=0;i<length;i++)
+        {
+            node[i].x=node[i].x-1;
+        }
+    }
 
     draw();                 //show this snake
 }
@@ -317,8 +314,8 @@ Food::Food(Snake *snake)
     {
         if(x==snake->node[i].x && y==snake->node[i].y)  //if this food is in one node of this snake
         {
-			Food::Food(snake);                          //new another food
-			return;                                     //return to avoid showing it
+            Food::Food(snake);                          //new another food
+            return;                                     //return to avoid showing it
         }
     }
     drawOne(x,y,(char *)g_const_star_b); //show this food
@@ -335,7 +332,7 @@ void Snake::draw()
     {
         if(i==0)
         {
-			drawOne(node[i].x, node[i].y, (char *)g_const_circ_b); //head
+            drawOne(node[i].x, node[i].y, (char *)g_const_circ_b); //head
         }
         else
         {
@@ -351,7 +348,7 @@ Return  : void
 *******************************************************/
 void Snake::setsnakelength(int length)
 {
-	this->length = length;
+    this->length = length;
 }
 
 /*******************************************************

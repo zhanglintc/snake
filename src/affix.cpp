@@ -156,7 +156,7 @@ Return  : int
 int random(int min, int max)
 {
     if(max<min)swap(&min,&max);
-	if(min==max)return min;
+    if(min==max)return min;
     else return(rand() % (min-max))+ min;
 }
 
@@ -603,7 +603,7 @@ Return  : void
 void write_record()
 {
     FILE *fw;
-	int i=0;
+    int i=0;
 
     fw=fopen("snake_record.log","w");
     for(i=0; i<RANK_NUM_MAX; i++)
