@@ -2,6 +2,9 @@
 // Microsoft Visual C++ generated include file.
 // Used by snake.rc
 //
+
+using namespace std;
+
 #define IDI_ICON1                       102
 
 // Next default values for new objects
