@@ -107,7 +107,8 @@ void Playing()
             {
                 cache1st=gotten;    //store gotten in cache1st
             }
-        }
+        }        
+
         if(counter>=GameSpeed)      //each GameSpeed times, judge move
         {
             counter=1;  //reset counter
@@ -115,6 +116,8 @@ void Playing()
             //cache2nd -> cache1st -> direction -> snake->move(direction)
             direction=cache1st;     //assembly line work
             cache1st=cache2nd;      //assembly line work
+
+            snake->AI(food);        //auto play
 
             snake->move(direction); //snake wriggling
 
@@ -257,6 +260,31 @@ void Snake::move(int direction)
     
     drawOne(node[0].x, node[0].y, (char *)g_const_circ_b); //head
     drawOne(node[1].x, node[1].y, (char *)g_const_rect_b); //body
+}
+
+/*******************************************************
+Function: auto play
+Argument: none
+Return  : void
+*******************************************************/
+void Snake::AI(Food *food)
+{
+    if(this->node[0].x > food->x)
+    {
+        this->direction = CTRL_LEFT;
+    }
+    if(this->node[0].x < food->x)
+    {
+        this->direction = CTRL_RIGHT;
+    }
+    if(this->node[0].y > food->y)
+    {
+        this->direction = CTRL_UP;
+    }
+    if(this->node[0].y < food->y)
+    {
+        this->direction = CTRL_DOWN;
+    }
 }
 
 /*******************************************************
