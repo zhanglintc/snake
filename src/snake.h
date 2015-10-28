@@ -6,6 +6,8 @@ All the defines and declares.   http://zhanglintc.co
 #ifndef _SNAKE_H_
 #define _SNAKE_H_
 
+#define _AI_MODE_
+
 //include
 #include <stdio.h>
 #include <iostream>

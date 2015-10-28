@@ -469,7 +469,9 @@ void Playing()
             direction=cache1st;     //assembly line work
             cache1st=cache2nd;      //assembly line work
 
+            #ifdef _AI_MODE_
             direction = snake->Control_AI(food); GameSpeed = 1; //auto play
+            #endif
 
             snake->move(direction); //snake wriggling
 
@@ -500,6 +502,15 @@ Return  : int
 *******************************************************/
 int main()
 {
+#ifdef _AI_MODE_
+    Initialize();
+    g_difficulty = 3;
+    while(true)
+    {
+        drawGame();
+        Playing();
+    }
+#else
     Initialize();
     g_difficulty=ChooseMode();
     do //loop
@@ -509,6 +520,7 @@ int main()
         highScoreCheck();
     }
     while(replay()==true);
+#endif
 
     /*GameOver();*/
 
