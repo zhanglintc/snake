@@ -137,7 +137,7 @@ class Snake
 public:
     Node node[NODE_MAX];
     Snake();
-    void AI(Food *);
+    int  AI(Food *);
     void move(int);
     void eat(Food *);
     int  getsnakelength();

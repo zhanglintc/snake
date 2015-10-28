@@ -117,7 +117,7 @@ void Playing()
             direction=cache1st;     //assembly line work
             cache1st=cache2nd;      //assembly line work
 
-            snake->AI(food);        //auto play
+            direction = snake->AI(food); //auto play
 
             snake->move(direction); //snake wriggling
 
@@ -267,24 +267,28 @@ Function: auto play
 Argument: none
 Return  : void
 *******************************************************/
-void Snake::AI(Food *food)
+int Snake::AI(Food *food)
 {
+    int direction;
+
     if(this->node[0].x > food->x)
     {
-        this->direction = CTRL_LEFT;
+        direction = CTRL_LEFT;
     }
     if(this->node[0].x < food->x)
     {
-        this->direction = CTRL_RIGHT;
+        direction = CTRL_RIGHT;
     }
     if(this->node[0].y > food->y)
     {
-        this->direction = CTRL_UP;
+        direction = CTRL_UP;
     }
     if(this->node[0].y < food->y)
     {
-        this->direction = CTRL_DOWN;
+        direction = CTRL_DOWN;
     }
+
+    return direction;
 }
 
 /*******************************************************
