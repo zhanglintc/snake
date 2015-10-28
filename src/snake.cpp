@@ -117,7 +117,7 @@ void Playing()
             direction=cache1st;     //assembly line work
             cache1st=cache2nd;      //assembly line work
 
-            direction = snake->AI(food); //auto play
+            direction = snake->Control_AI(food); //auto play
 
             snake->move(direction); //snake wriggling
 
@@ -267,7 +267,7 @@ Function: auto play
 Argument: none
 Return  : void
 *******************************************************/
-int Snake::AI(Food *food)
+int Snake::Control_AI(Food *food)
 {
     int direction;
 
