@@ -144,6 +144,7 @@ public:
     void setsnakelength(int);
     bool getlife();
     void setlife(bool);
+    void judgeLife();
     int  getdirection();
     void setdirection(int);
     Node *getnode();
@@ -153,7 +154,6 @@ private:
     int  length;
     void clear();
     void initialDraw();
-    void judge();
 };
 
 class Food

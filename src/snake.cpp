@@ -140,9 +140,22 @@ Function:
 Argument: 
 Return  : 
 *******************************************************/
-void Snake::judge()
+void Snake::judgeLife()
 {
-    
+    //hit walls, die (to be or not to be...?)
+    if(this->node[0].x>RIGHT-2 || this->node[0].x<LEFT+2 || this->node[0].y>BOTTOM-1 || this->node[0].y<TOP+1)
+    {
+        this->setlife(false);      //T_T
+    }
+
+    //hit itself, die (to be or not to be...?)
+    for(int i=3;i<this->getsnakelength();i++)
+    {
+        if(this->node[0].x==this->node[i].x && this->node[0].y==this->node[i].y)
+        {
+            this->setlife(false);  //T_T
+        }
+    }
 }
 
 /*******************************************************
@@ -388,6 +401,8 @@ void Playing()
 
             snake->move(direction); //snake wriggling
 
+            snake->judgeLife();     //to be or not to be...
+
             //eat food
             if(snake->node[0].x==food->x && snake->node[0].y==food->y)
             {
@@ -397,21 +412,6 @@ void Playing()
                 g_score+=g_difficulty;  //difficulty means point
                 g_eaten+=1;
                 PrintInfo(INFO_UPDT, PLAYING);
-            }
-
-            //hit walls, die (to be or not to be...?)
-            if(snake->node[0].x>RIGHT-2 || snake->node[0].x<LEFT+2 || snake->node[0].y>BOTTOM-1 || snake->node[0].y<TOP+1)
-            {
-                snake->setlife(false);      //T_T
-            }
-
-            //hit itself, die (to be or not to be...?)
-            for(int i=3;i<snake->getsnakelength();i++)
-            {
-                if(snake->node[0].x==snake->node[i].x && snake->node[0].y==snake->node[i].y)
-                {
-                    snake->setlife(false);  //T_T
-                }
             }
         }
     }
