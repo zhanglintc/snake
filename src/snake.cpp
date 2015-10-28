@@ -26,162 +26,6 @@ int  Food::x=0;
 int  Food::y=0;
 
 /*******************************************************
-Function: main entrance
-Argument: none
-Return  : int
-*******************************************************/
-int main()
-{
-    Initialize();
-    g_difficulty=ChooseMode();
-    do //loop
-    {
-        drawGame();
-        Playing();
-        highScoreCheck();
-    }
-    while(replay()==true);
-
-    /*GameOver();*/
-
-    return 0;
-}
-
-/*******************************************************
-Function: food, snake, control, move
-Argument: none
-Return  : void
-*******************************************************/
-void Playing()
-{
-    int  counter=0;             //counter, if this counts appointed times, snake will change direction(if necessary)
-    int  GameSpeed=GAME_SPEED;  //game speed
-    char direction=0;           //direction the snake will wriggle
-    char gotten=0;              //the input from keyboard
-    char cache1st=0;            //store the next direction
-    char cache2nd=0;            //store the one after next direction(when necessary)
-
-    switch(g_difficulty)
-    {
-        case HARD:
-            GameSpeed=5;
-            break;
-        case MEDIUM:
-            GameSpeed=10;
-            break;
-        case EASY:
-            GameSpeed=20;
-            break;
-    }
-
-    Snake *snake = new Snake();     //new one snake
-    Food  *food = new Food(snake);  //new a food
-
-    while(snake->getlife()) //while alive, process the snake move, snake eat things. important block
-    {
-        // game speed  -S
-        DWORD dwStart = ::GetTickCount();
-        while(::GetTickCount() - dwStart < SLEEP_TIME)
-        {
-            Sleep(1);
-        }
-        counter++;
-        // game speed -E
-
-        if(_kbhit())
-        {
-            gotten=_getch();        //get direction(but can be not direction input)
-
-            if(gotten==-32)continue;
-            if(gotten==CTRL_SPACE || gotten==CTRL_ENTER)Pause();
-            if(gotten==CTRL_ESC)exit(0);
-
-            //when cache1st contains data(which means direction) && gotten is not in the same line with cache1st
-            if(isDirection(cache1st)==true && isSameLine(gotten,cache1st)==false)
-            {
-                cache2nd=gotten;    //store gotten in cache2nd
-            }
-
-            //when gotten is direction && gotten is not in the same line with snake's direction 
-            if(isDirection(gotten)==true && isSameLine(gotten,snake->getdirection())==false)
-            {
-                cache1st=gotten;    //store gotten in cache1st
-            }
-        }        
-
-        if(counter>=GameSpeed)      //each GameSpeed times, judge move
-        {
-            counter=1;  //reset counter
-
-            //cache2nd -> cache1st -> direction -> snake->move(direction)
-            direction=cache1st;     //assembly line work
-            cache1st=cache2nd;      //assembly line work
-
-            direction = snake->Control_AI(food); //auto play
-
-            snake->move(direction); //snake wriggling
-
-            //eat food
-            if(snake->node[0].x==food->x && snake->node[0].y==food->y)
-            {
-                snake->eat(food);       //^_^
-                food = new Food(snake); //after eat, generate a new food
-
-                g_score+=g_difficulty;  //difficulty means point
-                g_eaten+=1;
-                PrintInfo(INFO_UPDT, PLAYING);
-            }
-
-            //hit walls, die (to be or not to be...?)
-            if(snake->node[0].x>RIGHT-2 || snake->node[0].x<LEFT+2 || snake->node[0].y>BOTTOM-1 || snake->node[0].y<TOP+1)
-            {
-                snake->setlife(false);      //T_T
-            }
-
-            //hit itself, die (to be or not to be...?)
-            for(int i=3;i<snake->getsnakelength();i++)
-            {
-                if(snake->node[0].x==snake->node[i].x && snake->node[0].y==snake->node[i].y)
-                {
-                    snake->setlife(false);  //T_T
-                }
-            }
-        }
-    }
-
-    //clean food and snake
-    free(food);
-    free(snake);
-}
-
-/*******************************************************
-Function: pause the game
-Argument: none
-Return  : void
-*******************************************************/
-void Pause()
-{
-    PrintInfo(INFO_STAT,PAUSING);
-    char c=_getch();
-    while(c!=CTRL_SPACE && c!=CTRL_ENTER)c=_getch();
-    PrintInfo(INFO_STAT,PLAYING);
-}
-
-/*******************************************************
-Function: game over screen(unused)
-Argument: none
-Return  : void
-*******************************************************/
-void GameOver()
-{
-    system("cls");
-    SetPos(34,10);
-    char str[]="Game Over!";
-    cout<<str<<endl;
-    getchar();
-}
-
-/*******************************************************
 Function: constructor of snake, new a three node length snake
 Argument: none
 Return  : none
@@ -442,3 +286,161 @@ Node *Snake::getnode()
 {
     return this->node;
 }
+
+/*******************************************************
+Function: pause the game
+Argument: none
+Return  : void
+*******************************************************/
+void Pause()
+{
+    PrintInfo(INFO_STAT,PAUSING);
+    char c=_getch();
+    while(c!=CTRL_SPACE && c!=CTRL_ENTER)c=_getch();
+    PrintInfo(INFO_STAT,PLAYING);
+}
+
+/*******************************************************
+Function: game over screen(unused)
+Argument: none
+Return  : void
+*******************************************************/
+void GameOver()
+{
+    system("cls");
+    SetPos(34,10);
+    char str[]="Game Over!";
+    cout<<str<<endl;
+    getchar();
+}
+
+/*******************************************************
+Function: food, snake, control, move
+Argument: none
+Return  : void
+*******************************************************/
+void Playing()
+{
+    int  counter=0;             //counter, if this counts appointed times, snake will change direction(if necessary)
+    int  GameSpeed=GAME_SPEED;  //game speed
+    char direction=0;           //direction the snake will wriggle
+    char gotten=0;              //the input from keyboard
+    char cache1st=0;            //store the next direction
+    char cache2nd=0;            //store the one after next direction(when necessary)
+
+    switch(g_difficulty)
+    {
+        case HARD:
+            GameSpeed=5;
+            break;
+        case MEDIUM:
+            GameSpeed=10;
+            break;
+        case EASY:
+            GameSpeed=20;
+            break;
+    }
+
+    Snake *snake = new Snake();     //new one snake
+    Food  *food = new Food(snake);  //new a food
+
+    while(snake->getlife()) //while alive, process the snake move, snake eat things. important block
+    {
+        // game speed  -S
+        DWORD dwStart = ::GetTickCount();
+        while(::GetTickCount() - dwStart < SLEEP_TIME)
+        {
+            Sleep(1);
+        }
+        counter++;
+        // game speed -E
+
+        if(_kbhit())
+        {
+            gotten=_getch();        //get direction(but can be not direction input)
+
+            if(gotten==-32)continue;
+            if(gotten==CTRL_SPACE || gotten==CTRL_ENTER)Pause();
+            if(gotten==CTRL_ESC)exit(0);
+
+            //when cache1st contains data(which means direction) && gotten is not in the same line with cache1st
+            if(isDirection(cache1st)==true && isSameLine(gotten,cache1st)==false)
+            {
+                cache2nd=gotten;    //store gotten in cache2nd
+            }
+
+            //when gotten is direction && gotten is not in the same line with snake's direction 
+            if(isDirection(gotten)==true && isSameLine(gotten,snake->getdirection())==false)
+            {
+                cache1st=gotten;    //store gotten in cache1st
+            }
+        }        
+
+        if(counter>=GameSpeed)      //each GameSpeed times, judge move
+        {
+            counter=1;  //reset counter
+
+            //cache2nd -> cache1st -> direction -> snake->move(direction)
+            direction=cache1st;     //assembly line work
+            cache1st=cache2nd;      //assembly line work
+
+            direction = snake->Control_AI(food); //auto play
+
+            snake->move(direction); //snake wriggling
+
+            //eat food
+            if(snake->node[0].x==food->x && snake->node[0].y==food->y)
+            {
+                snake->eat(food);       //^_^
+                food = new Food(snake); //after eat, generate a new food
+
+                g_score+=g_difficulty;  //difficulty means point
+                g_eaten+=1;
+                PrintInfo(INFO_UPDT, PLAYING);
+            }
+
+            //hit walls, die (to be or not to be...?)
+            if(snake->node[0].x>RIGHT-2 || snake->node[0].x<LEFT+2 || snake->node[0].y>BOTTOM-1 || snake->node[0].y<TOP+1)
+            {
+                snake->setlife(false);      //T_T
+            }
+
+            //hit itself, die (to be or not to be...?)
+            for(int i=3;i<snake->getsnakelength();i++)
+            {
+                if(snake->node[0].x==snake->node[i].x && snake->node[0].y==snake->node[i].y)
+                {
+                    snake->setlife(false);  //T_T
+                }
+            }
+        }
+    }
+
+    //clean food and snake
+    free(food);
+    free(snake);
+}
+
+/*******************************************************
+Function: main entrance
+Argument: none
+Return  : int
+*******************************************************/
+int main()
+{
+    Initialize();
+    g_difficulty=ChooseMode();
+    do //loop
+    {
+        drawGame();
+        Playing();
+        highScoreCheck();
+    }
+    while(replay()==true);
+
+    /*GameOver();*/
+
+    return 0;
+}
+
+
