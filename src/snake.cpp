@@ -35,6 +35,7 @@ Snake::Snake()
     life      = true;       //alive
     direction = CTRL_RIGHT; //head to right
     length    = 3;          //three nodes
+    head      = &node[0];    //head
 
     node[0].x = (RIGHT-LEFT)/2-0;
     node[0].y = (BOTTOM-TOP)/2;
@@ -129,7 +130,73 @@ int Snake::Control_AI(Food *food)
         direction = CTRL_DOWN;
     }
 
+    //while(fakeMove lead to snake die || direction AND this->direction are opposite)
+    while(!fakeMove(direction) || direction + this->direction == OPPOSITE_DIRECT)
+    {
+        //try to change direction clockwise
+        switch(direction)
+        {
+            case CTRL_UP:
+                direction = CTRL_RIGHT;
+                break;
+            case CTRL_DOWN:
+                direction = CTRL_LEFT;
+                break;
+            case CTRL_LEFT:
+                direction = CTRL_UP;
+                break;
+            case CTRL_RIGHT:
+                direction = CTRL_DOWN;
+                break;
+        }
+    }
+
     return direction;
+}
+
+/*******************************************************
+Function: try to move one step to find
+          snake is live or die
+Argument: int
+Return  : bool
+*******************************************************/
+bool Snake::fakeMove(int direction)
+{
+    life = true;
+    Node fakeHead = *this->head;
+
+    switch(direction)
+    {
+        case CTRL_UP:
+            fakeHead.y -= 1;
+            break;
+        case CTRL_DOWN:
+            fakeHead.y += 1;
+            break;
+        case CTRL_LEFT:
+            fakeHead.x -= 2;
+            break;
+        case CTRL_RIGHT:
+            fakeHead.x += 2;
+            break;
+    }
+
+    //hit walls, die (to be or not to be...?)
+    if(fakeHead.x > RIGHT-2 || fakeHead.x < LEFT+2 || fakeHead.y > BOTTOM-1 || fakeHead.y < TOP+1)
+    {
+        life = false;
+    }
+
+    //hit itself, die (to be or not to be...?)
+    for(int i=3; i < this->getsnakelength(); i++)
+    {
+        if(fakeHead.x == this->node[i].x && fakeHead.y == this->node[i].y)
+        {
+            life = false;
+        }
+    }
+
+    return life;
 }
 
 /*******************************************************
@@ -140,7 +207,7 @@ Return  :
 void Snake::judgeLife()
 {
     //hit walls, die (to be or not to be...?)
-    if(this->node[0].x>RIGHT-2 || this->node[0].x<LEFT+2 || this->node[0].y>BOTTOM-1 || this->node[0].y<TOP+1)
+    if(this->head->x > RIGHT-2 || this->head->x < LEFT+2 || this->head->y > BOTTOM-1 || this->head->y < TOP+1)
     {
         this->setlife(false);      //T_T
     }
@@ -148,7 +215,7 @@ void Snake::judgeLife()
     //hit itself, die (to be or not to be...?)
     for(int i=3;i<this->getsnakelength();i++)
     {
-        if(this->node[0].x==this->node[i].x && this->node[0].y==this->node[i].y)
+        if(this->head->x == this->node[i].x && this->head->y == this->node[i].y)
         {
             this->setlife(false);  //T_T
         }

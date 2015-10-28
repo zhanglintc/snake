@@ -20,7 +20,7 @@ using namespace std;
 //define
 #define uchar unsigned char
 
-#define SAME_LINE       152 // Cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152
+#define OPPOSITE_DIRECT 152 // Cause CTRL_UP+CTRL_DOWN=152 and CTRL_RIGHT+CTRL_LEFT=152
 #define GAME_SPEED      50  // default game speed, will be change in Playing(), not very important
 #define SLEEP_TIME      1   // obsoleted use: 12
 #define PLAYING         1
@@ -136,8 +136,10 @@ class Snake
 {
 public:
     Node node[NODE_MAX];
+    Node *head;
     Snake();
     int  Control_AI(Food *);
+    bool fakeMove(int);
     void move(int);
     void eat(Food *);
     int  getsnakelength();

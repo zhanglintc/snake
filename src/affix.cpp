@@ -541,7 +541,7 @@ Return  : bool
 *******************************************************/
 bool isSameLine(int direciton1st, int direction2nd)
 {
-    if(direciton1st==direction2nd || direciton1st+direction2nd==SAME_LINE)
+    if(direciton1st==direction2nd || direciton1st+direction2nd==OPPOSITE_DIRECT)
     {
         return true;
     }
