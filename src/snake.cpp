@@ -111,7 +111,8 @@ Return  : void
 *******************************************************/
 int Snake::Control_AI(Food *food)
 {
-    int direction;
+    int direction = CTRL_RIGHT;
+    int triedTimes = 0;
 
     if(this->node[0].x > food->x)
     {
@@ -133,6 +134,13 @@ int Snake::Control_AI(Food *food)
     //while(fakeMove lead to snake die || direction AND this->direction are opposite)
     while(!fakeMove(direction) || direction + this->direction == OPPOSITE_DIRECT)
     {
+        if(triedTimes >= 4)
+        {
+            break;
+        }
+
+        triedTimes += 1;
+
         //try to change direction clockwise
         switch(direction)
         {
@@ -461,7 +469,7 @@ void Playing()
             direction=cache1st;     //assembly line work
             cache1st=cache2nd;      //assembly line work
 
-            direction = snake->Control_AI(food); //auto play
+            direction = snake->Control_AI(food); GameSpeed = 1; //auto play
 
             snake->move(direction); //snake wriggling
 
