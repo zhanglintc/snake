@@ -61,13 +61,10 @@ Return  : void
 *******************************************************/
 void Snake::move(int direction)
 {
-    //if input is direction keys
-    if(isDirection(direction)==true)
+    //if input is direction keys && not in the same line
+    if(isDirection(direction)==true && isSameLine(this->direction,direction)==false)
     {
-        if(isSameLine(this->direction,direction)==false)
-        {
-            this->direction=direction; //set direction
-        }
+        this->direction=direction; //set direction
     }
     //else this->direction stay the same
 
