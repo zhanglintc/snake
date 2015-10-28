@@ -43,7 +43,7 @@ Snake::Snake()
     node[2].x = (RIGHT-LEFT)/2-4;
     node[2].y = (BOTTOM-TOP)/2;
     
-    if(node[0].x%2!=0)      //set snake in even position
+    if(node[0].x%2!=0)                  //set snake in even position
     {
         for(int i=0;i<length;i++)
         {
@@ -51,7 +51,7 @@ Snake::Snake()
         }
     }
 
-    draw();                 //show this snake
+    this->initialDraw();                 //show this snake
 }
 
 /*******************************************************
@@ -158,7 +158,7 @@ void Snake::eat(Food *food)
 }
 
 /*******************************************************
-Function: undisplay a snake
+Function: hide a snake
 Argument: none
 Return  : void
 *******************************************************/
@@ -202,7 +202,7 @@ Function: show a snake
 Argument: none
 Return  : void
 *******************************************************/
-void Snake::draw()
+void Snake::initialDraw()
 {
     for(int i=0;i<length; i++)
     {

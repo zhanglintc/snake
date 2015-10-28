@@ -152,7 +152,7 @@ private:
     int  direction;
     int  length;
     void clear();
-    void draw();
+    void initialDraw();
     void judge();
 };
 
