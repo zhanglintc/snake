@@ -142,6 +142,7 @@ public:
     Snake();
     int  Control_AI(Food *);
     bool fakeMove(int);
+    int  survivalProbability(int);
     void move(int);
     void eat(Food *);
     int  getsnakelength();

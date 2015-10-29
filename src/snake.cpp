@@ -163,6 +163,51 @@ int Snake::Control_AI(Food *food)
 }
 
 /*******************************************************
+Function: calculate survival probability of this direction
+Argument: int
+Return  : int
+*******************************************************/
+#if 0
+int Snake::survivalProbability(int direction)
+{
+    int  prob = 0;
+    int  type = 0;      //0 for hit body, 1 for hit wall
+    bool life = true;
+
+    while(life)
+    {
+        //hit walls, die (to be or not to be...?)
+        if(fakeHead.x > RIGHT-2 || fakeHead.x < LEFT+2 || fakeHead.y > BOTTOM-1 || fakeHead.y < TOP+1)
+        {
+            life = false;
+            type = 1;
+            break;
+        }
+
+        //hit itself, die (to be or not to be...?)
+        for(int i=3; i < this->getsnakelength(); i++)
+        {
+            if(fakeHead.x == this->node[i].x && fakeHead.y == this->node[i].y)
+            {
+                life = false;
+                type = 0;
+                break;
+            }
+        }
+
+        prob += 1;
+    }
+
+    if(type == 1)
+    {
+        prob += 1000;
+    }
+
+    return prob;
+}
+#endif
+
+/*******************************************************
 Function: try to move one step to find
           snake is live or die
 Argument: int
