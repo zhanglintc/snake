@@ -228,7 +228,7 @@ Return  : bool
 *******************************************************/
 bool Snake::fakeMove(int direction)
 {
-    life = true;
+    bool life = true;
     Node fakeHead = *this->head;
 
     switch(direction)
