@@ -167,32 +167,46 @@ Function: calculate survival probability of this direction
 Argument: int
 Return  : int
 *******************************************************/
-#if 0
 int Snake::survivalProbability(int direction)
 {
-    int  prob = 0;
+    Node fakeHead = *this->head;
+    int  prob = 0;      //distance to body or wall, 1000 bonus if wall
     int  type = 0;      //0 for hit body, 1 for hit wall
     bool life = true;
 
     while(life)
     {
         //hit walls, die (to be or not to be...?)
-        if(fakeHead.x > RIGHT-2 || fakeHead.x < LEFT+2 || fakeHead.y > BOTTOM-1 || fakeHead.y < TOP+1)
+        if(hitWall(fakeHead))
         {
-            life = false;
             type = 1;
+            life = false;
             break;
         }
 
         //hit itself, die (to be or not to be...?)
-        for(int i=3; i < this->getsnakelength(); i++)
+        if(hitBody(fakeHead, this))
         {
-            if(fakeHead.x == this->node[i].x && fakeHead.y == this->node[i].y)
-            {
-                life = false;
-                type = 0;
+            type = 0;
+            life = false;
+            break;
+        }
+
+        //move fakeHead
+        switch(direction)
+        {
+            case CTRL_UP:
+                fakeHead.y -= 1;
                 break;
-            }
+            case CTRL_DOWN:
+                fakeHead.y += 1;
+                break;
+            case CTRL_LEFT:
+                fakeHead.x -= 2;
+                break;
+            case CTRL_RIGHT:
+                fakeHead.x += 2;
+                break;
         }
 
         prob += 1;
@@ -205,7 +219,6 @@ int Snake::survivalProbability(int direction)
 
     return prob;
 }
-#endif
 
 /*******************************************************
 Function: try to move one step to find
@@ -234,19 +247,10 @@ bool Snake::fakeMove(int direction)
             break;
     }
 
-    //hit walls, die (to be or not to be...?)
-    if(fakeHead.x > RIGHT-2 || fakeHead.x < LEFT+2 || fakeHead.y > BOTTOM-1 || fakeHead.y < TOP+1)
+    //hit wall or hit body
+    if(hitWall(fakeHead) || hitBody(fakeHead, this))
     {
         life = false;
-    }
-
-    //hit itself, die (to be or not to be...?)
-    for(int i=3; i < this->getsnakelength(); i++)
-    {
-        if(fakeHead.x == this->node[i].x && fakeHead.y == this->node[i].y)
-        {
-            life = false;
-        }
     }
 
     return life;
@@ -259,19 +263,10 @@ Return  :
 *******************************************************/
 void Snake::judgeLife()
 {
-    //hit walls, die (to be or not to be...?)
-    if(this->head->x > RIGHT-2 || this->head->x < LEFT+2 || this->head->y > BOTTOM-1 || this->head->y < TOP+1)
+    // //hit wall or hit body, die
+    if(hitWall(*this->head) || hitBody(*this->head, this))
     {
-        this->setlife(false);      //T_T
-    }
-
-    //hit itself, die (to be or not to be...?)
-    for(int i=3;i<this->getsnakelength();i++)
-    {
-        if(this->head->x == this->node[i].x && this->head->y == this->node[i].y)
-        {
-            this->setlife(false);  //T_T
-        }
+        this->setlife(false);  //T_T
     }
 }
 
