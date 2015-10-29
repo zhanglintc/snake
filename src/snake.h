@@ -183,6 +183,8 @@ void drawFrame(int x1, int y1, int x2, int y2, char row[], char col[]);
 void drawFrame(Frame frame, char row[], char col[]);
 int random(int a, int b);
 COORD random(COORD leftup, COORD rightdown);
+bool hitWall(Node head);
+bool hitBody(Node head, Snake *snake);
 void Initialize();
 void swap(int *a, int *b);
 void drawOne(int x, int y, char ch[]);

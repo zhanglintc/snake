@@ -174,6 +174,36 @@ COORD random(COORD leftup, COORD rightdown)
 }
 
 /*******************************************************
+Function: snake hit wall?
+Argument: Node
+Return  : bool
+*******************************************************/
+bool hitWall(Node head)
+{
+    return head.x > RIGHT-2 || head.x < LEFT+2 || head.y > BOTTOM-1 || head.y < TOP+1;
+}
+
+/*******************************************************
+Function: snake hit it's body?
+Argument: Node, Snake*
+Return  : bool
+*******************************************************/
+bool hitBody(Node head, Snake *snake)
+{
+    bool hit = false;
+
+    for(int i=3; i < snake->getsnakelength(); i++)
+    {
+        if(head.x == snake->node[i].x && head.y == snake->node[i].y)
+        {
+            hit = true;
+        }
+    }
+
+    return hit;
+}
+
+/*******************************************************
 Function: initialize, set color, hide cursor, get system language, copy icon data
 Argument: none
 Return  : void
