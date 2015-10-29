@@ -180,8 +180,13 @@ Return  : void
 *******************************************************/
 void Initialize()
 {
-    system("cls");      //clean screen
-    system("color 3e"); //set color
+    system("cls");                                              //clean screen
+    system("color 3e");                                         //set color
+#ifdef _AI_MODE_
+    system("title Snake Game AI Mode Powered by Lane @ZDS");    //set title
+#else
+    system("title Snake Game Powered by Lane @ZDS");            //set title
+#endif
 
     HideCursor();       //hide cursor
     getLocalLanguage(); //get local language information
