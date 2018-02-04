@@ -111,24 +111,50 @@ Return  : void
 *******************************************************/
 int Snake::Control_AI(Food *food, Snake *snake)
 {
-    int direction = CTRL_RIGHT;
-    int triedTimes = 0;
+    typedef struct Pair1
+    {
+        int direction;
+        int distance;
+    }Pair1;
 
-    if(this->node[0].x > food->x)
+    int direction   = CTRL_RIGHT;
+    int triedTimes  = 0;
+
+    Node    head = this->node[0];
+    Pair1    left, right, up, down;
+
+    left.direction  = CTRL_LEFT;
+    left.distance   = abs( (head.x - 1) - food->x ) + abs( head.y - food->y );
+
+    right.direction = CTRL_RIGHT;
+    right.distance  = abs( (head.x + 1) - food->x ) + abs( head.y - food->y );
+
+    up.direction    = CTRL_UP;
+    up.distance = abs( head.x - food->x ) + abs( (head.y - 1) - food->y );
+
+    down.direction  = CTRL_DOWN;
+    down.distance   = abs( head.x - food->x ) + abs( (head.y + 1) - food->y );
+
+    Pair1 list[] = { left, right, up, down };
+
+    for ( int i = 0; i <= 3; i++ )
     {
-        direction = CTRL_LEFT;
+        for ( int j = i + 1; j <= 3; j++ )
+        {
+            if ( list[i].distance > list[j].distance )
+            {
+                Pair1 tmp;
+                tmp = list[i];
+                list[i] = list[j];
+                list[j] = tmp;
+            }
+        }
     }
-    if(this->node[0].x < food->x)
+
+    direction = list[0].direction;
+    if(direction + this->direction == OPPOSITE_DIRECT)
     {
-        direction = CTRL_RIGHT;
-    }
-    if(this->node[0].y > food->y)
-    {
-        direction = CTRL_UP;
-    }
-    if(this->node[0].y < food->y)
-    {
-        direction = CTRL_DOWN;
+        direction = list[1].direction;
     }
 
     //while(fakeMove lead to snake die || direction AND this->direction are opposite)
@@ -141,19 +167,32 @@ int Snake::Control_AI(Food *food, Snake *snake)
 
         triedTimes += 1;
 
+        int choice1, choice2;
         switch(direction)
         {
             case CTRL_UP:
-                direction = CTRL_RIGHT;
+                // direction = CTRL_RIGHT;
+                choice1 = snake->survivalProbability(CTRL_LEFT);
+                choice2 = snake->survivalProbability(CTRL_RIGHT);
+                direction = choice1 >= choice2 ? CTRL_LEFT : CTRL_RIGHT;
                 break;
             case CTRL_DOWN:
-                direction = CTRL_LEFT;
+                // direction = CTRL_LEFT;
+                choice1 = snake->survivalProbability(CTRL_LEFT);
+                choice2 = snake->survivalProbability(CTRL_RIGHT);
+                direction = choice1 >= choice2 ? CTRL_LEFT : CTRL_RIGHT;
                 break;
             case CTRL_LEFT:
-                direction = CTRL_UP;
+                // direction = CTRL_UP;
+                choice1 = snake->survivalProbability(CTRL_UP);
+                choice2 = snake->survivalProbability(CTRL_DOWN);
+                direction = choice1 >= choice2 ? CTRL_UP : CTRL_DOWN;
                 break;
             case CTRL_RIGHT:
-                direction = CTRL_DOWN;
+                // direction = CTRL_DOWN;
+                choice1 = snake->survivalProbability(CTRL_UP);
+                choice2 = snake->survivalProbability(CTRL_DOWN);
+                direction = choice1 >= choice2 ? CTRL_UP : CTRL_DOWN;
                 break;
         }
     }
@@ -445,7 +484,7 @@ void Playing()
     {
         // game speed  -S
         counter++;
-        usleep(10000);
+        usleep(40000);
         // game speed -E
 
         if(_kbhit())
