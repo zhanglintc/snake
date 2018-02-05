@@ -85,7 +85,7 @@ void drawRow(COORD left, COORD right, char ch[]) //zhanglin
     {
         SetPos(0, 25);
         cout<<"error code 01: \'x\' not equaled";
-        system("pause");
+        getch();
     }
 }
 
@@ -123,7 +123,7 @@ void drawCol(COORD left, COORD right, char ch[]) //zhanglin
     {
         SetPos(0, 25);
         cout<<"error code 02: \'y\' not equaled";
-        system("pause");
+        getch();
     }
 }
 

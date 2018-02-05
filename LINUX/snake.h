@@ -12,6 +12,7 @@ All the defines and declares.   http://zhanglintc.co
 // include
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h> 
 #include <string.h>
 #include <curses.h>
