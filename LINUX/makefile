@@ -3,7 +3,7 @@
 Objects = affix.o snake.o
 
 make: $(Objects)
-	g++ -lncurses -o snake $(Objects)
+	g++ -o snake $(Objects) -lncursesw
 
 affix.o: affix.cpp snake.h
 	g++ -c affix.cpp
