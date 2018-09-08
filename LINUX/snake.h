@@ -13,7 +13,7 @@ All the defines and declares.   http://zhanglintc.co
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h> 
+#include <unistd.h>
 #include <string.h>
 #include <curses.h>
 #include <locale.h>
@@ -50,9 +50,9 @@ using namespace std;
 #define CTRL_F5         63
 
 #define TOP             0
-#define BOTTOM          24  //24
+#define BOTTOM          10  //24
 #define LEFT            0
-#define RIGHT           58  //78
+#define RIGHT           20  //78
 
 #define INFO_INIT       0x04 //0000 0100
 #define INFO_UPDT       0x02 //0000 0010
@@ -185,7 +185,7 @@ public:
 private:
 };
 
-// declare
+// declares
 void SetPos(COORD a);
 void SetPos(int i, int j);
 void HideCursor();

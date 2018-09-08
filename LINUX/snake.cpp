@@ -43,7 +43,7 @@ Snake::Snake()
     node[1].y = (BOTTOM-TOP)/2;
     node[2].x = (RIGHT-LEFT)/2-4;
     node[2].y = (BOTTOM-TOP)/2;
-    
+
     if(node[0].x%2!=0)                  //set snake in even position
     {
         for(int i=0;i<length;i++)
@@ -99,7 +99,7 @@ void Snake::move(int direction)
             break;
     }
     //end of wriggling
-    
+
     drawOne(node[0].x, node[0].y, (char *)g_const_circ_b); //head
     drawOne(node[1].x, node[1].y, (char *)g_const_rect_b); //body
 }
@@ -295,9 +295,9 @@ bool Snake::fakeMove(int direction)
 }
 
 /*******************************************************
-Function: 
-Argument: 
-Return  : 
+Function:
+Argument:
+Return  :
 *******************************************************/
 void Snake::judgeLife()
 {
@@ -334,18 +334,18 @@ void Snake::clear()
 }
 
 /*******************************************************
-Function: 
-    new a food, this function need a argument Snake 
+Function:
+    new a food, this function need a argument Snake
     to determine which place could be used
-Argument: 
+Argument:
     Snake
-Return: 
+Return:
     none
 *******************************************************/
 Food::Food(Snake *snake)
 {
     /* get food(x, y) */
-    x=random(LEFT+2,RIGHT-2); 
+    x=random(LEFT+2,RIGHT-2);
     while(x%2!=0)x=random(LEFT+2,RIGHT-2);              //adjust x to even number
     y=random(TOP+1,BOTTOM-1);
 
@@ -353,7 +353,7 @@ Food::Food(Snake *snake)
     {
         if(x==snake->node[i].x && y==snake->node[i].y)  //if this food is in one node of this snake
         {
-            new Food(snake);                          //new another food
+            new Food(snake);                            //new another food
             return;                                     //return to avoid showing it
         }
     }
@@ -501,12 +501,12 @@ void Playing()
                 cache2nd=gotten;    //store gotten in cache2nd
             }
 
-            //when gotten is direction && gotten is not in the same line with snake's direction 
+            //when gotten is direction && gotten is not in the same line with snake's direction
             if(isDirection(gotten)==true && isSameLine(gotten,snake->getdirection())==false)
             {
                 cache1st=gotten;    //store gotten in cache1st
             }
-        }        
+        }
 
         if(counter>=GameSpeed)      //each GameSpeed times, judge move
         {

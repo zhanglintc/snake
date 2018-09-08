@@ -26,7 +26,7 @@ Function: set cursor's position
 Argument: COORD
 Return  : void
 *******************************************************/
-void SetPos(COORD position)// set cursor 
+void SetPos(COORD position)// set cursor
 {
     move(position.Y, position.X);
 }
@@ -50,7 +50,7 @@ Return  : void
 void HideCursor() // hide cursor
 {
     #ifndef _LINUX_MODE_
-    CONSOLE_CURSOR_INFO cursor_info = {1, 0}; 
+    CONSOLE_CURSOR_INFO cursor_info = {1, 0};
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
     #else
     // nothing here
