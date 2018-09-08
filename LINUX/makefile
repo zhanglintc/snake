@@ -3,7 +3,11 @@
 Objects = affix.o snake.o
 
 make: $(Objects)
+ifeq ($(shell uname), Darwin)
+	g++ -o snake $(Objects) -lncurses
+else
 	g++ -o snake $(Objects) -lncursesw
+endif
 
 affix.o: affix.cpp snake.h
 	g++ -c affix.cpp
