@@ -28,7 +28,7 @@ Return  : void
 *******************************************************/
 void SetPos(COORD position) // set cursor
 {
-    move(position.Y, position.X);
+    move(position.Y, position.X * 2);
 }
 
 /*******************************************************
@@ -64,7 +64,7 @@ Return  : void
 *******************************************************/
 void drawRow(int y, int x1, int x2, char ch[]) // zhanglin
 {
-    for(int i = 0; i <= (x2 - x1); i += 2)
+    for(int i = 0; i <= (x2 - x1); i += 1)
     {
         SetPos(i, y);
         addstr(ch);
@@ -196,7 +196,7 @@ Return  : bool
 *******************************************************/
 bool hitWall(Node head)
 {
-    return head.x > BOARD_RIGHT - 2 || head.x < BOARD_LEFT + 2 || head.y > BOARD_BOTTOM - 1 || head.y < BOARD_TOP + 1;
+    return head.x > BOARD_RIGHT - 1 || head.x < BOARD_LEFT + 1 || head.y > BOARD_BOTTOM - 1 || head.y < BOARD_TOP + 1;
 }
 
 /*******************************************************
@@ -254,7 +254,7 @@ void drawGame()
     g_eaten = 0;
 
     drawFrame(BOARD_LEFT, BOARD_TOP, BOARD_RIGHT, BOARD_BOTTOM, (char *)g_const_rect_w, (char *)g_const_rect_w);  // outside frame
-    // drawFrame(BOARD_RIGHT + 2, BOARD_TOP, 78, BOARD_BOTTOM, (char *)g_const_star_w, (char *)g_const_star_w);  // dashboard frame
+    // drawFrame(BOARD_RIGHT + 1, BOARD_TOP, 78, BOARD_BOTTOM, (char *)g_const_star_w, (char *)g_const_star_w);  // dashboard frame
 }
 
 /*******************************************************

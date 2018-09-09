@@ -39,18 +39,18 @@ Snake::Snake()
 
     node[0].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 0;
     node[0].y = (BOARD_BOTTOM - BOARD_TOP) / 2;
-    node[1].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 2;
+    node[1].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 1;
     node[1].y = (BOARD_BOTTOM - BOARD_TOP) / 2;
-    node[2].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 4;
+    node[2].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 2;
     node[2].y = (BOARD_BOTTOM - BOARD_TOP) / 2;
 
-    if (node[0].x % 2 != 0)                  // set snake in even position
-    {
-        for (int i = 0; i < length; i++)
-        {
-            node[i].x = node[i].x-1;
-        }
-    }
+    // if (node[0].x % 2 != 0)                  // set snake in even position
+    // {
+    //     for (int i = 0; i < length; i++)
+    //     {
+    //         node[i].x = node[i].x - 1;
+    //     }
+    // }
 
     this->initialDraw();                 // show this snake
 }
@@ -92,10 +92,10 @@ void Snake::move(int direction)
             node[0].y += 1;
             break;
         case CTRL_LEFT:
-            node[0].x -= 2;
+            node[0].x -= 1;
             break;
         case CTRL_RIGHT:
-            node[0].x += 2;
+            node[0].x += 1;
             break;
     }
     // end of wriggling
@@ -240,10 +240,10 @@ int Snake::survivalProbability(int direction)
                 fakeHead.y += 1;
                 break;
             case CTRL_LEFT:
-                fakeHead.x -= 2;
+                fakeHead.x -= 1;
                 break;
             case CTRL_RIGHT:
-                fakeHead.x += 2;
+                fakeHead.x += 1;
                 break;
         }
 
@@ -278,10 +278,10 @@ bool Snake::fakeMove(int direction)
             fakeHead.y += 1;
             break;
         case CTRL_LEFT:
-            fakeHead.x -= 2;
+            fakeHead.x -= 1;
             break;
         case CTRL_RIGHT:
-            fakeHead.x += 2;
+            fakeHead.x += 1;
             break;
     }
 
@@ -315,9 +315,9 @@ Return  : void
 *******************************************************/
 void Snake::eat(Food *food)
 {
-    length += 1;                    // become longer
+    length += 1;                      // become longer
     node[length-1] = node[length-2];  // set the new node in the same place of last one
-    free(food);                     // after eat, this food will disappear
+    free(food);                       // after eat, this food will disappear
 }
 
 /*******************************************************
@@ -345,8 +345,8 @@ Return:
 Food::Food(Snake *snake)
 {
     /* get food(x, y) */
-    x = random(BOARD_LEFT + 2, BOARD_RIGHT - 2);
-    while (x % 2 != 0) x = random(BOARD_LEFT + 2, BOARD_RIGHT - 2);              // adjust x to even number
+    x = random(BOARD_LEFT + 1, BOARD_RIGHT - 1);
+    // while (x % 2 != 0) x = random(BOARD_LEFT + 2, BOARD_RIGHT - 2);              // adjust x to even number
     y = random(BOARD_TOP + 1, BOARD_BOTTOM - 1);
 
     for(int i = 0; i < snake->getsnakelength(); i++)          // for every node of this snake

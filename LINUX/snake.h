@@ -52,7 +52,7 @@ using namespace std;
 #define BOARD_TOP             0
 #define BOARD_BOTTOM          10
 #define BOARD_LEFT            0
-#define BOARD_RIGHT           (10 * 2)
+#define BOARD_RIGHT           10
 
 #define INFO_INIT       0x04 // 0000 0100
 #define INFO_UPDT       0x02 // 0000 0010
