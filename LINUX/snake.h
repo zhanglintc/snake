@@ -49,14 +49,14 @@ using namespace std;
 #define CTRL_ENTER      13
 #define CTRL_F5         63
 
-#define TOP             0
-#define BOTTOM          10  //24
-#define LEFT            0
-#define RIGHT           20  //78
+#define BOARD_TOP             0
+#define BOARD_BOTTOM          10
+#define BOARD_LEFT            0
+#define BOARD_RIGHT           (10 * 2)
 
-#define INFO_INIT       0x04 //0000 0100
-#define INFO_UPDT       0x02 //0000 0010
-#define INFO_STAT       0x01 //0000 0001
+#define INFO_INIT       0x04 // 0000 0100
+#define INFO_UPDT       0x02 // 0000 0010
+#define INFO_STAT       0x01 // 0000 0001
 
 /****************************************
     3       2       1       0
@@ -88,17 +88,17 @@ using namespace std;
 #define isSTAT(x)               x>>0 & 1
 
 // const
-const uchar ICON_NULL[]={"  "};         //nothing here, means clean one place
+const uchar ICON_NULL[]={"  "};         // nothing here, means clean one place
 
-const uchar CIRC_CHA_B[]={0xa1,0xf1,0}; //●
-const uchar RECT_CHA_B[]={0xa1,0xf6,0}; //■
-const uchar RECT_CHA_W[]={0xa1,0xf5,0}; //□
-const uchar STAR_CHA_B[]={0xa1,0xef,0}; //★
-const uchar STAR_CHA_W[]={0xa3,0xaa,0}; //※
+const uchar CIRC_CHA_B[]={0xa1,0xf1,0}; // ●
+const uchar RECT_CHA_B[]={0xa1,0xf6,0}; // ■
+const uchar RECT_CHA_W[]={0xa1,0xf5,0}; // □
+const uchar STAR_CHA_B[]={0xa1,0xef,0}; // ★
+const uchar STAR_CHA_W[]={0xa3,0xaa,0}; // ※
 
-const uchar CIRC_JPN_B[]={0x81,0x9c,0}; //●
-const uchar RECT_JPN_B[]={0x81,0xa1,0}; //■
-const uchar RECT_JPN_W[]={0x81,0xa0,0}; //□
+const uchar CIRC_JPN_B[]={0x81,0x9c,0}; // ●
+const uchar RECT_JPN_B[]={0x81,0xa1,0}; // ■
+const uchar RECT_JPN_W[]={0x81,0xa0,0}; // □
 const uchar STAR_JPN_B[]={0x81,0x9a,0}; //★
 const uchar STAR_JPN_W[]={0x81,0x96,0}; //※
 
@@ -108,26 +108,26 @@ typedef struct COORD
 {
     int X;
     int Y;
-}COORD;
+} COORD;
 #endif
 
 typedef struct Frame
 {
     COORD position[2];
     int flag;
-}Frame;
+} Frame;
 
 typedef struct Node
 {
     int x;
     int y;
-}Node;
+} Node;
 
 typedef struct Rank
 {
     char name[20];
     int score;
-}Rank;
+} Rank;
 
 // externs
 extern Rank g_rank[];

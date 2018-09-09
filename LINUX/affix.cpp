@@ -17,7 +17,7 @@ void drawOne(int x, int y, char ch[])
     addstr(ch);
     refresh();
     #else
-    cout<<ch;
+    cout << ch;
     #endif
 }
 
@@ -26,7 +26,7 @@ Function: set cursor's position
 Argument: COORD
 Return  : void
 *******************************************************/
-void SetPos(COORD position)// set cursor
+void SetPos(COORD position) // set cursor
 {
     move(position.Y, position.X);
 }
@@ -36,7 +36,7 @@ Function: set cursor's position
 Argument: int, int
 Return  : void
 *******************************************************/
-void SetPos(int x, int y)// set cursor
+void SetPos(int x, int y) // set cursor
 {
     COORD position={x, y};
     SetPos(position);
@@ -62,11 +62,11 @@ Function: set y, [x1, x2) as ch
 Argument: int, int, int, char[]
 Return  : void
 *******************************************************/
-void drawRow(int y, int x1, int x2, char ch[]) //zhanglin
+void drawRow(int y, int x1, int x2, char ch[]) // zhanglin
 {
-    for(int i = 0; i <= (x2-x1); i+=2)
+    for(int i = 0; i <= (x2 - x1); i += 2)
     {
-        SetPos(i,y);
+        SetPos(i, y);
         addstr(ch);
     }
     refresh();
@@ -77,14 +77,14 @@ Function: when left, right y equal, set [left, right] as ch
 Argument: COORD, COORD, char[]
 Return  : void
 *******************************************************/
-void drawRow(COORD left, COORD right, char ch[]) //zhanglin
+void drawRow(COORD left, COORD right, char ch[]) // zhanglin
 {
     if(left.Y == right.Y)
         drawRow(left.Y, left.X, right.X, ch);
     else
     {
         SetPos(0, 25);
-        cout<<"error code 01: \'x\' not equaled";
+        cout << "error code 01: \'x\' not equaled";
         getch();
     }
 }
@@ -94,17 +94,17 @@ Function: set x, [y1, y2] as ch
 Argument: int, int, int, char[]
 Return  : void
 *******************************************************/
-void drawCol(int x, int y1, int y2, char ch[]) //zhanglin
+void drawCol(int x, int y1, int y2, char ch[]) // zhanglin
 {
-    int y=y1;
-    while(y!=y2)
+    int y = y1;
+    while(y != y2)
     {
         SetPos(x, y);
         #ifdef _LINUX_MODE_
         addstr(ch);
         refresh();
         #else
-        cout<<ch;
+        cout << ch;
         #endif
         y++;
     }
@@ -115,14 +115,14 @@ Function: when left, right x equal, set [left, right] as ch
 Argument: COORD, COORD, char[]
 Return  : void
 *******************************************************/
-void drawCol(COORD left, COORD right, char ch[]) //zhanglin
+void drawCol(COORD left, COORD right, char ch[]) // zhanglin
 {
     if(left.X == right.X)
         drawCol(left.X, left.Y, right.Y, ch);
     else
     {
         SetPos(0, 25);
-        cout<<"error code 02: \'y\' not equaled";
+        cout << "error code 02: \'y\' not equaled";
         getch();
     }
 }
@@ -134,10 +134,10 @@ Return  : void
 *******************************************************/
 void drawFrame(COORD leftup, COORD  rightdown, char row[], char col[])
 {
-    drawRow(   leftup.Y, leftup.X, rightdown.X, row);       //first row
-    drawRow(rightdown.Y, leftup.X, rightdown.X, row);       //last row
-    drawCol(   leftup.X, leftup.Y, rightdown.Y, col);       //first col
-    drawCol(rightdown.X, leftup.Y, rightdown.Y, col);       //last col
+    drawRow(   leftup.Y, leftup.X, rightdown.X, row);       // first row
+    drawRow(rightdown.Y, leftup.X, rightdown.X, row);       // last row
+    drawCol(   leftup.X, leftup.Y, rightdown.Y, col);       // first col
+    drawCol(rightdown.X, leftup.Y, rightdown.Y, col);       // last col
 }
 
 /*******************************************************
@@ -147,8 +147,8 @@ Return  : void
 *******************************************************/
 void drawFrame(int x1, int y1, int x2, int y2, char row[], char col[])
 {
-    COORD leftup={x1, y1};
-    COORD rightdown={x2, y2};
+    COORD leftup = {x1, y1};
+    COORD rightdown = {x2, y2};
     drawFrame(leftup, rightdown, row, col);
 }
 
@@ -171,9 +171,9 @@ Return  : int
 *******************************************************/
 int random(int min, int max)
 {
-    if(max<min)swap(&min,&max);
-    if(min==max)return min;
-    else return(rand() % (min-max))+ min;
+    if (max < min) swap(&min, &max);
+    if (min == max) return min;
+    else return (rand() % (min - max)) + min;
 }
 
 /*******************************************************
@@ -183,9 +183,9 @@ Return  : COORD
 *******************************************************/
 COORD random(COORD leftup, COORD rightdown)
 {
-    int x=random(leftup.X, rightdown.X);
-    int y=random(leftup.Y, rightdown.Y);
-    COORD c={x, y};
+    int x = random(leftup.X, rightdown.X);
+    int y = random(leftup.Y, rightdown.Y);
+    COORD c = {x, y};
     return c;
 }
 
@@ -196,7 +196,7 @@ Return  : bool
 *******************************************************/
 bool hitWall(Node head)
 {
-    return head.x > RIGHT-2 || head.x < LEFT+2 || head.y > BOTTOM-1 || head.y < TOP+1;
+    return head.x > BOARD_RIGHT - 2 || head.x < BOARD_LEFT + 2 || head.y > BOARD_BOTTOM - 1 || head.y < BOARD_TOP + 1;
 }
 
 /*******************************************************
@@ -208,7 +208,7 @@ bool hitBody(Node head, Snake *snake)
 {
     bool hit = false;
 
-    for(int i=3; i < snake->getsnakelength(); i++)
+    for(int i = 3; i < snake->getsnakelength(); i++)
     {
         if(head.x == snake->node[i].x && head.y == snake->node[i].y)
         {
@@ -250,11 +250,11 @@ Return  : void
 *******************************************************/
 void drawGame()
 {
-    g_score=0;
-    g_eaten=0;
+    g_score = 0;
+    g_eaten = 0;
 
-    drawFrame(LEFT, TOP, RIGHT, BOTTOM, (char *)g_const_rect_w, (char *)g_const_rect_w);  //outside frame
-    // drawFrame(RIGHT+2, TOP, 78, BOTTOM, (char *)g_const_star_w, (char *)g_const_star_w);  //dashboard frame
+    drawFrame(BOARD_LEFT, BOARD_TOP, BOARD_RIGHT, BOARD_BOTTOM, (char *)g_const_rect_w, (char *)g_const_rect_w);  // outside frame
+    // drawFrame(BOARD_RIGHT + 2, BOARD_TOP, 78, BOARD_BOTTOM, (char *)g_const_star_w, (char *)g_const_star_w);  // dashboard frame
 }
 
 /*******************************************************
@@ -277,7 +277,7 @@ Return  : bool
 *******************************************************/
 bool Equal(char command_in[], char command_require[])
 {
-    if(strcmp(command_in,command_require)==0)return true;
+    if(strcmp(command_in, command_require) == 0)return true;
     return false;
 }
 
@@ -288,7 +288,7 @@ Return  : bool
 *******************************************************/
 bool isSameLine(int direciton1st, int direction2nd)
 {
-    if(direciton1st==direction2nd || direciton1st+direction2nd==OPPOSITE_DIRECT)
+    if(direciton1st == direction2nd || direciton1st + direction2nd == OPPOSITE_DIRECT)
     {
         return true;
     }
@@ -302,7 +302,7 @@ Return  : bool
 *******************************************************/
 bool isDirection(int input)
 {
-    if((input==CTRL_UP || input==CTRL_DOWN || input==CTRL_RIGHT || input==CTRL_LEFT))
+    if((input == CTRL_UP || input == CTRL_DOWN || input == CTRL_RIGHT || input == CTRL_LEFT))
     {
         return true;
     }
