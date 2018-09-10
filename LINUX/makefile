@@ -2,18 +2,20 @@
 
 Objects = affix.o snake.o
 
+opts = -std=c++11 -g
+
 make: $(Objects)
 ifeq ($(shell uname), Darwin)
-	g++ -o snake $(Objects) -lncurses
+	g++ $(opts) -o snake $(Objects) -lncurses
 else
-	g++ -o snake $(Objects) -lncursesw
+	g++ $(opts) -o snake $(Objects) -lncursesw
 endif
 
 affix.o: affix.cpp snake.h
-	g++ -c affix.cpp
+	g++ $(opts) -c affix.cpp
 
 snake.o: snake.cpp snake.h
-	g++ -c snake.cpp
+	g++ $(opts) -c snake.cpp
 
 # phony commands
 .PHONY:
