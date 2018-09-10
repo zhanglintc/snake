@@ -164,6 +164,21 @@ void drawFrame(Frame frame, char row[], char col[])
     drawFrame(leftup, rightdown, row, col);
 }
 
+int twoD2oneD(Node pos)
+{
+    int SN = pos.x * BOARD_RIGHT + pos.y;
+    return SN;
+}
+
+Node oneD2twoD(int SN)
+{
+    Node pos;
+    pos.x = SN % BOARD_RIGHT;
+    pos.y = SN / BOARD_BOTTOM;
+
+    return pos;
+}
+
 /*******************************************************
 Function: generate a random number
 Argument: int, int
@@ -190,7 +205,7 @@ COORD random(COORD leftup, COORD rightdown)
 }
 
 /*******************************************************
-Function: snake hit wall?
+Function: snake hit wall or not
 Argument: Node
 Return  : bool
 *******************************************************/
@@ -200,7 +215,7 @@ bool hitWall(Node head)
 }
 
 /*******************************************************
-Function: snake hit it's body?
+Function: snake hit it's body or not
 Argument: Node, Snake*
 Return  : bool
 *******************************************************/
@@ -210,7 +225,7 @@ bool hitBody(Node head, Snake *snake)
 
     for(int i = 3; i < snake->getsnakelength(); i++)
     {
-        if(head.x == snake->node[i].x && head.y == snake->node[i].y)
+        if(head.x == snake->body[i].x && head.y == snake->body[i].y)
         {
             hit = true;
         }
@@ -241,6 +256,8 @@ void Initialize()
     g_const_rect_w = (const unsigned char *)"□";
     g_const_star_b = (const unsigned char *)"★";
     g_const_star_w = (const unsigned char *)"※";
+
+    srand(time(nullptr));
 }
 
 /*******************************************************

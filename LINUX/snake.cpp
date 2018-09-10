@@ -32,27 +32,94 @@ Return  : none
 *******************************************************/
 Snake::Snake()
 {
-    life      = true;        // alive
-    direction = CTRL_RIGHT;  // head to right
-    length    = 3;           // three nodes
-    head      = &node[0];    // head
+    this->life      = true;               // alive
+    this->direction = CTRL_RIGHT;         // head to right
+    this->length    = 3;                  // three nodes
+    this->head      = &(this->body[0]);   // head
+    this->init_brain();
 
-    node[0].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 0;
-    node[0].y = (BOARD_BOTTOM - BOARD_TOP) / 2;
-    node[1].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 1;
-    node[1].y = (BOARD_BOTTOM - BOARD_TOP) / 2;
-    node[2].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 2;
-    node[2].y = (BOARD_BOTTOM - BOARD_TOP) / 2;
+    this->body[0].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 0;
+    this->body[0].y = (BOARD_BOTTOM - BOARD_TOP) / 2;
+    this->body[1].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 1;
+    this->body[1].y = (BOARD_BOTTOM - BOARD_TOP) / 2;
+    this->body[2].x = (BOARD_RIGHT - BOARD_LEFT) / 2 - 2;
+    this->body[2].y = (BOARD_BOTTOM - BOARD_TOP) / 2;
 
-    // if (node[0].x % 2 != 0)                  // set snake in even position
-    // {
-    //     for (int i = 0; i < length; i++)
-    //     {
-    //         node[i].x = node[i].x - 1;
-    //     }
-    // }
+    this->save_to_brain();
 
     this->initialDraw();                 // show this snake
+}
+
+void Snake::init_brain()
+{
+    for (int i = 0; i < BOARD_RIGHT * BOARD_BOTTOM; i++)
+    {
+        this->brain[i].board_type = BOARD_TYPE_NONE;
+        this->brain[i].distance = -1;
+        this->brain[i].pos = this->body[i];
+    }
+}
+
+void Snake::save_to_brain()
+{
+    for (int i = 0; i < this->length; i++)
+    {
+        int sn = twoD2oneD(this->body[i]);
+        this->brain[sn].board_type = BOARD_TYPE_SNAKE;
+        this->brain[sn].pos = this->body[i];
+    }
+}
+
+template <typename T>
+bool Snake::way_to_head(T *T_node)
+{
+    Node food;
+    food.x = T_node->x;
+    food.y = T_node->y;
+
+    int board_size = BOARD_RIGHT * BOARD_BOTTOM;
+    int sn = twoD2oneD(food);
+
+    Node left(-1, 0);
+    Node up(0, -1);
+    Node right(1, 0);
+    Node down(0, 1);
+
+    Node node;
+    Node move[4] = {left, up, right, down};
+
+    map<string, int> visited;
+    queue<Node> bfs;
+    bfs.push(food);
+
+    while (bfs.size())
+    {
+        node = bfs.front(); bfs.pop();
+        if (visited.count(node.to_s()))
+        {
+            continue;
+        }
+        visited[node.to_s()] = 1;
+
+        for (int i = 0; i < 4; i++)
+        {
+            Node direction = move[i];
+            Node after_move = node + direction;
+            if (hitWall(after_move) || hitBody(after_move, this))
+            {
+                continue;
+            }
+            if (after_move == this->body[0])
+            {
+                return true;
+            }
+            if (!visited.count(after_move.to_s()))
+            {
+                bfs.push(after_move);
+            }
+        }
+    }
+    return false;
 }
 
 /*******************************************************
@@ -72,36 +139,36 @@ void Snake::move(int direction)
     // wriggling
     for(int i = length - 1; i > 0; i--)   // from last body to first body(not contain head)
     {
-        if (i == length - 1)             // if this is the last node
+        if (i == length - 1)             // if this is the last body
         {
-            if (node[i].x == node[i-1].x && node[i].y == node[i-1].y)
+            if (this->body[i].x == this->body[i-1].x && this->body[i].y == this->body[i-1].y)
             {
                 continue;           // if last and last-1 is the same, do not clean
             }
-            drawOne(node[i].x, node[i].y, (char *)ICON_NULL); // clean last node
+            drawOne(this->body[i].x, this->body[i].y, (char *)ICON_NULL); // clean last body
         }
-        node[i] = node[i-1];          // wriggle forward
+        this->body[i] = this->body[i-1];          // wriggle forward
     }
 
     switch(this->direction)         // head move
     {
         case CTRL_UP:
-            node[0].y -= 1;
+            this->body[0].y -= 1;
             break;
         case CTRL_DOWN:
-            node[0].y += 1;
+            this->body[0].y += 1;
             break;
         case CTRL_LEFT:
-            node[0].x -= 1;
+            this->body[0].x -= 1;
             break;
         case CTRL_RIGHT:
-            node[0].x += 1;
+            this->body[0].x += 1;
             break;
     }
     // end of wriggling
 
-    drawOne(node[0].x, node[0].y, (char *)g_const_circ_b); // head
-    drawOne(node[1].x, node[1].y, (char *)g_const_rect_b); // body
+    drawOne(this->body[0].x, this->body[0].y, (char *)g_const_circ_b); // head
+    drawOne(this->body[1].x, this->body[1].y, (char *)g_const_rect_b); // body
 }
 
 /*******************************************************
@@ -120,8 +187,8 @@ int Snake::Control_AI(Food *food, Snake *snake)
     int direction   = CTRL_RIGHT;
     int triedTimes  = 0;
 
-    Node    head = this->node[0];
-    Pair1    left, right, up, down;
+    Node    head = this->body[0];
+    Pair1   left, right, up, down;
 
     left.direction  = CTRL_LEFT;
     left.distance   = abs( (head.x - 1) - food->x ) + abs( head.y - food->y );
@@ -156,6 +223,15 @@ int Snake::Control_AI(Food *food, Snake *snake)
     {
         direction = list[1].direction;
     }
+
+    // for (int i = 0; i < 4; i++)
+    // {
+    //     direction = list[i].direction;
+    //     if (direction + this->direction == OPPOSITE_DIRECT)
+    //     {
+    //         continue;
+    //     }
+    // }
 
     // while (fakeMove lead to snake die || direction AND this->direction are opposite)
     while (!fakeMove(direction) || direction + this->direction == OPPOSITE_DIRECT)
@@ -290,6 +366,10 @@ bool Snake::fakeMove(int direction)
     {
         life = false;
     }
+    if ( !this->way_to_head(&this->body[this->length-1]) )
+    {
+        life = false;
+    }
 
     return life;
 }
@@ -304,6 +384,7 @@ void Snake::judgeLife()
     // // hit wall or hit body, die
     if (hitWall(*this->head) || hitBody(*this->head, this))
     {
+        getch();
         this->setlife(false);  // T_T
     }
 }
@@ -315,9 +396,9 @@ Return  : void
 *******************************************************/
 void Snake::eat(Food *food)
 {
-    length += 1;                      // become longer
-    node[length-1] = node[length-2];  // set the new node in the same place of last one
-    free(food);                       // after eat, this food will disappear
+    length += 1;                                  // become longer
+    this->body[length-1] = this->body[length-2];  // set the new body in the same place of last one
+    delete food;                                  // after eat, this food will disappear
 }
 
 /*******************************************************
@@ -329,7 +410,7 @@ void Snake::clear()
 {
     for(int i = 0; i < length; i++)
     {
-        drawOne(node[i].x, node[i].y, (char *)ICON_NULL);
+        drawOne(this->body[i].x, this->body[i].y, (char *)ICON_NULL);
     }
 }
 
@@ -351,7 +432,7 @@ Food::Food(Snake *snake)
 
     for(int i = 0; i < snake->getsnakelength(); i++)          // for every node of this snake
     {
-        if (x == snake->node[i].x && y == snake->node[i].y)  // if this food is in one node of this snake
+        if (x == snake->body[i].x && y == snake->body[i].y)  // if this food is in one node of this snake
         {
             new Food(snake);                            // new another food
             return;                                     // return to avoid showing it
@@ -371,11 +452,11 @@ void Snake::initialDraw()
     {
         if (i == 0)
         {
-            drawOne(node[i].x, node[i].y, (char *)g_const_circ_b); // head
+            drawOne(this->body[i].x, this->body[i].y, (char *)g_const_circ_b); // head
         }
         else
         {
-            drawOne(node[i].x, node[i].y, (char *)g_const_rect_b); // body
+            drawOne(this->body[i].x, this->body[i].y, (char *)g_const_rect_b); // body
         }
     }
 }
@@ -445,9 +526,9 @@ Function: get snake's node info(unused)
 Argument: none
 Return  : Node
 *******************************************************/
-Node *Snake::getnode()
+Node *Snake::getbody()
 {
-    return this->node;
+    return this->body;
 }
 
 /*******************************************************
@@ -457,23 +538,23 @@ Return  : void
 *******************************************************/
 void Playing()
 {
-    int  counter=0;             // counter, if this counts appointed times, snake will change direction(if necessary)
-    int  GameSpeed=GAME_SPEED;  // game speed
-    char direction=0;           // direction the snake will wriggle
-    char gotten=0;              // the input from keyboard
-    char cache1st=0;            // store the next direction
-    char cache2nd=0;            // store the one after next direction(when necessary)
+    int  counter = 0;             // counter, if this counts appointed times, snake will change direction(if necessary)
+    int  GameSpeed = GAME_SPEED;  // game speed
+    char direction = 0;           // direction the snake will wriggle
+    char gotten = 0;              // the input from keyboard
+    char cache1st = 0;            // store the next direction
+    char cache2nd = 0;            // store the one after next direction(when necessary)
 
     switch(g_difficulty)
     {
         case HARD:
-            GameSpeed=5;
+            GameSpeed = 5;
             break;
         case MEDIUM:
-            GameSpeed=10;
+            GameSpeed = 10;
             break;
         case EASY:
-            GameSpeed=20;
+            GameSpeed = 20;
             break;
     }
 
@@ -525,7 +606,7 @@ void Playing()
             snake->judgeLife();     // to be or not to be...
 
             // eat food
-            if (snake->node[0].x == food->x && snake->node[0].y == food->y)
+            if (snake->body[0].x == food->x && snake->body[0].y == food->y)
             {
                 snake->eat(food);       // ^_^
                 food = new Food(snake); // after eat, generate a new food
@@ -539,8 +620,8 @@ void Playing()
     // clean food and snake
     clear();
     drawGame();
-    free(food);
-    free(snake);
+    delete food;
+    delete snake;
 }
 
 /*******************************************************

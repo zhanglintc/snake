@@ -17,6 +17,11 @@ All the defines and declares.   http://zhanglintc.co
 #include <string.h>
 #include <curses.h>
 #include <locale.h>
+#include <ctime>
+#include <string>
+#include <vector>
+#include <queue>
+#include <map>
 
 using namespace std;
 
@@ -54,6 +59,10 @@ using namespace std;
 #define BOARD_LEFT            0
 #define BOARD_RIGHT           10
 
+#define BOARD_TYPE_NONE       0
+#define BOARD_TYPE_FOOD       1
+#define BOARD_TYPE_SNAKE      2
+
 #define INFO_INIT       0x04 // 0000 0100
 #define INFO_UPDT       0x02 // 0000 0010
 #define INFO_STAT       0x01 // 0000 0001
@@ -88,46 +97,84 @@ using namespace std;
 #define isSTAT(x)               x>>0 & 1
 
 // const
-const uchar ICON_NULL[]={"  "};         // nothing here, means clean one place
+const uchar ICON_NULL[] = {"  "};         // nothing here, means clean one place
 
-const uchar CIRC_CHA_B[]={0xa1,0xf1,0}; // ●
-const uchar RECT_CHA_B[]={0xa1,0xf6,0}; // ■
-const uchar RECT_CHA_W[]={0xa1,0xf5,0}; // □
-const uchar STAR_CHA_B[]={0xa1,0xef,0}; // ★
-const uchar STAR_CHA_W[]={0xa3,0xaa,0}; // ※
+const uchar CIRC_CHA_B[] = {0xa1,0xf1,0}; // ●
+const uchar RECT_CHA_B[] = {0xa1,0xf6,0}; // ■
+const uchar RECT_CHA_W[] = {0xa1,0xf5,0}; // □
+const uchar STAR_CHA_B[] = {0xa1,0xef,0}; // ★
+const uchar STAR_CHA_W[] = {0xa3,0xaa,0}; // ※
 
-const uchar CIRC_JPN_B[]={0x81,0x9c,0}; // ●
-const uchar RECT_JPN_B[]={0x81,0xa1,0}; // ■
-const uchar RECT_JPN_W[]={0x81,0xa0,0}; // □
-const uchar STAR_JPN_B[]={0x81,0x9a,0}; //★
-const uchar STAR_JPN_W[]={0x81,0x96,0}; //※
+const uchar CIRC_JPN_B[] = {0x81,0x9c,0}; // ●
+const uchar RECT_JPN_B[] = {0x81,0xa1,0}; // ■
+const uchar RECT_JPN_W[] = {0x81,0xa0,0}; // □
+const uchar STAR_JPN_B[] = {0x81,0x9a,0}; // ★
+const uchar STAR_JPN_W[] = {0x81,0x96,0}; // ※
 
 // typedef
 #ifdef _LINUX_MODE_
-typedef struct COORD
+typedef struct _COORD
 {
     int X;
     int Y;
 } COORD;
 #endif
 
-typedef struct Frame
+typedef struct _Frame
 {
     COORD position[2];
     int flag;
 } Frame;
 
-typedef struct Node
+// typedef struct _Node
+// {
+//     int x;
+//     int y;
+// } Node;
+class Node
 {
+public:
     int x;
     int y;
-} Node;
 
-typedef struct Rank
+    Node() {}
+    Node(int x, int y)
+    {
+        this->x = x;
+        this->y = y;
+    }
+
+    Node operator+(const Node &given)
+    {
+        Node node;
+        node.x = this->x + given.x;
+        node.y = this->y + given.y;
+        return node;
+    }
+
+    bool operator==(const Node &given)
+    {
+        return this->x == given.x && this->y == given.y;
+    }
+
+    string to_s()
+    {
+        return to_string(this->x) + to_string(this->y);
+    }
+};
+
+typedef struct _Rank
 {
     char name[20];
     int score;
 } Rank;
+
+typedef struct _BRAIN_INFO
+{
+    int board_type;      //
+    int distance;       // distance to snake's head
+    Node pos;
+} BRAIN_INFO;
 
 // externs
 extern Rank g_rank[];
@@ -152,12 +199,18 @@ class Food;
 class Snake
 {
 public:
-    Node node[NODE_MAX];
+    BRAIN_INFO brain[BOARD_RIGHT * BOARD_BOTTOM];
+    Node body[NODE_MAX];
     Node *head;
     Snake();
     int  Control_AI(Food *, Snake *);
     bool fakeMove(int);
     int  survivalProbability(int);
+    void init_brain();
+    void save_to_brain();
+    template <typename T>
+    bool way_to_head(T *);
+    bool way_to_tail();
     void move(int);
     void eat(Food *);
     int  getsnakelength();
@@ -167,7 +220,7 @@ public:
     void judgeLife();
     int  getdirection();
     void setdirection(int);
-    Node *getnode();
+    Node *getbody();
 private:
     bool life;
     int  direction;
@@ -219,5 +272,7 @@ void read_record();
 void write_record();
 void show_rank();
 void highScoreCheck();
+int twoD2oneD(Node);
+Node oneD2twoD(int);
 
 #endif // _SNAKE_H_
